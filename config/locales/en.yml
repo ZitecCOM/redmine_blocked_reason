@@ -1,0 +1,8 @@
+# English strings go here for Rails i18n
+en:
+  blocked_reason: Blocked
+  helpers:
+    label:
+      blocked_reason:
+        blocked_reason_type_id: Reason
+        comment: Comment
