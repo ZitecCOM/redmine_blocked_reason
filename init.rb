@@ -2,12 +2,12 @@ require "redmine"
 
 # Patches to the Redmine core.
 ActionDispatch::Callbacks.to_prepare do
-  Dir[File.dirname(__FILE__) + '/lib/redmine_blocked_reason/patches/*_patch.rb'].each {|file| 
-    require file 
+  Dir[File.dirname(__FILE__) + '/lib/redmine_blocked_reason/patches/*_patch.rb'].each {|file|
+    require_dependency file
   }
 
-  Dir[File.dirname(__FILE__) + '/lib/redmine_blocked_reason/hooks/*_hook.rb'].each {|file| 
-    require file 
+  Dir[File.dirname(__FILE__) + '/lib/redmine_blocked_reason/hooks/*_hook.rb'].each {|file|
+    require_dependency file
   }
 
 end
