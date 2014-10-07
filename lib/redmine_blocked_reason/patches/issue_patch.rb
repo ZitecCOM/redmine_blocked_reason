@@ -1,4 +1,4 @@
-require_dependency 'Issue'
+require_dependency 'issue'
 
 module RedmineBlockedReason
   module Patches
