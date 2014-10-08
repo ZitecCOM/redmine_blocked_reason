@@ -1,0 +1,17 @@
+.blocked-field-group-left {
+	float:left;
+	height: 140px;
+}
+.blocked-field-group-right {
+	float:right;
+	height: 140px;
+}
+
+#blocked_reason_form {
+	position: absolute;
+	background: lightgrey;
+	height: 180px;
+	width: 500px;
+	border:solid;
+	border-color: black;
+}
