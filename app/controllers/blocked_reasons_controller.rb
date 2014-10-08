@@ -1,12 +1,16 @@
 class BlockedReasonsController < ApplicationController
-  
+
   def create
     issue = Issue.find(params[:blocked_reason][:issue_id])
     if issue.editable?
-      blocked_reason = BlockedReason.new (params[:blocked_reason])
+      blocked_reason_type = BlockedReasonType.find(params[:blocked_reason][:blocked_reason_type][:id])
+      redirect_to(issue, error: 'Error blocking issue.') unless blocked_reason_type
+
+      blocked_reason = BlockedReason.new comment: params[:blocked_reason][:comment], blocked_reason_type_id: blocked_reason_type[:id], issue_id: issue[:id]
+
       if blocked_reason.save
         journal = issue.init_journal(
-            User.current, 
+            User.current,
              "#{blocked_reason.type_name} : #{blocked_reason.comment}"
           )
         journal.save
@@ -19,5 +23,5 @@ class BlockedReasonsController < ApplicationController
     end
   end
 
-  
+
 end
