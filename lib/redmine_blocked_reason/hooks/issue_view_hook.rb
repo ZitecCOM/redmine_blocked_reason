@@ -1,7 +1,15 @@
 module RedmineBlockedReason
   module Hooks
     class IssueViewHook < Redmine::Hook::ViewListener
-      render_on :view_issues_buttons, :partial => "blocked_reason/show"
+      def view_issues_buttons(context)
+        project, controller = context[:project], context[:controller]
+        if project.module_enabled? :blocked_reason
+          controller.render_to_string partial: 'blocked_reason/show', locals: context
+        else
+          ''
+        end
+      end
+
       def view_issues_rows(context)
         unless context[:issue].blocked_reason.nil?
           context[:rows].left l(:blocked_reason), "<span data-tip='#{h(context[:issue].blocked_reason.comment)}' class='tip blocked_reason_comment'>#{h(context[:issue].blocked_reason.type_name)}</span>".html_safe, :class => 'blocked_reason'
