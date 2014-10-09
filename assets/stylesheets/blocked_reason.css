@@ -8,7 +8,7 @@
 }
 
 #blocked_reason_form {
-	position: absolute;
+	position: relative;
 	background: lightgrey;
 	height: 180px;
 	width: 500px;

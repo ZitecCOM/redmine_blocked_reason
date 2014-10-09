@@ -35,9 +35,3 @@
 <% else %>
   <%= "#{issue.blocked_reason.blocked_reason_type.name}: #{issue.blocked_reason.comment}" %>
 <% end %>
-<% content_for :header_tags do %>
-  <%= stylesheet_link_tag 'tipr', plugin: :redmine_blocked_reason %>
-  <%= stylesheet_link_tag 'blocked_reason', plugin: :redmine_blocked_reason %>
-  <%= javascript_include_tag 'tipr.min.js', plugin: :redmine_blocked_reason %>
-  <%= javascript_include_tag 'blocked_reason', plugin: :redmine_blocked_reason %>
-<% end %>
