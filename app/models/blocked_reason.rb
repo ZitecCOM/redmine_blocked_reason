@@ -3,5 +3,4 @@ class BlockedReason < ActiveRecord::Base
   belongs_to :blocked_reason_type
   belongs_to :issue
   delegate :name, to: :blocked_reason_type, prefix: :type
-
 end
