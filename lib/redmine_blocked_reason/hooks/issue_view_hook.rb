@@ -21,7 +21,7 @@ module RedmineBlockedReason
 
       def view_issues_rows_subject(context)
         unless context[:issue].blocked_reason.nil?
-          "<span data-tip='#{h(context[:issue].blocked_reason.comment)}' class='tip blocked_reason_comment'>#{h(context[:issue].blocked_reason.type_name)}</span>".html_safe
+          "<span data-tip='#{h(context[:issue].blocked_reason.comment)}' class='tip blocked_reason_comment'>#{I18n.t 'blocked_reason'}: #{h(context[:issue].blocked_reason.type_name)}</span>".html_safe
         end
       end
     end
