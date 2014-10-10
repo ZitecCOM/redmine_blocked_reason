@@ -27,4 +27,3 @@ end
 unless ProjectsHelper.included_modules.include? BlockedReasonProjectsHelperPatch
   ProjectsHelper.send(:include, BlockedReasonProjectsHelperPatch)
 end
-

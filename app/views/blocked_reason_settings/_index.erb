@@ -1,0 +1,8 @@
+<div class="blocked-reason-setting">
+  <%= form_for @blocked_reason_setting do |f| %>
+    <%= @blocked_reason_types.each do |reason| %>
+      <%= f.check_box :reason %>
+    <% end %>
+    <%= f.submit %>
+  <% end %>
+</div>
