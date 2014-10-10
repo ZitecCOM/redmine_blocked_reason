@@ -1,5 +1,4 @@
 class BlockedReasonsController < ApplicationController
-
   def create
     issue = Issue.find(params[:blocked_reason][:issue_id])
     if issue.editable?
@@ -10,9 +9,9 @@ class BlockedReasonsController < ApplicationController
 
       if blocked_reason.save
         journal = issue.init_journal(
-            User.current,
-             "#{blocked_reason.type_name} : #{blocked_reason.comment}"
-          )
+          User.current,
+           "#{I18n.t('blocked_reason')}: #{blocked_reason.type_name} \n #{blocked_reason.comment}"
+        )
         journal.save
         redirect_to issue, notice: 'Issue is blocked.'
       else
@@ -22,6 +21,4 @@ class BlockedReasonsController < ApplicationController
       redirect_to issue, error: 'You don\'t have permissions to block this issue.'
     end
   end
-
-
 end

@@ -1,6 +1,7 @@
 # English strings go here for Rails i18n
 en:
   blocked_reason: Blocked
+  unblocked_reason: Unblocked
   helpers:
     label:
       blocked_reason:
