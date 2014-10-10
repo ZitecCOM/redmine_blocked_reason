@@ -6,3 +6,6 @@ en:
       blocked_reason:
         blocked_reason_type_id: Reason
         comment: Comment
+      block_button: Block Issue
+      cancel_button: Cancel
+      create_button: Block Issue

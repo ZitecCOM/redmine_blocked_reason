@@ -1,12 +1,12 @@
 <% if issue.blocked_reason.nil? %>
   <%=  button_tag(type: 'button', id: 'block_issue_button') do %>
-    <%= content_tag(:strong, 'Block Issue') %>
+    <%= content_tag(:strong, t('helpers.label.block_button')) %>
   <% end %>
   <div id='blocked_reason_form' style='display:none;'>
     <%= form_for BlockedReason.new do |f| %>
       <%= f.hidden_field :issue_id, value: issue.id %>
       <div class="blocked-field-group-left">
-        <%= f.label 'Reason: ' %><br />
+        <%= f.label t('helpers.label.blocked_reason.blocked_reason_type_id') %><br />
         <%= f.fields_for :blocked_reason_type do |r|%>
           <div class="radio-buttons">
             <% BlockedReasonType.all.each do |reason| %>
@@ -20,13 +20,13 @@
       </div>
       <div class="blocked-field-group-right">
         <div class="field">
-          <%= f.label ' Comment:' %><br />
+          <%= f.label t('helpers.label.blocked_reason.comment') %><br />
           <%= f.text_area :comment, size: "15x3" %>
         </div>
         <div class="actions">
-          <%= f.submit %>
+          <%= f.submit  t('helpers.label.create_button') %>
           <%=  button_tag(type: 'button', id: 'block_form_hide_button') do %>
-            <%= content_tag(:strong, 'Cancel') %>
+            <%= content_tag(:strong,  t('helpers.label.cancel_button')) %>
           <% end %>
         </div>
       </div>
