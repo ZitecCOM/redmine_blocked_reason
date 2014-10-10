@@ -1,4 +1,4 @@
-class BlockedReasonsSettingsController < ApplicationController
+class BlockedReasonSettingsController < ApplicationController
   unloadable
   before_filter :find_project, :find_user
   # before_filter :authorize
@@ -6,10 +6,11 @@ class BlockedReasonsSettingsController < ApplicationController
   def index
     @blocked_reason_setting = BlockedReasonSetting.find_or_create(@project.id)
     if @blocked_reason_setting.id
-      @blocked_reason_types = BlockedReasonType.find(blocked_reason_setting_id: @blocked_reason_setting.id)
+      @blocked_reason_types = BlockedReasonType.where(blocked_reason_setting_id: @blocked_reason_setting.id)
     else
       @blocked_reason_types = []
     end
+  end
 
   def new
   end

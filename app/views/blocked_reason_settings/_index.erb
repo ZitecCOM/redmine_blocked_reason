@@ -1,8 +1,18 @@
 <div class="blocked-reason-setting">
+  <%
+    @blocked_reason_setting = BlockedReasonSetting.find_or_create(@project.id)
+    if !@blocked_reason_setting.new_record?
+      @blocked_reason_types = BlockedReasonType.where(blocked_reason_setting_id: @blocked_reason_setting.id)
+    else
+      @blocked_reason_types = []
+    end
+  %>
   <%= form_for @blocked_reason_setting do |f| %>
-    <%= @blocked_reason_types.each do |reason| %>
-      <%= f.check_box :reason %>
+    <%= f.hidden_field :id %>
+    <% @blocked_reason_types.each do |reason| %>
+      <%= check_box_tag reason[:id] %>
+      <%= label_tag reason[:id], reason[:name] %> <br />
     <% end %>
-    <%= f.submit %>
+    <%= f.submit t(:button_save)%>
   <% end %>
 </div>

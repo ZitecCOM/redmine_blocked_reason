@@ -1,5 +1,5 @@
 class BlockedReasonType < ActiveRecord::Base
   unloadable
-  has_one :blocked_reason
+  has_many :blocked_reason
   attr_accessible :name
 end
