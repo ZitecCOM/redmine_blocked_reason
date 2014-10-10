@@ -1,4 +1,4 @@
-require "redmine"
+require 'redmine'
 
 # Patches to the Redmine core.
 ActionDispatch::Callbacks.to_prepare do
