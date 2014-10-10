@@ -23,6 +23,10 @@ Redmine::Plugin.register :redmine_blocked_reason do
   # load order does not seem to work, see redmine/config/additional_enviornment.rb
   # requires_redmine_plugin :redmine_new_issue_view, version: '0.0.1'
 
+  settings :default => {
+    :default_enabled => false,
+  }, :partial => 'blocked_reason_global_settings/index'
+
   project_module :blocked_reason do
     permission :edit_blocked_reasons, {
 
