@@ -3,22 +3,19 @@ class BlockedReasonsController < ApplicationController
     issue = Issue.find(params[:blocked_reason][:issue_id])
     if issue.editable?
       blocked_reason_type = BlockedReasonType.find(params[:blocked_reason][:blocked_reason_type][:id])
-      redirect_to(issue, error: 'Error blocking issue.') unless blocked_reason_type
-
-      blocked_reason = BlockedReason.new comment: params[:blocked_reason][:comment], blocked_reason_type_id: blocked_reason_type[:id], issue_id: issue[:id]
-
+      redirect_to(issue, error: I18n.t('helpers.error.blocking_issue')) unless blocked_reason_type
+      blocked_reason = BlockedReason.new comment: params[:blocked_reason][:comment],
+        blocked_reason_type_id: blocked_reason_type[:id], issue_id: issue[:id]
       if blocked_reason.save
-        journal = issue.init_journal(
-          User.current,
-           "#{I18n.t('blocked_reason')}: #{blocked_reason.type_name} \n #{blocked_reason.comment}"
-        )
+        journal = issue.init_journal(User.current,
+           "#{I18n.t('blocked_reason')}: #{blocked_reason.type_name} \n #{blocked_reason.comment}")
         journal.save
-        redirect_to issue, notice: 'Issue is blocked.'
+        redirect_to issue, notice: I18n.t('helpers.success.blocked_issue')
       else
-        redirect_to issue, error: 'Error blocking issue.'
+        redirect_to issue, error: I18n.t('helpers.error.blocking_issue')
       end
     else
-      redirect_to issue, error: 'You don\'t have permissions to block this issue.'
+      redirect_to issue, error: I18n.t('helpers.error.blocked_permission_denied')
     end
   end
 
@@ -29,13 +26,12 @@ class BlockedReasonsController < ApplicationController
       if blocked_reason && blocked_reason.delete
         journal = issue.init_journal(User.current, I18n.t('unblocked_reason'))
         journal.save
-        redirect_to issue, notice: 'Issue is unblocked.'
+        redirect_to issue, notice: I18n.t('helpers.success.unblocked_issue')
       else
-        redirect_to issue, error: 'Error Unblocking issue.'
+        redirect_to issue, error: I18n.t('helpers.error.unblocking_issue')
       end
     else
-      redirect_to issue, error: 'You don\'t have permissions to block this issue.'
+      redirect_to issue, error: I18n.t('helpers.error.unblocked_permission_denied')
     end
   end
-
 end

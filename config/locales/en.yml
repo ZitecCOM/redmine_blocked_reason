@@ -12,3 +12,11 @@ en:
       unblock_button: Unblock
       cancel_button: Cancel
       create_button: Block Issue
+    error:
+      blocking_issue: Error blocking issue.
+      unblocking_issue: Error unblocking issue.
+      blocked_permission_denied: You don't have permissions to block this issue.
+      unblocked_permission_denied: You don't have permissions to unblock this issue.
+    success:
+      blocked_issue: Issue is blocked.
+      unblocked_issue: Issue is unblocked.
