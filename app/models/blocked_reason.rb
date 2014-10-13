@@ -11,7 +11,6 @@ class BlockedReason < ActiveRecord::Base
       :project_id => o.project }
     }
 
-  acts_as_activity_provider find_options: { include: :project },
-    type: 'blocked_reason',
+  acts_as_activity_provider type: 'blocked_reason',
     timestamp: :updated_at
 end
