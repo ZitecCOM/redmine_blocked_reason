@@ -25,3 +25,12 @@
 	height: 20px;
 	width: auto;
 }
+
+.blocked_reason_tag
+{
+	position: relative;
+	background: pink;
+	border: solid;
+	border-width: 4px;
+	border-color: red;
+}
