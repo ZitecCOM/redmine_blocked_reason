@@ -2,6 +2,8 @@
 en:
   blocked_reason: Blocked
   unblocked_reason: Unblocked
+  field_blocked_status: Blocked status
+  field_blocked_reason: Blocked reason
   helpers:
     label:
       blocked_reason:

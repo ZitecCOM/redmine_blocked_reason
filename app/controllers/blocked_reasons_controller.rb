@@ -7,9 +7,14 @@ class BlockedReasonsController < ApplicationController
       blocked_reason = BlockedReason.new comment: params[:blocked_reason][:comment],
         blocked_reason_type_id: blocked_reason_type[:id], issue_id: issue[:id]
       if blocked_reason.save
-        journal = issue.init_journal(User.current,
-           "#{I18n.t('blocked_reason')}: #{blocked_reason.type_name} \n #{blocked_reason.comment}")
-        journal.save
+        journal = issue.init_journal(User.current, "#{blocked_reason.comment}")
+        journal.details << JournalDetail.new(:property => 'attr',
+                                             :prop_key => 'blocked_status',
+                                             :value => I18n.t('blocked_reason'))
+        journal.details << JournalDetail.new(:property => 'attr',
+                                             :prop_key => 'blocked_reason',
+                                             :value => blocked_reason.type_name)
+        journal.save!
         redirect_to issue, notice: I18n.t('helpers.success.blocked_issue')
       else
         redirect_to issue, error: I18n.t('helpers.error.blocking_issue')
@@ -24,8 +29,11 @@ class BlockedReasonsController < ApplicationController
     if issue.editable?
       blocked_reason = issue.blocked_reason
       if blocked_reason && blocked_reason.delete
-        journal = issue.init_journal(User.current, I18n.t('unblocked_reason'))
-        journal.save
+        journal = issue.init_journal(User.current, '')
+        journal.details << JournalDetail.new(:property => 'attr',
+                                             :prop_key => 'blocked_status',
+                                             :value => I18n.t('unblocked_reason'))
+        journal.save!
         redirect_to issue, notice: I18n.t('helpers.success.unblocked_issue')
       else
         redirect_to issue, error: I18n.t('helpers.error.unblocking_issue')
