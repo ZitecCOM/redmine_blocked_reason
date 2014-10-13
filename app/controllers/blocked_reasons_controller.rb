@@ -21,4 +21,21 @@ class BlockedReasonsController < ApplicationController
       redirect_to issue, error: 'You don\'t have permissions to block this issue.'
     end
   end
+
+  def destroy
+    issue = Issue.find(params[:blocked_reason][:issue_id])
+    if issue.editable?
+      blocked_reason = issue.blocked_reason
+      if blocked_reason && blocked_reason.delete
+        journal = issue.init_journal(User.current, I18n.t('unblocked_reason'))
+        journal.save
+        redirect_to issue, notice: 'Issue is unblocked.'
+      else
+        redirect_to issue, error: 'Error Unblocking issue.'
+      end
+    else
+      redirect_to issue, error: 'You don\'t have permissions to block this issue.'
+    end
+  end
+
 end

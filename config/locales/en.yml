@@ -9,5 +9,6 @@ en:
         comment: Comment
       block_settings: Blocked Reasons
       block_button: Mark as blocked
+      unblock_button: Unblock
       cancel_button: Cancel
       create_button: Block Issue
