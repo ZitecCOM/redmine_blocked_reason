@@ -2,10 +2,11 @@ class BlockedReasonsController < ApplicationController
   def create
     issue = Issue.find(params[:blocked_reason][:issue_id])
     if issue.editable?
-      blocked_reason_type = BlockedReasonType.find(params[:blocked_reason][:blocked_reason_type][:id])
-      redirect_to(issue, error: I18n.t('helpers.error.blocking_issue')) unless blocked_reason_type
+      blocked_reason_type = BlockedReasonType.where(id: params[:blocked_reason][:blocked_reason_type][:id]).first
+      redirect_to(issue, error: I18n.t('helpers.error.blocking_issue')) and return unless blocked_reason_type
       blocked_reason = BlockedReason.new comment: params[:blocked_reason][:comment],
-        blocked_reason_type_id: blocked_reason_type[:id], issue_id: issue[:id]
+        blocked_reason_type_id: blocked_reason_type[:id], issue_id: issue[:id], active: true,
+        user_id: User.current.id
       if blocked_reason.save
         journal = issue.init_journal(User.current, "#{blocked_reason.comment}")
         journal.details << JournalDetail.new(:property => 'attr',
@@ -27,8 +28,10 @@ class BlockedReasonsController < ApplicationController
   def destroy
     issue = Issue.find(params[:blocked_reason][:issue_id])
     if issue.editable?
-      blocked_reason = issue.blocked_reason
-      if blocked_reason && blocked_reason.delete
+      blocked_reason = BlockedReason.where(issue_id: issue.id, active: true).first
+      redirect_to issue, error: I18n.t('helpers.error.unblocking_issue') and return unless blocked_reason
+      blocked_reason[:active] = false
+      if blocked_reason.save
         journal = issue.init_journal(User.current, '')
         journal.details << JournalDetail.new(:property => 'attr',
                                              :prop_key => 'blocked_status',

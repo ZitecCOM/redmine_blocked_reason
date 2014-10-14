@@ -4,10 +4,11 @@ module RedmineBlockedReason
       def new_issue_view_blocked_reason_button(context)
         project, controller, issue = context[:project], context[:controller], context[:issue]
         return '' unless project.module_enabled? :blocked_reason
-        if issue.blocked_reason.nil?
-          controller.render_to_string partial: 'blocked_reason/blocked_reason_button', locals: context
+        blocked_reason = BlockedReason.where(issue_id: issue.id, active: true).first
+        if blocked_reason
+          controller.render_to_string partial: 'blocked_reason/blocked_reason_label', locals: {issue: issue, blocked_reason: blocked_reason}
         else
-          controller.render_to_string partial: 'blocked_reason/blocked_reason_label', locals: context
+          controller.render_to_string partial: 'blocked_reason/blocked_reason_button', locals: context
         end
       end
 
@@ -18,8 +19,9 @@ module RedmineBlockedReason
       end
 
       def new_issue_view_rows_subject(context)
-        return '' if context[:issue].blocked_reason.nil?
-        "<span data-tip='#{h(context[:issue].blocked_reason.comment)}' class='tip blocked_reason_tag'>#{I18n.t 'blocked_reason'}: #{h(context[:issue].blocked_reason.type_name)}</span>".html_safe
+        blocked_reason = BlockedReason.where(issue_id: context[:issue].id, active: true).first
+        return '' unless blocked_reason
+        "<span data-tip='#{h(blocked_reason.comment)}' class='tip blocked_reason_tag'>#{I18n.t 'blocked_reason'}: #{h(blocked_reason.type_name)}</span>".html_safe
       end
     end
   end

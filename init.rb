@@ -40,6 +40,4 @@ Redmine::Plugin.register :redmine_blocked_reason do
   end
 end
 
-Redmine::Activity.register :blocked_reason do
-
-end
+Redmine::Activity.register :blocked_reason

@@ -1,7 +1,7 @@
 <span class="blocked-reason-label">
-  <%= "#{issue.blocked_reason.blocked_reason_type.name}: #{issue.blocked_reason.comment}" %>
+  <%= "#{blocked_reason.type_name}: #{blocked_reason.comment}" %>
 </span>
-<%= form_for issue.blocked_reason, method: :delete do |f| %>
+<%= form_for blocked_reason, method: :delete do |f| %>
   <%= f.hidden_field :issue_id, value: issue.id %>
   <%= f.submit t('helpers.label.unblock_button') %>
 <% end %>
