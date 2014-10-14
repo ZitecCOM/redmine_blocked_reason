@@ -5,9 +5,9 @@ class BlockedReason < ActiveRecord::Base
   has_one :project, through: :issue
   delegate :name, to: :blocked_reason_type, prefix: :type
 
-  acts_as_event :datetime => :updated_at,
+  acts_as_event :datetime => :created_at,
     :description => Proc.new {|o| o.comment},
-    :title => Proc.new { |o| "#{o.issue.tracker.name} ##{o.issue.id} (#{I18n.t('blocked_reason')} - #{o.type_name}): #{o.issue.subject}" },
+    :title => Proc.new { |o| "#{o.issue.tracker.name} ##{o.issue.id} (#{o.unblocker ? I18n.t('unblocked_reason') : I18n.t('blocked_reason') +  ' - ' + o.type_name}): #{o.issue.subject}" },
     :url => Proc.new { |o| { :controller => 'issues', :action => 'show', :id => o.issue.id,
       :project_id => o.project }
     },
@@ -17,7 +17,7 @@ class BlockedReason < ActiveRecord::Base
     author_key: :user_id,
     permission: :view_blocked_reasons_activity_stream,
     type: 'blocked_reason',
-    timestamp: :updated_at
+    timestamp: :created_at
 
   def author
     User.find user_id

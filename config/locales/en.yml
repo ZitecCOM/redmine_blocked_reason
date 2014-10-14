@@ -2,8 +2,9 @@
 en:
   blocked_reason: Blocked
   unblocked_reason: Unblocked
-  field_blocked_status: Blocked status
+  field_blocked_comment: Comment
   field_blocked_reason: Blocked reason
+  field_blocked_status: Blocked status
   helpers:
     label:
       blocked_reason:
