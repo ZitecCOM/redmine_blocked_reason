@@ -5,6 +5,8 @@ en:
   field_blocked_comment: Blocked comment
   field_blocked_reason: Blocked reason
   field_blocked_status: Blocked status
+  types_title: Blocked Reason Types
+  new_type: New Type
   helpers:
     label:
       blocked_reason:
