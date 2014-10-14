@@ -1,0 +1,24 @@
+<% @blocked_reason_types ||= BlockedReasonType.all %>
+<% if @blocked_reason_types.any? %>
+  <table class='list'>
+    <thead>
+      <th><%= t('title') %></th>
+      <th></th>
+    </thead>
+    <tbody>
+      <% @blocked_reason_types.each do |brt| %>
+        <tr class='<%= cycle 'odd', 'even'%>'>
+          <td class='name'>
+            <%= link_to h(brt.name), edit_blocked_reason_type_path(brt) %>
+          </td>
+          <td class='buttons'>
+            <%= delete_link brt %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <div class='nodata'><%= l(:label_no_data) %></div>
+<% end %>
+<p><%= link_to l('types.new'), new_blocked_reason_type_path, :class => 'icon icon-add' %></p>

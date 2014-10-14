@@ -25,7 +25,7 @@ Redmine::Plugin.register :redmine_blocked_reason do
 
   settings :default => {
     :default_enabled => false,
-  }, :partial => 'blocked_reason_global_settings/index'
+  }, :partial => 'blocked_reason_types/plugin'
 
   project_module :blocked_reason do
     permission :edit_blocked_reasons, {
