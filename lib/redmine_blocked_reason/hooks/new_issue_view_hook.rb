@@ -14,14 +14,8 @@ module RedmineBlockedReason
 
       def view_layouts_base_html_head(context)
         project, controller = context[:project], context[:controller]
-        return '' if project.nil? || !project.module_enabled?(:blocked_reason)
+        # return '' if project.nil? || !project.module_enabled?(:blocked_reason)
         controller.render_to_string partial: 'blocked_reason/header_assets'
-      end
-
-      def new_issue_view_rows_subject(context)
-        blocked_reason = BlockedReason.where(issue_id: context[:issue].id, active: true).first
-        return '' unless blocked_reason
-        "<span data-tip='#{h(blocked_reason.comment)}' class='tip blocked_reason_tag'>#{I18n.t 'blocked_reason'}: #{h(blocked_reason.type_name)}</span>".html_safe
       end
     end
   end

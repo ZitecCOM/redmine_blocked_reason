@@ -13,6 +13,13 @@ module RedmineBlockedReason
       end
 
       module InstanceMethods
+        def blocked_reason_tag
+          blocked_reason = BlockedReason.where(issue_id: id, active: true).first
+          if blocked_reason
+             return "<span data-tip='#{blocked_reason.comment}' class='tip blocked_reason_tag'>#{I18n.t 'blocked_reason'}: #{blocked_reason.type_name}</span>".html_safe
+          end
+          return ''
+        end
       end
     end
 

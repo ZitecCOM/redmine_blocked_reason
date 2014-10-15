@@ -8,7 +8,7 @@
       <%= f.label t('helpers.label.blocked_reason.blocked_reason_type_id') %><br />
       <%= f.fields_for :blocked_reason_type do |r|%>
         <div class="radio-buttons">
-          <% BlockedReasonType.all.each do |reason| %>
+          <% BlockedReasonType.where(removed: false).order(:created_at).each do |reason| %>
             <div class="field">
               <%= r.radio_button :id, reason[:id] %>
               <%= r.label :id, reason[:name], value: reason[:id] %>
