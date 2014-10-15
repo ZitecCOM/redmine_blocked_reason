@@ -2,7 +2,7 @@ class BlockedReasonsController < ApplicationController
   def create
     issue = Issue.find(params[:blocked_reason][:issue_id])
     if issue.editable?
-      blocked_reason_type = BlockedReasonType.where(id: params[:blocked_reason][:blocked_reason_type][:id]).first
+      blocked_reason_type = BlockedReasonType.where(id: params[:blocked_reason][:blocked_reason_type][:id], removed: false).first
       redirect_to(issue, error: I18n.t('helpers.error.blocking_issue')) and return unless blocked_reason_type
       blocked_reason = BlockedReason.new comment: params[:blocked_reason][:comment],
         blocked_reason_type_id: blocked_reason_type[:id], issue_id: issue[:id], active: true,

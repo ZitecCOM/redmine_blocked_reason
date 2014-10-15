@@ -7,6 +7,7 @@ en:
   field_blocked_status: Blocked status
   types_title: Blocked Reason Types
   new_type: New Type
+  type_attribute_name: Name
   helpers:
     label:
       blocked_reason:
@@ -22,6 +23,7 @@ en:
       unblocking_issue: Error unblocking issue.
       blocked_permission_denied: You don't have permissions to block this issue.
       unblocked_permission_denied: You don't have permissions to unblock this issue.
+      delete_blocked_reason_type: Cannot delete blocked reason type
     success:
       blocked_issue: Issue is blocked.
       unblocked_issue: Issue is unblocked.
