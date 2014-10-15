@@ -11,14 +11,11 @@ module RedmineBlockedReason
       def available_filters_with_blocked_reasons
         @available_filters = available_filters_without_blocked_reasons
         blocked_reason_filters = {
-          "parent_id" => {
-            :name => 'parent',
-            :type => :integer,
-            :order => @available_filters.size + 1},
-          "root_id" => {
-            :name => 'root',
-            :type => :integer,
-            :order => @available_filters.size + 2}
+          "blocked_reason" => {
+            :name => 'Blocked Reason',
+            :type => :list,
+            :values => BlockedReasonType.where(removed: false).map {|b| [b.name, b.id.to_s] },
+            :order => @available_filters.size + 1}
         }
         @available_filters.merge!(blocked_reason_filters)
       end
