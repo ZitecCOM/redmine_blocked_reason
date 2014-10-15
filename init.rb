@@ -34,7 +34,7 @@ Redmine::Plugin.register :redmine_blocked_reason do
     permission :block_issue, {
 
     }
-    permission :view_blocked_reasons_activity_stream, {
+    permission :view_blocked_reasons, {
 
     }
   end

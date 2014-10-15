@@ -15,7 +15,7 @@ class BlockedReason < ActiveRecord::Base
 
   acts_as_activity_provider find_options: {include: [:project,:issue]},
     author_key: :user_id,
-    permission: :view_blocked_reasons_activity_stream,
+    permission: :view_blocked_reasons,
     type: 'blocked_reason',
     timestamp: :created_at
 
