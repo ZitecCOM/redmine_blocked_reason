@@ -3,6 +3,7 @@
   <table class='list'>
     <thead>
       <th><%= t('types_title') %></th>
+      <th><%= t('css_class_title') %></th>
       <th></th>
     </thead>
     <tbody>
@@ -10,6 +11,9 @@
         <tr class='<%= cycle 'odd', 'even'%>'>
           <td class='name'>
             <%= link_to h(brt.name), edit_blocked_reason_type_path(brt) %>
+          </td>
+          <td class='css_class'>
+            <%= link_to h(brt.css_class), edit_blocked_reason_type_path(brt) %>
           </td>
           <td class='buttons'>
             <%= delete_link brt %>

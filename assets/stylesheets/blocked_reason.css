@@ -26,11 +26,22 @@
 	width: auto;
 }
 
-.blocked_reason_tag
-{
+.blocked_reason_tag{
 	position: relative;
 	background: pink;
 	border: solid;
 	border-width: 4px;
 	border-color: red;
+}
+
+.brt_waiting_for_client{
+	color: green;
+}
+
+.brt_waiting_for_3rd_party{
+	color: blue;
+}
+
+.brt_on_hold{
+	color: yellow;
 }

@@ -6,8 +6,10 @@ en:
   field_blocked_reason: Blocked reason
   field_blocked_status: Blocked status
   types_title: Blocked Reason Types
+  css_class_title: Blocked Reason CSS Class
   new_type: New Type
   type_attribute_name: Name
+  type_attribute_css_class: CSS class
   helpers:
     label:
       blocked_reason:

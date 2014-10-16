@@ -4,6 +4,7 @@ class BlockedReason < ActiveRecord::Base
   belongs_to :issue
   has_one :project, through: :issue
   delegate :name, to: :blocked_reason_type, prefix: :type
+  delegate :css_class, to: :blocked_reason_type, prefix: :type
 
   acts_as_event :datetime => :created_at,
     :description => Proc.new {|o| o.comment},

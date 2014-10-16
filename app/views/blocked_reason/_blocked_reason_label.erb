@@ -1,4 +1,4 @@
-<span class="blocked-reason-label">
+<span class="blocked-reason-label <%= blocked_reason.type_css_class %>">
   <%= "#{blocked_reason.type_name}: #{blocked_reason.comment}" %>
 </span>
 <%= form_for blocked_reason, method: :delete do |f| %>
