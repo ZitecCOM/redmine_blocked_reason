@@ -23,14 +23,14 @@ module RedmineBlockedReason
 
       def sql_for_field_with_blocked_reasons(field, operator, value, db_table, db_field, is_custom_filter=false)
         if field == 'blocked_reason'
-          return <<-SQL
-            issues.id IN (
+          brt_ids = value.map {|v| v.to_i}.join(',')
+          "issues.id IN (
               SELECT DISTINCT i.id FROM issues i
                 INNER JOIN blocked_reasons br ON br.issue_id = i.id
                 INNER JOIN blocked_reason_types brt ON br.blocked_reason_type_id = brt.id
               WHERE br.active = true AND br.unblocker = false AND brt.removed = false
-            )
-          SQL
+              AND brt.id in (#{brt_ids})
+            )"
         else
           return sql_for_field_without_blocked_reasons(field, operator, value, db_table, db_field, is_custom_filter)
         end
