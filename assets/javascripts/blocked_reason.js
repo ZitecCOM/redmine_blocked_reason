@@ -16,8 +16,8 @@ $(document).ready(function() {
     return true;
   });
 
-  $('.tip').tipr({
-    // 'speed': 300,
-    // 'mode': 'top'
+  $('.blocked_reason_tag').tipr({
+    'speed': 0,
+    'mode': 'bottom'
   });
 });

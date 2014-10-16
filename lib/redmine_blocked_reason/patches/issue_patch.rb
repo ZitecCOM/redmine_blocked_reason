@@ -17,7 +17,7 @@ module RedmineBlockedReason
         def blocked_reason_tag
           blocked_reason = BlockedReason.where(issue_id: id, active: true).first
           return '' unless blocked_reason
-          "<span data-tip='#{blocked_reason.comment}' class='tip blocked_reason_tag #{blocked_reason.type_css_class}'>#{I18n.t 'blocked_reason'}: #{blocked_reason.type_name}</span>".html_safe
+          "<span data-tip='#{blocked_reason.comment}' class='blocked_reason_tag #{blocked_reason.type_css_class}'>#{I18n.t 'blocked_reason'}: #{blocked_reason.type_name}</span>".html_safe
         end
 
         protected
