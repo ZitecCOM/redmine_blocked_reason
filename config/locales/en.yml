@@ -20,6 +20,7 @@ en:
       unblock_button: Unblock
       cancel_button: Cancel
       create_button: Block Issue
+      unblock_due_to_status_change: Issue Unblocked due to status change.
     error:
       blocking_issue: Error blocking issue.
       unblocking_issue: Error unblocking issue.

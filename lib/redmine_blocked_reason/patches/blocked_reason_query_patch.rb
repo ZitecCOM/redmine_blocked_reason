@@ -14,7 +14,7 @@ module RedmineBlockedReason
         blocked_reason_filters = {
           "blocked_reason" => {
             :name => 'Blocked Reason',
-            :type => :list,
+            :type => :list_optional,
             :values => BlockedReasonType.where(removed: false).map {|b| [b.name, b.id.to_s] },
             :order => @available_filters.size + 1}
         }
@@ -23,15 +23,31 @@ module RedmineBlockedReason
 
       def sql_for_field_with_blocked_reasons(field, operator, value, db_table, db_field, is_custom_filter=false)
         if field == 'blocked_reason'
-          containment_type = operator == '=' ? 'IN' : 'NOT IN'
+          p operator
+          case operator
+          when '='
+            containment_type = 'IN'
+          when '!'
+            containment_type = 'NOT IN'
+          when '*'
+            containment_type = 'IN'
+          when '!*'
+            containment_type = 'NOT IN'
+          end
           brt_ids = value.map {|v| v.to_i}.join(',')
-          "issues.id #{containment_type} (
+          sql = "issues.id #{containment_type} (
               SELECT DISTINCT i.id FROM issues i
                 INNER JOIN blocked_reasons br ON br.issue_id = i.id
                 INNER JOIN blocked_reason_types brt ON br.blocked_reason_type_id = brt.id
-              WHERE br.active = true AND br.unblocker = false AND brt.removed = false
-              AND brt.id in (#{brt_ids})
-          )"
+              WHERE br.active = true AND br.unblocker = false AND brt.removed = false"
+          if operator == '='
+            sql << " AND brt.id IN (#{brt_ids})"
+          elsif operator == '!'
+            sql << " AND brt.id IN (#{brt_ids})"
+          end
+          sql << ')'
+          p sql
+          return sql
         else
           return sql_for_field_without_blocked_reasons(field, operator, value, db_table, db_field, is_custom_filter)
         end
