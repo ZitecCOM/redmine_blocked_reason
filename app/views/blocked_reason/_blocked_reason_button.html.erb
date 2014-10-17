@@ -28,7 +28,7 @@
           <%= f.submit  t('helpers.label.create_button') %>
         </div>
         <div class="float_left">
-          <%= button_to(t('helpers.label.unblock_button'), blocked_reason, method: :delete, class: 'button') unless blocked_reason.new_record? %>
+          <%= link_to(t('helpers.label.unblock_button'), blocked_reason_path(blocked_reason, issue_id: issue.id), method: :delete, class: 'button') unless blocked_reason.new_record? %>
         </div>
         <div class="float_left">
           <%=  button_tag(type: 'button', id: 'block_form_hide_button', class: 'margin_up button') do %>
