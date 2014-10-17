@@ -38,3 +38,16 @@
 .brt_on_hold{
 	background: #dc6263;
 }
+
+.float_left{
+	float: left;
+}
+
+.margin_up{
+	margin-top: 1px;
+}
+
+.comment_text_area{
+	max-height: 120px;
+	max-width: 260px;
+}

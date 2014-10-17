@@ -21,13 +21,20 @@
     <div class="blocked-field-group-right">
       <div class="field">
         <%= f.label t('helpers.label.blocked_reason.comment') %><br />
-        <%= f.text_area :comment, size: "15x3" %>
+        <%= f.text_area :comment, size: "40x3", class: 'comment_text_area' %>
       </div>
       <div class="actions">
-        <%= f.submit  t('helpers.label.create_button') %>
-        <%=  button_tag(type: 'button', id: 'block_form_hide_button', class: 'button') do %>
-          <%= content_tag(:strong,  t('helpers.label.cancel_button')) %>
-        <% end %>
+        <div class="float_left">
+          <%= f.submit  t('helpers.label.create_button') %>
+        </div>
+        <div class="float_left">
+          <%= button_to(t('helpers.label.unblock_button'), blocked_reason, method: :delete, class: 'button') unless blocked_reason.new_record? %>
+        </div>
+        <div class="float_left">
+          <%=  button_tag(type: 'button', id: 'block_form_hide_button', class: 'margin_up button') do %>
+            <%= content_tag(:strong,  t('helpers.label.cancel_button')) %>
+          <% end %>
+        </div>
       </div>
     </div>
   <% end %>

@@ -23,7 +23,6 @@ module RedmineBlockedReason
 
       def sql_for_field_with_blocked_reasons(field, operator, value, db_table, db_field, is_custom_filter=false)
         if field == 'blocked_reason'
-          p operator
           case operator
           when '='
             containment_type = 'IN'
@@ -46,7 +45,6 @@ module RedmineBlockedReason
             sql << " AND brt.id IN (#{brt_ids})"
           end
           sql << ')'
-          p sql
           return sql
         else
           return sql_for_field_without_blocked_reasons(field, operator, value, db_table, db_field, is_custom_filter)
