@@ -5,11 +5,7 @@ module RedmineBlockedReason
         project, controller, issue = context[:project], context[:controller], context[:issue]
         return '' unless project.module_enabled? :blocked_reason
         blocked_reason = BlockedReason.where(issue_id: issue.id, active: true).first
-        if blocked_reason
-          controller.render_to_string partial: 'blocked_reason/blocked_reason_label', locals: {issue: issue, blocked_reason: blocked_reason}
-        else
-          controller.render_to_string partial: 'blocked_reason/blocked_reason_button', locals: context
-        end
+        controller.render_to_string partial: 'blocked_reason/blocked_reason_button', locals: context
       end
 
       def view_layouts_base_html_head(context)

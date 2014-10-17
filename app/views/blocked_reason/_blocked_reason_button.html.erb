@@ -1,8 +1,9 @@
+<% blocked_reason = BlockedReason.find_or_create_for issue %>
 <%=  button_tag(type: 'button', id: 'block_issue_button') do %>
-  <%= content_tag(:strong, t('helpers.label.block_button')) %>
+  <%= content_tag(:strong, blocked_reason.new_record? ? t('helpers.label.block_button') : t('helpers.label.edit_block_button')) %>
 <% end %>
 <div id='blocked_reason_form' style='display:none;'>
-  <%= form_for BlockedReason.new do |f| %>
+  <%= form_for blocked_reason do |f| %>
     <%= f.hidden_field :issue_id, value: issue.id %>
     <div class="blocked-field-group-left">
       <%= f.label t('helpers.label.blocked_reason.blocked_reason_type_id') %><br />
@@ -10,7 +11,7 @@
         <div class="radio-buttons">
           <% BlockedReasonType.where(removed: false).order(:created_at).each do |reason| %>
             <div class="field">
-              <%= r.radio_button :id, reason[:id] %>
+              <%= r.radio_button :id, reason[:id], checked: reason[:id] == blocked_reason.blocked_reason_type_id %>
               <%= r.label :id, reason[:name], value: reason[:id] %>
             </div>
           <% end %>
@@ -24,7 +25,7 @@
       </div>
       <div class="actions">
         <%= f.submit  t('helpers.label.create_button') %>
-        <%=  button_tag(type: 'button', id: 'block_form_hide_button') do %>
+        <%=  button_tag(type: 'button', id: 'block_form_hide_button', class: 'button') do %>
           <%= content_tag(:strong,  t('helpers.label.cancel_button')) %>
         <% end %>
       </div>

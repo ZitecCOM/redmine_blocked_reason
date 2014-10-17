@@ -16,33 +16,25 @@
 	border-color: black;
 }
 
-.blocked-reason-label {
-	position: relative;
-	background: pink;
-	border: solid;
-	border-width: 4px;
-	border-color: red;
-	height: 20px;
-	width: auto;
-}
-
 .blocked_reason_tag{
 	position: relative;
 	display: inline-block;
-	background: pink;
-	border: solid;
-	border-width: 4px;
-	border-color: red;
+	border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    margin: 1px;
+    padding: 2px 4px;
+	color: white;
+	font-weight: bold;
 }
 
 .brt_waiting_for_client{
-	color: green;
+	background: #a2740b;
 }
 
 .brt_waiting_for_3rd_party{
-	color: blue;
+	background: #b80240;
 }
 
 .brt_on_hold{
-	color: yellow;
+	background: #dc6263;
 }

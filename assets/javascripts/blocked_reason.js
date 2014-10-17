@@ -16,7 +16,7 @@ $(document).ready(function() {
     return true;
   });
 
-  $('.blocked_reason_tag').tipr({
+  $('.brt_tooltip').tipr({
     'speed': 0,
     'mode': 'bottom'
   });
