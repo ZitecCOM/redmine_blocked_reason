@@ -17,7 +17,7 @@
       <td class="project"><%= link_to_project(issue.project) %></td>
       <td class="tracker"><%= issue.tracker %></td>
       <td class="subject">
-        <%= link_to(issue.subject.truncate(60), issue_path(issue)) %> (<%= issue.status %>) <%= issue.blocked_reason_tag %>
+        <%= link_to(issue.subject.truncate(60), issue_path(issue)) %> (<%= issue.status %>) <%= render 'blocked_reason/blocked_reason_tag', issue: issue %>
       </td>
     </tr>
     <% end %>

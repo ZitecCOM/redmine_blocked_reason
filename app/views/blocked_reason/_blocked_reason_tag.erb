@@ -1,4 +1,6 @@
-<tr>
-  <th><strong><%=l(:blocked_reason)%>:</strong></th>
-  <td colspan="3"><%= issue.blocked_reason_tag %></td>
-</tr>
+<% blocked_reason = BlockedReason.where(issue_id: issue.id, active: true).first %>
+<% if blocked_reason %>
+  <span data-tip='<%= blocked_reason.comment %>' class='blocked_reason_tag brt_tooltip <%= blocked_reason.type_css_class %>'>
+    <%= link_to blocked_reason.type_name, issue %>
+  </span>
+<% end %>

@@ -53,3 +53,8 @@
 	max-height: 120px;
 	max-width: 260px;
 }
+
+.autoscroll
+{
+	overflow: visible !important;
+}
