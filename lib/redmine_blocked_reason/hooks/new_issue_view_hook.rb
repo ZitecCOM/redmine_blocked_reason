@@ -13,6 +13,13 @@ module RedmineBlockedReason
         # return '' if project.nil? || !project.module_enabled?(:blocked_reason)
         controller.render_to_string partial: 'blocked_reason/header_assets'
       end
+
+      def view_issues_show_details_bottom(context)
+        controller = context[:controller]
+        blocked_reason = BlockedReason.where(issue_id: context[:issue].id, active: true).first
+        return '' unless blocked_reason
+        controller.render_to_string partial: 'blocked_reason/blocked_reason_tag', locals: context
+      end
     end
   end
 end

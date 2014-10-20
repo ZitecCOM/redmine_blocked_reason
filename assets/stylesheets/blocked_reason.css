@@ -43,8 +43,10 @@
 	float: left;
 }
 
-.margin_up{
+.link_as_button{
+	color: #333 !important;
 	margin-top: 1px;
+	height: 19px;
 }
 
 .comment_text_area{
