@@ -29,10 +29,10 @@ Redmine::Plugin.register :redmine_blocked_reason do
 
   project_module :blocked_reason do
     permission :edit_blocked_reasons, {
-
+      blocked_reason: [:update], require: :member
     }
     permission :block_issue, {
-
+      blocked_reason: [:create], require: :member
     }
     permission :view_blocked_reasons_activity, {
 

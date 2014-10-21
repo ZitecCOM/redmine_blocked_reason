@@ -58,3 +58,7 @@
 {
 	overflow: visible !important;
 }
+
+#blocked_reason_comment{
+	background: white !important;
+}
