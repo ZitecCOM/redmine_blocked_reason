@@ -6,7 +6,7 @@
   <%= form_for blocked_reason do |f| %>
     <%= f.hidden_field :issue_id, value: issue.id %>
     <div class="blocked-field-group-left">
-      <%= f.label t('helpers.label.blocked_reason.blocked_reason_type_id') %><br />
+      <%= f.label t('helpers.label.blocked_reason.blocked_reason_type_id'), id: 'reason_label'%><br />
       <%= f.fields_for :blocked_reason_type do |r|%>
         <div class="radio-buttons">
           <% BlockedReasonType.where(removed: false).order(:created_at).each do |reason| %>
@@ -20,12 +20,12 @@
     </div>
     <div class="blocked-field-group-right">
       <div class="field">
-        <%= f.label t('helpers.label.blocked_reason.comment') %><br />
-        <%= f.text_area :comment, size: "40x3", class: 'comment_text_area' %>
+        <%= f.label t('helpers.label.blocked_reason.comment'), id: 'comment_label' %><br />
+        <%= f.text_area :comment, size: "40x3", class: 'comment_text_area wiki-edit' %>
       </div>
       <div class="actions">
         <div class="float_left">
-          <%= f.submit  t('helpers.label.create_button') %>
+          <%= f.submit  t('helpers.label.create_button'), id: 'new_blocked_reason' %>
         </div>
         <div class="float_left">
           <%= link_to(t('helpers.label.unblock_button'), blocked_reason_path(blocked_reason, issue_id: issue.id), method: :delete, class: 'button link_as_button') unless blocked_reason.new_record? %>
