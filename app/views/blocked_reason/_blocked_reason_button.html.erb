@@ -7,8 +7,8 @@
      css_class = 'icon icon-edit'
    end %>
 <%= link_to content_tag(:span, label_name), '', id: 'block_issue_button', class: css_class %>
-<div id='blocked_reason_form' style='display:none;'>
-  <%= form_for blocked_reason do |f| %>
+<div id='blocked_reason_window' style='display:none;'>
+  <%= form_for blocked_reason, html: {class: 'blocked_reason_form'} do |f| %>
     <%= f.hidden_field :issue_id, value: issue.id %>
     <div class="blocked-field-group-left">
       <%= f.label t('helpers.label.blocked_reason.blocked_reason_type_id'), id: 'reason_label'%><br />
@@ -30,7 +30,7 @@
       </div>
       <div class="actions">
         <div class="float_left">
-          <%= f.submit  t('helpers.label.create_button'), id: 'new_blocked_reason' %>
+          <%= f.submit  t('helpers.label.create_button'), id: 'new_blocked_reason_button' %>
         </div>
         <div class="float_left">
           <%= link_to(t('helpers.label.unblock_button'), blocked_reason_path(blocked_reason, issue_id: issue.id), method: :delete, class: 'button link_as_button') unless blocked_reason.new_record? %>
