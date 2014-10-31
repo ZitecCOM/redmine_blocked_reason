@@ -1,7 +1,12 @@
-<% blocked_reason = BlockedReason.find_or_create_for issue %>
-<%=  button_tag(type: 'button', id: 'block_issue_button') do %>
-  <%= content_tag(:strong, blocked_reason.new_record? ? t('helpers.label.block_button') : t('helpers.label.edit_block_button')) %>
-<% end %>
+<% blocked_reason = BlockedReason.find_or_create_for issue
+   if blocked_reason.new_record?
+     label_name = t('helpers.label.block_button')
+     css_class = 'icon icon-del'
+   else
+     label_name = t('helpers.label.edit_block_button')
+     css_class = 'icon icon-edit'
+   end %>
+<%= link_to content_tag(:span, label_name), '', id: 'block_issue_button', class: css_class %>
 <div id='blocked_reason_form' style='display:none;'>
   <%= form_for blocked_reason do |f| %>
     <%= f.hidden_field :issue_id, value: issue.id %>

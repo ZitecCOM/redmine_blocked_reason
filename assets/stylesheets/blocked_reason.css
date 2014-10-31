@@ -8,11 +8,13 @@
 }
 
 #blocked_reason_form {
+	position:absolute;
 	background: lightgrey;
 	height: 180px;
 	width: 500px;
 	border:solid;
 	border-color: black;
+	color: black;
 }
 
 .blocked_reason_tag{

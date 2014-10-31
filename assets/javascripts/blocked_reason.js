@@ -13,10 +13,11 @@ $(document).ready(function() {
   var reason_label = $('#reason_label');
 
   blocked_reason_comment.val('');
-  block_issue_button.bind('click', function() {
+  block_issue_button.bind('click', function(event) {
+    event.preventDefault();
     var position = block_issue_button.position();
-    var pos_top = position.top + block_issue_button.height();
-    var pos_left = position.left - blocked_reason_form.width() + block_issue_button.width() / 2;
+    var pos_top = position.top;
+    var pos_left = position.left;
     blocked_reason_form.css({
       top: pos_top,
       left: pos_left
