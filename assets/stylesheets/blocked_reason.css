@@ -44,12 +44,6 @@
 	float: left;
 }
 
-.link_as_button{
-	color: #333 !important;
-	margin-top: 1px;
-	height: 19px;
-}
-
 .comment_text_area{
 	max-height: 120px;
 	max-width: 260px;
