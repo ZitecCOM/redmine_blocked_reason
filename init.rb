@@ -19,7 +19,7 @@ Redmine::Plugin.register :redmine_blocked_reason do
   url 'http://example.com/path/to/plugin'
   author_url 'http://example.com/about'
 
-  requires_redmine version: '2.5.0'
+  requires_redmine version: ['2.5.0','2.6.0']
   # load order does not seem to work, see redmine/config/additional_enviornment.rb
   # requires_redmine_plugin :redmine_new_issue_view, version: '0.0.1'
 
