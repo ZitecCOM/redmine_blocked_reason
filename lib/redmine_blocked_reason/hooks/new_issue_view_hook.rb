@@ -20,6 +20,13 @@ module RedmineBlockedReason
         return '' unless blocked_reason
         controller.render_to_string partial: 'blocked_reason/blocked_reason_show_details_tag', locals: context
       end
+
+      def blocked_reason_tag_for(context)
+        controller = context[:controller]
+        blocked_reason = BlockedReason.where(issue_id: context[:issue].id, active: true).first
+        return '' unless blocked_reason
+        controller.render_to_string partial: 'blocked_reason/blocked_reason_tag', locals: context
+      end
     end
   end
 end
