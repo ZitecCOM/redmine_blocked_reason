@@ -14,13 +14,15 @@ en:
     label:
       blocked_reason:
         blocked_reason_type_id: Reason
-        comment: Comment
+        comment: Comment is required
+        title_new: Choose the label type
+        title_update: Update or remove label to this feature
       block_settings: Blocked Reasons
-      block_button: Mark as blocked
-      edit_block_button: Edit blocked reason
+      block_button: Add label
+      edit_block_button: Update label
       unblock_button: Unblock
-      cancel_button: Cancel
-      create_button: Block Issue
+      cancel_button: x
+      create_button: Add label to feature
       unblock_due_to_status_change: Issue Unblocked due to status change.
     error:
       blocking_issue: Error blocking issue.
