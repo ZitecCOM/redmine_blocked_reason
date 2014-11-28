@@ -71,8 +71,8 @@
 	display: inline-block;
 }
 #blocked_reason_window .radio-buttons .field > label {
-    display: inline-block;
-    width: 155px;
+	display: inline-block;
+	width: 155px;
 }
 #blocked_reason_window #comment_label {
 	color: #f75c5c;
@@ -101,7 +101,7 @@
 #blocked_reason_window .close_button {
 	position: absolute;
 	right: 10px;
-    top: 10px;
+	top: 10px;
 }
 #blocked_reason_window .close_button > button {
 	background: none;
@@ -117,27 +117,52 @@
 #blocked_reason_window .close_button > button:hover {
 	color: #000;
 }
-#blocked_reason_window .actions input[type="submit"] {
-    background: #f1f1f1;
-    border: 1px solid #eaeaea;
-    border-radius: 0;
-    box-shadow: none;
-    color: #333333;
-    display: inline-block;
-    font-family: "Trebuchet MS";
-    font-size: 14px;
-    font-weight: bold;
-    line-height: 28px;
-    height: 30px;
-    padding: 0;
-    text-align: center;
-    vertical-align: middle;
-    width: 170px;
+#blocked_reason_window .actions input[type="submit"],
+#blocked_reason_window .actions label.button {
+	background: #f1f1f1;
+	border: 1px solid #eaeaea;
+	border-radius: 0;
+	box-shadow: none;
+	color: #333333;
+	display: inline-block;
+	font-family: "Trebuchet MS";
+	font-size: 14px;
+	font-weight: bold;
+	line-height: 28px;
+	height: 30px;
+	padding: 0;
+	text-align: center;
+	vertical-align: middle;
+	width: 170px;
+	margin: 0;
 }
-#blocked_reason_window .actions input[type="submit"]:hover {
+#blocked_reason_window .actions input[type="submit"]:hover,
+#blocked_reason_window .actions label.button:hover {
 	background: #dddfde;
+}
+#blocked_reason_window .actions label.button {
+   height: 28px;
+   width: 168px;
 }
 .autoscroll
 {
 	overflow: visible !important;
+}
+span.blocked_reason_tag {
+	display: inline-block;
+	background: #feebeb;
+	padding: 5px 15px;
+	border-radius: 10px;
+	border: 1px solid #EFEFEF;
+	text-decoration: none;
+	font-weight: bold;
+	box-shadow: 0px 0px 6px 1px rgba(35, 31, 32, 0.04);
+	-moz-box-shadow:  0px 0px 6px 1px rgba(35, 31, 32, 0.04);
+	-webkit-box-shadow: 0px 0px 6px 1px rgba(35, 31, 32, 0.04);
+}
+span.blocked_reason_tag > a {
+	color: #000000;
+}
+table.list.issues tr td{
+	vertical-align: middle;
 }

@@ -23,6 +23,8 @@ en:
       unblock_button: Unblock
       cancel_button: x
       create_button: Add label to feature
+      update_button: Update label to feature
+      remove_label: Remove Label
       unblock_due_to_status_change: Issue Unblocked due to status change.
     error:
       blocking_issue: Error blocking issue.
