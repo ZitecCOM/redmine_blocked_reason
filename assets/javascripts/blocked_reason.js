@@ -13,7 +13,8 @@ $(document).ready(function() {
   var remove_blocked_reason_label = $('#removed_blocked_reason');
   var blocked_reason_comment = $('#blocked_reason_comment');
   var reason_label = $('#reason_label');
-
+  var radio_buttons = $('.blocked_reason_form .radio-buttons')
+  var blocked_title = $('.blocked-reason-window-title');
 
   $('#blocked_reason_window .field, #block_issue_button').click(function() {
     $('#blocked_reason_window #blocked_reason_comment').focus();
@@ -26,7 +27,10 @@ $(document).ready(function() {
     event.preventDefault();
     var position = block_issue_button.position();
     blocked_reason_window.show();
-    $('#blocked_reason_window .field:first > input[type="radio"]').prop("checked", true);
+    var remove_label_input = $('#blocked_reason_blocked_reason_type_id_remove');
+    if (remove_label_input[0]) {
+      remove_label_input.prop("checked", true);
+    }
     switch_buttons();
     $('#blocked_reason_window #blocked_reason_comment').focus();
   });
@@ -37,7 +41,7 @@ $(document).ready(function() {
 
   new_blocked_reason_button.bind('click', function(event) {
     event.preventDefault();
-    if (blocked_comment_completed()){
+    if (blocked_comment_completed() && blocked_reason_label_selected()){
       $('#new_blocked_reason').submit();
     }
   });
@@ -55,6 +59,15 @@ $(document).ready(function() {
     }
     blocked_reason_comment.attr('style', 'border-color:#ccc;');
     return true;
+  };
+
+  function blocked_reason_label_selected(){
+    if ($('input[type=radio]:checked')[0]) {
+      blocked_title.attr('style', 'color:#272727;');
+      return true;
+    }
+    blocked_title.attr('style', 'color:#f75c5c;');
+    return false;
   };
 
   function switch_buttons() {
