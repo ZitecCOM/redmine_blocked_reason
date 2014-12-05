@@ -1,7 +1,7 @@
 <% blocked_reason = BlockedReason.find_or_create_for issue
    if blocked_reason.new_record?
      label_name = t('helpers.label.block_button')
-     css_class = 'icon icon-del'
+     css_class = 'icon icon-add'
    else
      label_name = t('helpers.label.edit_block_button')
      css_class = 'icon icon-edit'
