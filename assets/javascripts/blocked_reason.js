@@ -13,7 +13,7 @@ $(document).ready(function() {
   var remove_blocked_reason_label = $('#removed_blocked_reason');
   var blocked_reason_comment = $('#blocked_reason_comment');
   var reason_label = $('#reason_label');
-  
+
 
   $('#blocked_reason_window .field, #block_issue_button').click(function() {
     $('#blocked_reason_window #blocked_reason_comment').focus();
@@ -33,6 +33,13 @@ $(document).ready(function() {
 
   block_form_hide_button.bind('click', function() {
     blocked_reason_window.hide();
+  });
+
+  new_blocked_reason_button.bind('click', function(event) {
+    event.preventDefault();
+    if (blocked_comment_completed()){
+      $('#new_blocked_reason').submit();
+    }
   });
 
   delete_blocked_reason_button.bind('click', function(event) {
@@ -60,7 +67,7 @@ $(document).ready(function() {
     else{
       new_blocked_reason_button.show();
       remove_blocked_reason_label.hide();
-    } 
+    }
   }
 
   $('.brt_tooltip').tipr({
