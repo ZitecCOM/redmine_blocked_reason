@@ -44,10 +44,8 @@ $(document).ready(function() {
 
   delete_blocked_reason_button.bind('click', function(event) {
     event.preventDefault();
-    if (blocked_comment_completed()) {
-      $('#deleted_comment').val(blocked_reason_comment.val());
-      $('#delete_button_form').submit();
-    }
+    $('#deleted_comment').val(blocked_reason_comment.val());
+    $('#delete_button_form').submit();
   });
 
   function blocked_comment_completed() {
