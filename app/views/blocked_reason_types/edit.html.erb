@@ -1,0 +1,8 @@
+<h2>
+  <%= link_to l('types_title'),
+    blocked_reason_types_path %>
+  &#187;
+  <%= h(@blocked_reason_type.name) %>
+</h2>
+
+<%= render :partial => 'form' %>

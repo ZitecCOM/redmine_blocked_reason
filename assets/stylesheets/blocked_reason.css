@@ -1,0 +1,168 @@
+#blocked_reason_window {
+	position:absolute;
+	background: #fff;
+	min-height: 244px;
+	border-radius: 10px;
+	border: 1px solid #bcbcbc;
+	padding: 30px;
+	width: 500px;
+	top: 0;
+	left: 450px;
+	color: black;
+	font-family: "Trebuchet MS"
+	font-size: 14px;
+	box-shadow: 0px 0px 10px 1px rgba(35, 31, 32, 0.18);
+	-moz-box-shadow: 0px 0px 10px 1px rgba(35, 31, 32, 0.18);
+	-webkit-box-shadow: 0px 0px 10px 1px rgba(35, 31, 32, 0.18);
+}
+#blocked_reason_window .blocked-field-group-left {
+	float: left;
+	width: 190px;
+}
+#blocked_reason_window .blocked-field-group-right {
+	margin-left: 30px;
+	width: 280px;
+	float: left;
+}
+#blocked_reason_window .blocked_reason_tag{
+	position: relative;
+	display: inline-block;
+	border: 1px solid rgba(0, 0, 0, 0.2);
+	border-radius: 5px;
+	margin: 1px;
+	padding: 2px 4px;
+	color: white;
+	font-weight: bold;
+}
+.issue-title #blocked_reason_window h2.blocked-reason-window-title {
+	color: #272727;
+	font-family: "Trebuchet MS";
+	font-size: 15px;
+	font-weight: 600;
+	margin-bottom: 20px
+}
+#blocked_reason_window .radio-buttons .field {
+	color: #272727;
+	font-family: "Trebuchet MS",Verdana,sans-serif;
+	font-size: 14px;
+	height: 30px;
+	line-height: 30px;
+	margin-bottom: 1px;
+	padding: 0 10px;
+	width: 170px;
+}
+#blocked_reason_window .radio-buttons .field.label_type_1 {
+	background: #daf7e8;
+}
+#blocked_reason_window .radio-buttons .field.label_type_2 {
+	background: #daeaf1;
+}
+#blocked_reason_window .radio-buttons .field.label_type_3 {
+	background: #feebeb;
+}
+#blocked_reason_window .radio-buttons .field.label_remove {
+	background: #22313f;
+	color: #fff;
+	font-weight: bold;
+}
+#blocked_reason_window .radio-buttons .field > input {
+	line-height: 30px;
+	width: 10px;
+	display: inline-block;
+}
+#blocked_reason_window .radio-buttons .field > label {
+	display: inline-block;
+	width: 155px;
+}
+#blocked_reason_window #comment_label {
+	color: #f75c5c;
+	font-family: "Trebuchet MS",Verdana,sans-serif;
+	font-size: 12px;
+	line-height: 1;
+	margin-bottom: 8px;
+	display: block;
+}
+#blocked_reason_window .comment_text_area {
+	height: 65px;
+	width: 260px;
+	padding: 10px;
+	max-width: 100%;
+	border: 1px solid #bcbcbc;
+	background: #fff;
+	margin-bottom: 17px;
+	color: #cccccc;
+	font-size: 12px;
+	line-height: 17px;
+	font-family: "Trebuchet MS",Verdana,sans-serif;
+}	
+#blocked_reason_window .comment_text_area:focus {
+	color: #272727;
+}
+#blocked_reason_window .close_button {
+	position: absolute;
+	right: 10px;
+	top: 10px;
+}
+#blocked_reason_window .close_button > button {
+	background: none;
+	border: none;
+	box-shadow: none;
+	font-family: Verdana;
+	font-size: 19px;
+	color: #282727;
+	font-weight: normal;
+	padding: 0;
+	line-height: 1;
+}
+#blocked_reason_window .close_button > button:hover {
+	color: #000;
+}
+#blocked_reason_window .actions input[type="submit"],
+#blocked_reason_window .actions label.button {
+	background: #f1f1f1;
+	border: 1px solid #eaeaea;
+	border-radius: 0;
+	box-shadow: none;
+	color: #333333;
+	display: inline-block;
+	font-family: "Trebuchet MS";
+	font-size: 14px;
+	font-weight: bold;
+	line-height: 28px;
+	height: 30px;
+	padding: 0;
+	text-align: center;
+	vertical-align: middle;
+	width: 170px;
+	margin: 0;
+}
+#blocked_reason_window .actions input[type="submit"]:hover,
+#blocked_reason_window .actions label.button:hover {
+	background: #dddfde;
+}
+#blocked_reason_window .actions label.button {
+   height: 28px;
+   width: 168px;
+}
+.autoscroll
+{
+	overflow: visible !important;
+}
+span.blocked_reason_tag {
+	display: inline-block;
+	background: #feebeb;
+	padding: 5px 15px;
+	border-radius: 10px;
+	border: 1px solid #EFEFEF;
+	text-decoration: none;
+	font-weight: bold;
+	box-shadow: 0px 0px 6px 1px rgba(35, 31, 32, 0.04);
+	-moz-box-shadow:  0px 0px 6px 1px rgba(35, 31, 32, 0.04);
+	-webkit-box-shadow: 0px 0px 6px 1px rgba(35, 31, 32, 0.04);
+}
+span.blocked_reason_tag > a {
+	color: #000000;
+}
+table.list.issues tr td{
+	vertical-align: middle;
+}

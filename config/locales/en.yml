@@ -1,8 +1,37 @@
 # English strings go here for Rails i18n
 en:
   blocked_reason: Blocked
+  unblocked_reason: Unblocked
+  field_blocked_comment: Blocked comment
+  field_blocked_reason: Blocked reason
+  field_blocked_status: Blocked status
+  types_title: Blocked Reason Types
+  css_class_title: Blocked Reason CSS Class
+  new_type: New Type
+  type_attribute_name: Name
+  type_attribute_css_class: CSS class
   helpers:
     label:
       blocked_reason:
         blocked_reason_type_id: Reason
-        comment: Comment
+        comment: Comment is required
+        title_new: Choose the label type
+        title_update: Update or remove label to this feature
+      block_settings: Blocked Reasons
+      block_button: Add label
+      edit_block_button: Update label
+      unblock_button: Remove Label
+      cancel_button: x
+      create_button: Add Label
+      update_button: Update Label
+      remove_label: Remove Label
+      unblock_due_to_status_change: Issue Unblocked due to status change.
+    error:
+      blocking_issue: Error blocking issue.
+      unblocking_issue: Error unblocking issue.
+      blocked_permission_denied: You don't have permissions to block this issue.
+      unblocked_permission_denied: You don't have permissions to unblock this issue.
+      delete_blocked_reason_type: Cannot delete blocked reason type
+    success:
+      blocked_issue: Issue is blocked.
+      unblocked_issue: Issue is unblocked.
