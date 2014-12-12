@@ -52,14 +52,17 @@
 	padding: 0 10px;
 	width: 170px;
 }
-#blocked_reason_window .radio-buttons .field.label_type_1 {
+#blocked_reason_window .radio-buttons .field.label_type_1,
+.blocked_reason_tag.label_type_1 {
 	background: #daf7e8;
 }
-#blocked_reason_window .radio-buttons .field.label_type_2 {
+#blocked_reason_window .radio-buttons .field.label_type_2,
+.blocked_reason_tag.label_type_2 {
 	background: #daeaf1;
 }
-#blocked_reason_window .radio-buttons .field.label_type_3 {
-	background: #feebeb;
+#blocked_reason_window .radio-buttons .field.label_type_3,
+.blocked_reason_tag.label_type_3 {
+	background: #cc0000;
 }
 #blocked_reason_window .radio-buttons .field.label_remove {
 	background: #22313f;
@@ -150,7 +153,6 @@
 }
 span.blocked_reason_tag {
 	display: inline-block;
-	background: #feebeb;
 	padding: 5px 15px;
 	border-radius: 10px;
 	border: 1px solid #EFEFEF;
