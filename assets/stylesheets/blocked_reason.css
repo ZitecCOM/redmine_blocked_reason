@@ -191,3 +191,11 @@ table.list.issues tr td{
 	background: url("../images/icons.png") no-repeat scroll left -302px rgba(0, 0, 0, 0);
   padding-left: 16px;
 }
+
+div.block_reason.update_label + div div#button_bar {
+  left: 167px;
+}
+
+div.block_reason.add_label + div div#button_bar {
+  left: 147px;
+}
