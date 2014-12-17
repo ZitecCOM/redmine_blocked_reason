@@ -16,16 +16,6 @@ $(document).ready(function() {
   var radio_buttons = $('.blocked_reason_form .radio-buttons')
   var blocked_title = $('.blocked-reason-window-title');
 
-  var tags = $('table.list.issues tr.idnt td.subject span.blocked_reason_tag');
-
-  $.each(tags, function(index, value){
-    var parent = $(value).parent();
-    while (parent.prop('tagName') !== 'TR'){
-      parent = $(parent).parent();
-    }
-   parent.find(">:first-child").addClass('bigger-height');
-  });
-
   $('#blocked_reason_window .field, #block_issue_button').click(function() {
     $('#blocked_reason_window #blocked_reason_comment').focus();
     switch_buttons();

@@ -147,10 +147,7 @@
    height: 28px;
    width: 168px;
 }
-.autoscroll
-{
-	overflow: visible !important;
-}
+
 span.blocked_reason_tag {
 	display: inline-block;
 	padding: 5px 15px;
