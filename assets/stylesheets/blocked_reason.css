@@ -186,7 +186,6 @@ div.block_reason.add_label + div div#button_bar {
 
 .blocked-reason-window-title {
 	margin-bottom: 20px;
-	text-align: center;
 }
 
 .button, input[type="submit"] {
