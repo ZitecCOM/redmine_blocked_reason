@@ -15,7 +15,7 @@ en:
       blocked_reason:
         blocked_reason_type_id: Reason
         comment: Comment is required
-        title_new: Add block reason
+        title_new: Why are you blocked?
         title_update: Remove or update block reason
       block_settings: Blocked Reasons
       block_button: Mark as blocked
