@@ -182,7 +182,7 @@ div.block_reason + div div#button_bar {
 
 .js-issue-header.lb_fixed div.block_reason {
   margin-left: 74px;
-  margin-top: -27px;
+  margin-top: -28px;
 }
 
 .js-issue-header.lb_fixed div.block_reason.add_label + div div#button_bar {
