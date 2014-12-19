@@ -154,7 +154,7 @@ table.list.issues tr td{
 	float: left;
   margin-left: 62px;
   margin-right: 4px;
-  margin-top: -43px;
+  margin-top: -44px;
 	padding-left: 0;
 }
 
@@ -176,12 +176,17 @@ table.list.issues tr td{
   padding-left: 16px;
 }
 
-div.block_reason.update_label + div div#button_bar {
-  left: 167px;
+div.block_reason + div div#button_bar {
+  left: 188px;
 }
 
-div.block_reason.add_label + div div#button_bar {
-  left: 147px;
+.js-issue-header.lb_fixed div.block_reason {
+  margin-left: 74px;
+  margin-top: -27px;
+}
+
+.js-issue-header.lb_fixed div.block_reason.add_label + div div#button_bar {
+  left: 200px;
 }
 
 .blocked-reason-window-title {
