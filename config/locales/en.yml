@@ -15,16 +15,15 @@ en:
       blocked_reason:
         blocked_reason_type_id: Reason
         comment: Comment is required
-        title_new: Choose the label type
-        title_update: Update or remove label to this feature
+        title_new: Add block reason
+        title_update: Remove or update block reason
       block_settings: Blocked Reasons
-      block_button: Add label
-      edit_block_button: Update label
-      unblock_button: Remove Label
+      block_button: Mark as blocked
+      unblock_button: Remove
       cancel_button: x
-      create_button: Add Label
-      update_button: Update Label
-      remove_label: Remove Label
+      create_button: Submit
+      update_button: Update
+      remove_label: Remove
       unblock_due_to_status_change: Issue Unblocked due to status change.
     error:
       blocking_issue: Error blocking issue.

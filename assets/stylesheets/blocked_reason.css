@@ -4,10 +4,10 @@
 	min-height: 185px;
 	border-radius: 10px;
 	border: 1px solid #bcbcbc;
-	padding: 30px;
+	padding: 15px 20px;
 	width: 500px;
-	top: -75px;
-	left: 450px;
+	top: -23px;
+	left: 63px;
 	color: black;
 	font-family: "Trebuchet MS"
 	font-size: 14px;
@@ -55,14 +55,18 @@
 #blocked_reason_window .radio-buttons .field.label_type_1,
 .blocked_reason_tag.label_type_1 {
 	background: #daf7e8;
+	font-weight: bold;
 }
 #blocked_reason_window .radio-buttons .field.label_type_2,
 .blocked_reason_tag.label_type_2 {
 	background: #daeaf1;
+	font-weight: bold;
 }
 #blocked_reason_window .radio-buttons .field.label_type_3,
 .blocked_reason_tag.label_type_3 {
 	background: #cc0000;
+	font-weight: bold;
+	color: white;
 }
 #blocked_reason_window .radio-buttons .field.label_remove {
 	background: #22313f;
@@ -76,6 +80,10 @@
 }
 #blocked_reason_window .radio-buttons .field > label {
 	width: 155px;
+	display: block;
+  position: relative;
+  top: -29px;
+  left: 24px;
 }
 #blocked_reason_window #comment_label {
 	color: #f75c5c;
@@ -120,33 +128,6 @@
 #blocked_reason_window .close_button > button:hover {
 	color: #000;
 }
-#blocked_reason_window .actions input[type="submit"],
-#blocked_reason_window .actions label.button {
-	background: #f1f1f1;
-	border: 1px solid #eaeaea;
-	border-radius: 0;
-	box-shadow: none;
-	color: #333333;
-	display: inline-block;
-	font-family: "Trebuchet MS";
-	font-size: 14px;
-	font-weight: bold;
-	line-height: 28px;
-	height: 30px;
-	padding: 0;
-	text-align: center;
-	vertical-align: middle;
-	width: 170px;
-	margin: 0;
-}
-#blocked_reason_window .actions input[type="submit"]:hover,
-#blocked_reason_window .actions label.button:hover {
-	background: #dddfde;
-}
-#blocked_reason_window .actions label.button {
-   height: 28px;
-   width: 168px;
-}
 
 span.blocked_reason_tag {
 	display: inline-block;
@@ -161,6 +142,9 @@ span.blocked_reason_tag {
 }
 span.blocked_reason_tag > a {
 	color: #000000;
+}
+span.blocked_reason_tag.label_type_3 > a {
+	color: white;
 }
 table.list.issues tr td{
 	vertical-align: middle;
@@ -198,4 +182,18 @@ div.block_reason.update_label + div div#button_bar {
 
 div.block_reason.add_label + div div#button_bar {
   left: 147px;
+}
+
+.blocked-reason-window-title {
+	margin-bottom: 20px;
+	text-align: center;
+}
+
+.button, input[type="submit"] {
+	line-height: 20px;
+}
+
+.button.remove {
+	margin-bottom: 1px;
+  margin-top: 1px;
 }

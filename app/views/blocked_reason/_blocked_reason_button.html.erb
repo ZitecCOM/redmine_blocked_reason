@@ -1,11 +1,7 @@
 <% blocked_reason = BlockedReason.find_or_create_for issue
-   if blocked_reason.new_record?
-     label_name = t('helpers.label.block_button')
-     css_class = 'icon icon-add'
-   else
-     label_name = t('helpers.label.edit_block_button')
-     css_class = 'icon icon-edit'
-   end %>
+   label_name = t('helpers.label.block_button')
+   css_class = 'icon icon-add'
+%>
 <div class="block_reason <%= blocked_reason.new_record? ? 'add_label' : 'update_label' %>">
   <%= link_to content_tag(:span, label_name), '', id: 'block_issue_button', class: css_class %>
   <div id='blocked_reason_window' style='display:none;'>
@@ -40,7 +36,7 @@
             <%= f.submit blocked_reason.new_record? ? t('helpers.label.create_button') : t('helpers.label.update_button'), id: 'new_blocked_reason_button' %>
           </div>
           <div>
-            <%= label_tag(:delete_unblocked_button, t('helpers.label.unblock_button'), id: 'removed_blocked_reason',class: 'button') unless blocked_reason.new_record? %>
+            <%= label_tag(:delete_unblocked_button, t('helpers.label.unblock_button'), id: 'removed_blocked_reason', class: 'button remove') unless blocked_reason.new_record? %>
           </div>
           <div class="close_button">
             <%=  button_tag(type: 'button', id: 'block_form_hide_button', class: 'margin_up button') do %>
