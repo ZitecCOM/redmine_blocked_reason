@@ -1,10 +1,13 @@
 $(document).on('click', function(event) {
   if (!$(event.target).closest('#blocked_reason_window').length && !$(event.target).closest('#block_issue_button').length) {
     $('#blocked_reason_window').hide();
+    var block_issue_button = $('#block_issue_button');
+    block_issue_button.unbind('click');
+    initialize_blocked_reason();
   }
 });
 
-$(document).ready(function() {
+function initialize_blocked_reason(){
   var block_issue_button = $('#block_issue_button');
   var blocked_reason_window = $('#blocked_reason_window');
   var block_form_hide_button = $('#block_form_hide_button');
@@ -24,7 +27,10 @@ $(document).ready(function() {
 
   blocked_reason_comment.val('');
 
-  block_issue_button.bind('click', function(event) {
+
+  block_issue_button.bind('click', show_window);
+
+  function show_window(event) {
     event.preventDefault();
     blocked_reason_window.show();
     var remove_label_input = $('#blocked_reason_blocked_reason_type_id_remove');
@@ -34,10 +40,19 @@ $(document).ready(function() {
     }
     switch_buttons();
     $('#blocked_reason_window #blocked_reason_comment').focus();
-  });
+    block_issue_button.bind('click', hide_window);
+  };
+
+  function hide_window(event) {
+    event.preventDefault();
+    blocked_reason_window.hide();
+    block_issue_button.unbind('click');
+    block_issue_button.bind('click', show_window);
+  };
 
   block_form_hide_button.bind('click', function() {
     blocked_reason_window.hide();
+    block_issue_button.bind('click', show_window);
   });
 
   new_blocked_reason_button.bind('click', function(event) {
@@ -83,6 +98,11 @@ $(document).ready(function() {
       comment_label.css('display','inline');
     }
   }
+
+};
+
+$(document).ready(function() {
+  initialize_blocked_reason();
 
   $('.brt_tooltip').tipr({
     'speed': 0,
