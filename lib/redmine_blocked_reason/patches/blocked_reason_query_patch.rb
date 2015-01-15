@@ -10,15 +10,15 @@ module RedmineBlockedReason
     end
     module InstanceMethods
       def available_filters_with_blocked_reasons
-        @available_filters = available_filters_without_blocked_reasons
+        available_filters = available_filters_without_blocked_reasons
         blocked_reason_filters = {
-          "blocked_reason" => {
+          'blocked_reason' => {
             :name => 'Blocked Reason',
             :type => :list_optional,
             :values => BlockedReasonType.where(removed: false).map {|b| [b.name, b.id.to_s] },
             :order => @available_filters.size + 1}
         }
-        @available_filters.merge!(blocked_reason_filters)
+        available_filters.merge!(blocked_reason_filters)
       end
 
       def sql_for_field_with_blocked_reasons(field, operator, value, db_table, db_field, is_custom_filter=false)
