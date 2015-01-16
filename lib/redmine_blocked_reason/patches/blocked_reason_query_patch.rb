@@ -16,7 +16,7 @@ module RedmineBlockedReason
             :name => 'Blocked Reason',
             :type => :list_optional,
             :values => BlockedReasonType.where(removed: false).map {|b| [b.name, b.id.to_s] },
-            :order => @available_filters.size + 1}
+            :order => available_filters.size + 1}
         }
         available_filters.merge!(blocked_reason_filters)
       end
