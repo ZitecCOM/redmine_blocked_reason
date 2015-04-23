@@ -133,7 +133,6 @@ span.blocked_reason_tag {
     display: inline-block;
     padding: 5px 15px;
     border-radius: 10px;
-    border: 1px solid #EFEFEF;
     text-decoration: none;
     font-weight: bold;
     box-shadow: 0px 0px 6px 1px rgba(35, 31, 32, 0.04);
@@ -146,6 +145,11 @@ span.blocked_reason_tag > a {
 span.blocked_reason_tag.label_type_3 > a {
     color: white;
 }
+
+table.list.issues span.blocked_reason_tag.label_type_3 > a {
+    color: white !important;
+}
+
 table.list.issues tr td{
     vertical-align: middle;
 }
