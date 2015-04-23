@@ -13,15 +13,11 @@ end
 
 Redmine::Plugin.register :redmine_blocked_reason do
   name 'Redmine Blocked Reason plugin'
-  author 'Author name'
-  description 'This is a plugin for Redmine'
-  version '0.0.1'
-  url 'http://example.com/path/to/plugin'
-  author_url 'http://example.com/about'
-
-  requires_redmine version: ['2.5.0','2.6.0']
-  # load order does not seem to work, see redmine/config/additional_enviornment.rb
-  # requires_redmine_plugin :redmine_new_issue_view, version: '0.0.1'
+  author 'Zitec'
+  description 'Add Blocked Reasons to Issues'
+  version '1.0.1'
+  url 'https://github.com/sdwolf/redmine_blocked_reason'
+  author_url 'http://zitec.ro'
 
   settings :default => {
     :default_enabled => false,
