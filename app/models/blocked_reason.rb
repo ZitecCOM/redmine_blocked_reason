@@ -16,17 +16,13 @@ class BlockedReason < ActiveRecord::Base
             I18n.t('blocked_reason') +  ' - ' + my.type_name
           end
         subject = my.issue.subject
-         "#{ tracker_name } ##{ issue_id } (#{ blocked_title }): #{ subject }"
+        "#{ tracker_name } ##{ issue_id } (#{ blocked_title }): #{ subject }"
       },
     url: proc {|my|
         { controller: 'issues', action: 'show', id: my.issue.id,
           project_id: my.project.id }
       },
     type: 'blocked-reason'
-
-  acts_as_activity_provider scope: includes([:project, :issue]),
-    author_key: :user_id, permission: :view_blocked_reasons_activity,
-    type: 'blocked_reason', timestamp: :created_at
 
   def self.find_or_create_for(issue)
     BlockedReason.where(issue_id: issue.id, active: true).first ||
