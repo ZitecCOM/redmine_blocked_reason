@@ -1,10 +1,9 @@
 <% blocked_reason = BlockedReason.find_or_create_for issue
    label_name = t('helpers.label.block_button')
-   css_class = 'icon icon-add'
    crud_label = blocked_reason.new_record? ? 'add_label' : 'update_label'
 %>
-<div class="block_reason <%= crud_label %>">
-  <%= link_to content_tag(:span, label_name), '', id: 'block_issue_button', class: css_class %>
+<span class="block_reason <%= crud_label %>">
+  <%= link_to content_tag(:span, label_name), '', id: 'block_issue_button' %>
   <div id='blocked_reason_window' style='display:none;'>
     <%= form_for blocked_reason, html: {class: 'blocked_reason_form'} do |f| %>
       <%= f.hidden_field :issue_id, value: issue.id %>
@@ -55,4 +54,4 @@
       <% end %>
     <% end %>
   </div>
-</div>
+</span>
