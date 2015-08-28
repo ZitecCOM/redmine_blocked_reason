@@ -1,3 +1,0 @@
-= redmine_blocked_reason
-
-Description goes here

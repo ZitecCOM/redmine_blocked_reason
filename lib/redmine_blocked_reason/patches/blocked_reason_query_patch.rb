@@ -1,13 +1,8 @@
-require_dependency 'query'
-if ActiveSupport::Dependencies::search_for_file('issue_query')
-  require_dependency 'issue_query'
-end
-
 module RedmineBlockedReason
   module Patches
     module BlockedReasonQueryPatch
       def self.included(base)
-        base.send(:include, InstanceMethods)
+        base.send :include, InstanceMethods
         base.class_eval do
           unloadable
           alias_method_chain :sql_for_field, :blocked_reasons
@@ -20,17 +15,16 @@ module RedmineBlockedReason
         def available_filters_with_blocked_reasons
           unless @available_filters
             available_filters_without_blocked_reasons.merge!({
-              'blocked_reason' => {
-                :name => 'Blocked Reason',
-                :type => :list_optional,
-                :values => BlockedReasonType.where(removed: false).map {|b| [b.name, b.id.to_s] },
-                :order => 201}
+              'blocked_reason' => { name: 'Blocked Reason', order: 201,
+                type: :list_optional,
+                values: BlockedReasonType.where(removed: false).map {|b| [b.name, b.id.to_s] }
+              }
             })
           end
           @available_filters
         end
 
-        def sql_for_field_with_blocked_reasons(field, operator, value, db_table, db_field, is_custom_filter=false)
+        def sql_for_field_with_blocked_reasons(field, operator, value, db_table, db_field, is_custom_filter = false)
           if field == 'blocked_reason'
             case operator
             when '='
@@ -64,7 +58,6 @@ module RedmineBlockedReason
   end
 end
 
-base = ActiveSupport::Dependencies::search_for_file('issue_query') ? IssueQuery : Query
-unless base.included_modules.include?(RedmineBlockedReason::Patches::BlockedReasonQueryPatch)
-  base.send(:include, RedmineBlockedReason::Patches::BlockedReasonQueryPatch)
-end
+base = IssueQuery
+new_module = RedmineBlockedReason::Patches::BlockedReasonQueryPatch
+base.send :include, new_module unless base.included_modules.include? new_module

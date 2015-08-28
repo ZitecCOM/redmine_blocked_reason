@@ -1,14 +1,8 @@
-require_dependency 'queries_helper'
-if ActiveSupport::Dependencies::search_for_file('issue_queries_helper')
-  require_dependency 'issue_queries_query'
-end
-
 module RedmineBlockedReason
   module Patches
     module BlockedReasonQueriesHelperPatch
       def self.included(base)
-        base.send(:include, InstanceMethods)
-
+        base.send :include, InstanceMethods
         base.class_eval do
           unloadable
           alias_method_chain :column_value, :blocked_reason_tag
@@ -25,7 +19,6 @@ module RedmineBlockedReason
   end
 end
 
-base = ActiveSupport::Dependencies::search_for_file('issue_queries_helper') ? IssueQueriesHelper : QueriesHelper
-unless base.included_modules.include?(RedmineBlockedReason::Patches::BlockedReasonQueriesHelperPatch)
-  base.send(:include, RedmineBlockedReason::Patches::BlockedReasonQueriesHelperPatch)
-end
+base = QueriesHelper
+new_module = RedmineBlockedReason::Patches::BlockedReasonQueriesHelperPatch
+base.send :include, new_module unless base.included_modules.include? new_module
