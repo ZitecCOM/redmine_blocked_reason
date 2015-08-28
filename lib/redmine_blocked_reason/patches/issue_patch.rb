@@ -14,6 +14,10 @@ module RedmineBlockedReason
       module InstanceMethods
         protected
 
+        def keep_old_status_id_value
+          @old_status_id_value = status_id_was
+        end
+
         def unblock_issue
           return true if status_id == @old_status_id_value
           blocked_reason = BlockedReason.where(issue_id: id, active: true).first
@@ -29,10 +33,6 @@ module RedmineBlockedReason
             journal.save!
           end
           true
-        end
-
-        def keep_old_status_id_value
-          @old_status_id_value = status_id_was
         end
       end
     end
