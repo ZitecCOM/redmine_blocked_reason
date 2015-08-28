@@ -131,7 +131,7 @@
 
 span.blocked_reason_tag {
   display: inline-block;
-  padding: 5px 15px;
+  padding: 0px 8px;
   border-radius: 10px;
   text-decoration: none;
   font-weight: bold;
