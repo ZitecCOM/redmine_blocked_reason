@@ -14,7 +14,7 @@ class BlockedReason < ActiveRecord::Base
     },
     type: 'blocked-reason'
 
-  acts_as_activity_provider find_options: {include: [:project,:issue]},
+  acts_as_activity_provider scope: includes([:project, :issue]),
     author_key: :user_id,
     permission: :view_blocked_reasons_activity,
     type: 'blocked_reason',
