@@ -1,4 +1,4 @@
-#blocked_reason_window {
+.block-modal {
   position:absolute;
   background: #fff;
   min-height: 185px;
@@ -6,8 +6,6 @@
   border: 1px solid #bcbcbc;
   padding: 15px 20px;
   width: 500px;
-  top: -23px;
-  left: 63px;
   color: black;
   font-family: "Trebuchet MS"
   font-size: 14px;
@@ -16,16 +14,16 @@
   -webkit-box-shadow: 0px 0px 10px 1px rgba(35, 31, 32, 0.18);
   z-index: 20000;
 }
-#blocked_reason_window .blocked-field-group-left {
+.block-modal .block-left {
   float: left;
   width: 190px;
 }
-#blocked_reason_window .blocked-field-group-right {
+.block-modal .block-right {
   margin-left: 30px;
   width: 280px;
   float: left;
 }
-#blocked_reason_window .blocked_reason_tag{
+.block-modal .block-tag{
   position: relative;
   display: inline-block;
   border: 1px solid rgba(0, 0, 0, 0.2);
@@ -35,14 +33,14 @@
   color: white;
   font-weight: bold;
 }
-.issue-title #blocked_reason_window h2.blocked-reason-window-title {
+.block-modal h2 {
   color: #272727;
   font-family: "Trebuchet MS";
   font-size: 15px;
   font-weight: 600;
   margin-bottom: 20px
 }
-#blocked_reason_window .radio-buttons .field {
+.block-modal .radio-buttons .field {
   color: #272727;
   font-family: "Trebuchet MS",Verdana,sans-serif;
   font-size: 14px;
@@ -52,40 +50,40 @@
   padding: 0 10px;
   width: 170px;
 }
-#blocked_reason_window .radio-buttons .field.label_type_1,
-.blocked_reason_tag.label_type_1 {
+.block-modal .radio-buttons .field.label_type_1,
+.block-tag.label_type_1 {
   background: #daf7e8;
   font-weight: bold;
 }
-#blocked_reason_window .radio-buttons .field.label_type_2,
-.blocked_reason_tag.label_type_2 {
+.block-modal .radio-buttons .field.label_type_2,
+.block-tag.label_type_2 {
   background: #daeaf1;
   font-weight: bold;
 }
-#blocked_reason_window .radio-buttons .field.label_type_3,
-.blocked_reason_tag.label_type_3 {
+.block-modal .radio-buttons .field.label_type_3,
+.block-tag.label_type_3 {
   background: #cc0000;
   font-weight: bold;
   color: white;
 }
-#blocked_reason_window .radio-buttons .field.label_remove {
+.block-modal .radio-buttons .field.label_remove {
   background: #22313f;
   color: #fff;
   font-weight: bold;
 }
-#blocked_reason_window .radio-buttons .field > input {
+.block-modal .radio-buttons .field > input {
   line-height: 30px;
   width: 10px;
   display: inline-block;
 }
-#blocked_reason_window .radio-buttons .field > label {
+.block-modal .radio-buttons .field > label {
   width: 155px;
   display: block;
   position: relative;
   top: -29px;
   left: 24px;
 }
-#blocked_reason_window #comment_label {
+.block-modal .comment-label {
   color: #f75c5c;
   font-family: "Trebuchet MS",Verdana,sans-serif;
   font-size: 12px;
@@ -93,7 +91,9 @@
   margin-bottom: 8px;
   display: block;
 }
-#blocked_reason_window .comment_text_area {
+.block-modal .comment-text {
+  position: relative;
+  left: -130px;
   height: 65px;
   width: 260px;
   padding: 10px;
@@ -106,15 +106,15 @@
   line-height: 17px;
   font-family: "Trebuchet MS",Verdana,sans-serif;
 }
-#blocked_reason_window .comment_text_area:focus {
+.block-modal .comment-text:focus {
   color: #272727;
 }
-#blocked_reason_window .close_button {
+.block-modal .close_button {
   position: absolute;
   right: 10px;
   top: 10px;
 }
-#blocked_reason_window .close_button > button {
+.block-modal .close_button > button {
   background: none;
   border: none;
   box-shadow: none;
@@ -125,11 +125,11 @@
   padding: 0;
   line-height: 1;
 }
-#blocked_reason_window .close_button > button:hover {
+.block-modal .close_button > button:hover {
   color: #000;
 }
 
-span.blocked_reason_tag {
+span.block-tag {
   display: inline-block;
   padding: 0px 8px;
   border-radius: 10px;
@@ -139,14 +139,14 @@ span.blocked_reason_tag {
   -moz-box-shadow:  0px 0px 6px 1px rgba(35, 31, 32, 0.04);
   -webkit-box-shadow: 0px 0px 6px 1px rgba(35, 31, 32, 0.04);
 }
-span.blocked_reason_tag > a {
+span.block-tag > a {
   color: #000000;
 }
-span.blocked_reason_tag.label_type_3 > a {
+span.block-tag.label_type_3 > a {
   color: white;
 }
 
-table.list.issues span.blocked_reason_tag.label_type_3 > a {
+table.list.issues span.block-tag.label_type_3 > a {
   color: white !important;
 }
 
@@ -161,9 +161,9 @@ table.list.issues tr td{
 }
 
 .block_reason a {
-  background: linear-gradient(to bottom, #e7e7e7 0%, #d3d3d3 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  margin-top: 1px;
   border: 1px solid #000;
-  border-radius: 5px;
+  border-radius: 3px;
   color: #353e47;
   font-weight: normal;
   padding: 4px 6px;
@@ -172,20 +172,20 @@ table.list.issues tr td{
 }
 
 .block_reason a:hover {
-  background: linear-gradient(to bottom, #d3d3d3 0%, #e7e7e7 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+  background: linear-gradient(to bottom, #e7e7e7 0%, #f7f7f7 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
   text-decoration: none;
 }
 
-#block_issue_button > span {
+.block_issue_button > span {
   background: url("../images/icons.png") no-repeat scroll left -302px rgba(0, 0, 0, 0);
   padding-left: 16px;
 }
 
-.js-issue-header.lb_fixed div.block_reason.add_label + div div#button_bar {
+.block_reason.add-label + div div.button_bar {
   left: 200px;
 }
 
-.blocked-reason-window-title {
+.block-title {
   margin-bottom: 20px;
 }
 
