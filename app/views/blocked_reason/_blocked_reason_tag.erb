@@ -1,4 +1,3 @@
-<% blocked_reason = BlockedReason.where(issue_id: issue.id, active: true).first %>
 <% options = { controller: 'issues', action: 'index', set_filter: 1,
       fields: [:status_id, :blocked_reason], operators: {
         status_id: 'o', blocked_reason: '=' },
@@ -6,8 +5,6 @@
         blocked_reason: [(blocked_reason.blocked_reason_type_id if blocked_reason)]
       }
     } %>
-<% if blocked_reason %>
-  <span data-tip='<%= blocked_reason.comment %>' class='blocked_reason_tag brt_tooltip <%= blocked_reason.type_css_class %>'>
-    <%= link_to blocked_reason.type_name, options %>
-  </span>
-<% end %>
+<span data-tip='<%= blocked_reason.comment %>' class='blocked_reason_tag brt_tooltip <%= blocked_reason.type_css_class %>'>
+  <%= link_to blocked_reason.type_name, options %>
+</span>

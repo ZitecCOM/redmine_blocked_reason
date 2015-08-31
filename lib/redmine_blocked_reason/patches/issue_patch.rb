@@ -8,6 +8,10 @@ module RedmineBlockedReason
           has_one :blocked_reason
           before_save :keep_old_status_id_value
           after_save :unblock_issue
+
+          # The default_scope seems to be the only way to add custom
+          # associations to models
+          default_scope { includes :blocked_reason }
         end
       end
 
