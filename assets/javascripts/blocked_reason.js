@@ -1,7 +1,7 @@
 'use strict';
 
-var BlockWindow = (function ($) {
-  var self = function (root) {
+var BlockWindow = (function (me, $) {
+  var self = me || function (root) {
     this.root = root;
     this.button = this.root.find('.block-button');
     this.modal = this.root.find('.block-modal');
@@ -11,7 +11,7 @@ var BlockWindow = (function ($) {
   var def = self.prototype;
 
   def.showModal = function () {
-    var commentText = this.modal.find('.comment-text');
+    var commentText = this.modal.find('.comment');
     this.modal.show();
     commentText.focus();
   };
@@ -31,17 +31,59 @@ var BlockWindow = (function ($) {
     }.bind(this));
   };
 
-  // def.addModalClickEvents = function () {
+  def.blocked_comment_completed = function () {
+    var comment = this.root.find('.comment');
+    if (comment.val().length === 0 || !comment.val().trim()) {
+      comment.attr('style', 'border-color:red;');
+      return false;
+    }
+    comment.attr('style', 'border-color:#ccc;');
+    return true;
+  };
 
-  // };
+  def.blocked_reason_label_selected = function () {
+    var title = this.root.find('h2');
+    if ($('input[type=radio]:checked')[0]) {
+      title.attr('style', 'color:#272727;');
+      return true;
+    }
+    title.attr('style', 'color:#f75c5c;');
+    return false;
+  };
+
+  def.create_new_blocked_reason = function () {
+    console.log('post');
+  };
+
+  def.remove_blocked_reason = function () {
+    console.log('delete');
+  };
+
+  def.addModalClickEvents = function () {
+    this.root.find('.block-hide').on('click', function (event) {
+      event.preventDefault();
+      this.root.hide();
+    }.bind(this));
+    this.root.find('.new-block').on('click', function (event) {
+      event.preventDefault();
+      if (this.blocked_comment_completed() &&
+          this.blocked_reason_label_selected()) {
+        this.create_new_blocked_reason();
+      }
+    }.bind(this));
+    this.root.find('.unblock').on('click', function (event) {
+      event.preventDefault();
+      this.remove_blocked_reason();
+    }.bind(this));
+  };
 
   def.initialize = function () {
     this.addButtonClickEvents();
-    // this.addModalClickEvents();
+    this.addModalClickEvents();
   };
 
   return self;
-}($));
+}(BlockWindow, $));
 
 $(function () {
   $.map($('span.block-reason'), function (element) {
@@ -49,75 +91,3 @@ $(function () {
   });
   $('.brt_tooltip').tipr({ 'speed': 0, 'mode': 'bottom' });
 });
-
-//   blockButton.on('click', show_window);
-
-//   function show_window(event) {
-//     event.preventDefault();
-//     blocked_reason_window.show();
-//     var remove_label_input = $('#blocked_reason_blocked_reason_type_id_remove');
-//     if (remove_label_input[0]) {
-//       remove_label_input.prop("checked", true);
-//       comment_label.css('display','none');
-//     }
-//     switch_buttons();
-//     $('.block-modal .blocked_reason_comment').focus();
-//     blockButton.bind('click', hide_window);
-//   };
-
-//   function hide_window(event) {
-//     event.preventDefault();
-//     blocked_reason_window.hide();
-//     blockButton.unbind('click');
-//     blockButton.bind('click', show_window);
-//   };
-
-//   block_form_hide_button.bind('click', function () {
-//     blocked_reason_window.hide();
-//     blockButton.bind('click', show_window);
-//   });
-
-//   new_blocked_reason_button.bind('click', function (event) {
-//     event.preventDefault();
-//     if (blocked_comment_completed() && blocked_reason_label_selected()){
-//       $('.blocked_reason_form').submit();
-//     }
-//   });
-
-//   delete_blocked_reason_button.bind('click', function (event) {
-//     event.preventDefault();
-//     $('#deleted_comment').val(blocked_reason_comment.val());
-//     $('#delete_button_form').submit();
-//   });
-
-//   function blocked_comment_completed() {
-//     if (blocked_reason_comment.val().length === 0 || !blocked_reason_comment.val().trim()) {
-//       blocked_reason_comment.attr('style', 'border-color:red;');
-//       return false;
-//     }
-//     blocked_reason_comment.attr('style', 'border-color:#ccc;');
-//     return true;
-//   };
-
-//   function blocked_reason_label_selected() {
-//     if ($('input[type=radio]:checked')[0]) {
-//       blocked_title.attr('style', 'color:#272727;');
-//       return true;
-//     }
-//     blocked_title.attr('style', 'color:#f75c5c;');
-//     return false;
-//   };
-
-//   function switch_buttons() {
-//     if ($('input[type=radio]:checked', '.block-modal').val() == 'remove'){
-//       new_blocked_reason_button.hide();
-//       remove_blocked_reason_label.show();
-//       comment_label.css('display','none');
-//     }
-//     else{
-//       new_blocked_reason_button.show();
-//       remove_blocked_reason_label.hide();
-//       comment_label.css('display','inline');
-//     }
-//   }
-// };

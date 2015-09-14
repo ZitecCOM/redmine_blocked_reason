@@ -93,7 +93,7 @@
 }
 .block-modal .comment {
   position: relative;
-  left: -130px;
+  left: 0px;
   height: 65px;
   width: 260px;
   padding: 10px;
