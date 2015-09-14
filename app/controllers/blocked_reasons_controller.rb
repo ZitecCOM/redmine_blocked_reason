@@ -69,25 +69,23 @@ class BlockedReasonsController < ApplicationController
 
   def issue_is_editable
     @issue = Issue.find params[:blocked_reason][:issue_id]
-    redirect_to @issue, flash: {
-      error: I18n.t('helpers.error.blocked_permission_denied')
-    } and return unless @issue.editable?
+    render json: { error: I18n.t('helpers.error.blocked_permission_denied') },
+      status: 400 and return unless @issue.editable?
   end
 
   def find_blocked_reason_type
     @blocked_reason_type = BlockedReasonType.where(removed: false,
       id: params[:blocked_reason][:blocked_reason_type][:id]).first
-    redirect_to @issue,
-      flash: { error: I18n.t('helpers.error.blocking_issue') } and
-        return unless @blocked_reason_type
+    render json: { error: I18n.t('helpers.error.blocking_issue') },
+      status: 400 and return unless @blocked_reason_type
   end
 
   def find_current_blocked_reason
     @current_blocked_reason = BlockedReason.where(issue_id: @issue.id,
       active: true).first
-    redirect_to @issue,
-      flash: { error: I18n.t('helpers.error.unblocking_issue') } and
-        return if @current_blocked_reason.nil? && params[:action] == :destroy
+    render json: { error: I18n.t('helpers.error.unblocking_issue') },
+      status: 400 and return if @current_blocked_reason.nil? &&
+        params[:action] == :destroy
   end
 
   def create_new_blocked_reason_and_watcher
