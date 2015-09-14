@@ -51,26 +51,41 @@ var BlockWindow = (function (me, $) {
     return false;
   };
 
-  def.create_new_blocked_reason = function () {
-    var data = { blocked_reason: {
+  def.retrieve_blocked_reason_data = function () {
+    return { blocked_reason: {
       comment: this.modal.find('.comment').val(),
       issue_id: this.modal.find('.issue-id').val(),
       blocked_reason_type: {
         id: this.modal.find('input[type=radio]:checked').val()
       }
     }};
+  };
+
+  def.create_new_blocked_reason = function () {
     $.ajax({
       dataType: 'json',
       method: 'POST',
       url: '/blocked_reasons/',
-      data: data
+      data: this.retrieve_blocked_reason_data()
     }).done(function (response) {
+      location.reload(true);
     }).fail(function (reason) {
+      console.log('Something happeded')
     });
   };
 
   def.remove_blocked_reason = function () {
-    console.log('delete');
+    var id = this.modal.find('.block-reason-id').val();
+    $.ajax({
+      dataType: 'json',
+      method: 'DELETE',
+      url: '/blocked_reasons/' + id,
+      data: this.retrieve_blocked_reason_data()
+    }).done(function (response) {
+      location.reload();
+    }).fail(function (reason) {
+      console.log('Something happeded');
+    });
   };
 
   def.addModalClickEvents = function () {

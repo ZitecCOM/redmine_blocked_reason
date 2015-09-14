@@ -6,6 +6,7 @@
   <%= link_to content_tag(:span, label_name), '', class: 'block-button' %>
   <div class="block-modal" style='display:none;'>
     <%= hidden_field_tag :issue_id, issue.id, class: 'issue-id' %>
+    <%= hidden_field_tag :block_reason_id, block_reason.id, class: 'block-reason-id' if block_reason.id %>
     <h2>
       <%= block_reason.new_record? ? t('helpers.label.block_reason.title_new') : t('helpers.label.block_reason.title_update') %>
     </h2>
@@ -30,17 +31,10 @@
         <%= label_tag :comment, t('helpers.label.block_reason.comment'), class: 'comment-label' %>
         <%= text_area_tag :comment, '', size: '40x3', class: 'comment wiki-edit', placeholder: 'Comment...' %>
       </div>
-      <div class="actions">
-        <div>
-          <%= link_to block_reason.new_record? ? t('helpers.label.create_button') : t('helpers.label.update_button'), '#', class: 'new-block' %>
-        </div>
-        <div>
-          <%= label_tag(:delete_unblock_button, t('helpers.label.unblock_button'), class: 'button remove remove-block') unless block_reason.new_record? %>
-        </div>
-        <div class="buttons">
-          <%= link_to t('helpers.label.cancel_button'), '#', class: 'button block-hide' %>
-          <%= link_to t('helpers.label.unblock_button'), '#', class: 'unblock' %>
-        </div>
+      <div class="buttons">
+        <%= link_to block_reason.new_record? ? t('helpers.label.create_button') : t('helpers.label.update_button'), '#', class: 'new-block' %>
+        <%= link_to t('helpers.label.cancel_button'), '#', class: 'button block-hide' %>
+        <%= link_to t('helpers.label.unblock_button'), '#', class: 'unblock' %>
       </div>
     </div>
   </div>

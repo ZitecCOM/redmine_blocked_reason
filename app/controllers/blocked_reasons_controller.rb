@@ -52,7 +52,7 @@ class BlockedReasonsController < ApplicationController
     comment = I18n.t('unblocked_reason') if comment.blank?
     unblocked_reason = BlockedReason.new(comment: comment, unblocker: true,
       blocked_reason_type_id: @current_blocked_reason[:blocked_reason_type_id],
-      issue_id: @issue[:id], active: false, user_id: User.current.id)
+      issue_id: @issue.id, active: false, user_id: User.current.id)
     saving_with_issue_transaction do
       @current_blocked_reason.save!
       unblocked_reason.save!
@@ -94,7 +94,7 @@ class BlockedReasonsController < ApplicationController
     comment = params[:blocked_reason][:comment]
     comment = I18n.t('blocked_reason') if comment.blank?
     @new_blocked_reason = BlockedReason.new comment: comment,
-      blocked_reason_type_id: @blocked_reason_type[:id], issue_id: @issue[:id],
+      blocked_reason_type_id: @blocked_reason_type[:id], issue_id: @issue.id,
       active: true, user_id: User.current.id, unblocker: false
     @watcher = Watcher.where(watchable_type: 'Issue', watchable_id: @issue.id,
       user_id: User.current.id).first_or_create
