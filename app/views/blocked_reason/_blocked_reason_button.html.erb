@@ -5,7 +5,7 @@
 <span class="block-reason <%= crud_label %>">
   <%= link_to content_tag(:span, label_name), '', class: 'block-button' %>
   <div class="block-modal" style='display:none;'>
-    <%= hidden_field_tag :issue_id, value: issue.id %>
+    <%= hidden_field_tag :issue_id, issue.id, class: 'issue-id' %>
     <h2>
       <%= block_reason.new_record? ? t('helpers.label.block_reason.title_new') : t('helpers.label.block_reason.title_update') %>
     </h2>

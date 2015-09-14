@@ -54,6 +54,7 @@ var BlockWindow = (function (me, $) {
   def.create_new_blocked_reason = function () {
     var data = { blocked_reason: {
       comment: this.modal.find('.comment').val(),
+      issue_id: this.modal.find('.issue-id').val(),
       blocked_reason_type: {
         id: this.modal.find('input[type=radio]:checked').val()
       }

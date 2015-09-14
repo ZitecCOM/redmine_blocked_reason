@@ -19,7 +19,7 @@ class BlockedReasonsController < ApplicationController
         prop_key: 'blocked_reason', value: @new_blocked_reason.type_name)
       journal.save!
       @issue.touch
-      redirect_to @issue, notice: I18n.t('helpers.success.blocked_issue')
+      render json: { success: I18n.t('helpers.success.blocked_issue') }
     end
   end
 
@@ -42,7 +42,7 @@ class BlockedReasonsController < ApplicationController
       end
       journal.save!
       @issue.touch
-      redirect_to @issue, notice: I18n.t('helpers.success.blocked_issue')
+      render json: { success: I18n.t('helpers.success.blocked_issue') }
     end
   end
 
@@ -61,7 +61,7 @@ class BlockedReasonsController < ApplicationController
         prop_key: 'blocked_status', value: I18n.t('unblocked_reason'))
       journal.save!
       @issue.touch
-      redirect_to @issue, notice: I18n.t('helpers.success.unblocked_issue')
+      render json: { success: I18n.t('helpers.success.unblocked_issue') }
     end
   end
 
@@ -112,7 +112,7 @@ class BlockedReasonsController < ApplicationController
             else
               I18n.t('helpers.error.blocking_issue')
             end
-          redirect_to @issue, flash: { error: error_text }
+          render json: { error: error_text }, status: 400
         end
       end
     end
