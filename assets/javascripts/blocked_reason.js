@@ -43,7 +43,7 @@ var BlockWindow = (function (me, $) {
 
   def.blocked_reason_label_selected = function () {
     var title = this.root.find('h2');
-    if ($('input[type=radio]:checked')[0]) {
+    if (this.modal.find('input[type=radio]:checked')[0]) {
       title.attr('style', 'color:#272727;');
       return true;
     }
@@ -52,7 +52,20 @@ var BlockWindow = (function (me, $) {
   };
 
   def.create_new_blocked_reason = function () {
-    console.log('post');
+    var data = { blocked_reason: {
+      comment: this.modal.find('.comment').val(),
+      blocked_reason_type: {
+        id: this.modal.find('input[type=radio]:checked').val()
+      }
+    }};
+    $.ajax({
+      dataType: 'json',
+      method: 'POST',
+      url: '/blocked_reasons/',
+      data: data
+    }).done(function (response) {
+    }).fail(function (reason) {
+    });
   };
 
   def.remove_blocked_reason = function () {
@@ -62,7 +75,7 @@ var BlockWindow = (function (me, $) {
   def.addModalClickEvents = function () {
     this.root.find('.block-hide').on('click', function (event) {
       event.preventDefault();
-      this.root.hide();
+      this.modal.hide();
     }.bind(this));
     this.root.find('.new-block').on('click', function (event) {
       event.preventDefault();
