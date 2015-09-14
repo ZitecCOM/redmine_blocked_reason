@@ -1,6 +1,6 @@
 ActionDispatch::Callbacks.to_prepare do
   paths = '/lib/redmine_blocked_reason/{patches/*_patch,hooks/*_hook}.rb'
-  Dir.glob(File.dirname(__FILE__) + paths).each do |file|
+  Dir.glob(File.dirname(__FILE__) << paths).each do |file|
     require_dependency file
   end
 end
@@ -15,7 +15,6 @@ Redmine::Plugin.register :redmine_blocked_reason do
 
   settings default: { default_enabled: false },
     partial: 'blocked_reason_types/plugin'
-
   project_module :blocked_reason do
     permission :edit_blocked_reasons, { blocked_reason: [:update],
       require: :member }

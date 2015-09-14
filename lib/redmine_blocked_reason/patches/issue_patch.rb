@@ -44,5 +44,5 @@ module RedmineBlockedReason
 end
 
 base = Issue
-new_module = RedmineBlockedReason::Patches::IssuePatch
-base.send :include, new_module unless base.included_modules.include? new_module
+patch = RedmineBlockedReason::Patches::IssuePatch
+base.send :include, patch unless base.included_modules.include? patch

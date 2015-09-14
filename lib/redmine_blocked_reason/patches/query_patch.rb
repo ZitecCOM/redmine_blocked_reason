@@ -1,6 +1,6 @@
 module RedmineBlockedReason
   module Patches
-    module IssueQueryPatch
+    module QueryPatch
       def self.included(base)
         base.send :include, InstanceMethods
         base.class_eval do
@@ -58,6 +58,6 @@ module RedmineBlockedReason
   end
 end
 
-base = IssueQuery
-new_module = RedmineBlockedReason::Patches::IssueQueryPatch
-base.send :include, new_module unless base.included_modules.include? new_module
+base = Query
+patch = RedmineBlockedReason::Patches::QueryPatch
+base.send :include, patch unless base.included_modules.include? patch

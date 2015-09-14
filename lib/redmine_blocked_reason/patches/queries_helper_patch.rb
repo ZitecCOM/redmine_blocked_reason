@@ -20,5 +20,5 @@ module RedmineBlockedReason
 end
 
 base = QueriesHelper
-new_module = RedmineBlockedReason::Patches::QueriesHelperPatch
-base.send :include, new_module unless base.included_modules.include? new_module
+patch = RedmineBlockedReason::Patches::QueriesHelperPatch
+base.send :include, patch unless base.included_modules.include? patch
