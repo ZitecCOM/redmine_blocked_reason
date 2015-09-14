@@ -74,6 +74,20 @@ var BlockWindow = (function (me, $) {
     });
   };
 
+  def.update_blocked_reason = function () {
+    var id = this.modal.find('.block-reason-id').val();
+    $.ajax({
+      dataType: 'json',
+      method: 'PUT',
+      url: '/blocked_reasons/' + id,
+      data: this.retrieve_blocked_reason_data()
+    }).done(function (response) {
+      location.reload(true);
+    }).fail(function (reason) {
+      console.log('Something happeded')
+    });
+  };
+
   def.remove_blocked_reason = function () {
     var id = this.modal.find('.block-reason-id').val();
     $.ajax({
@@ -100,7 +114,14 @@ var BlockWindow = (function (me, $) {
         this.create_new_blocked_reason();
       }
     }.bind(this));
-    this.root.find('.unblock').on('click', function (event) {
+    this.root.find('.update-block').on('click', function (event) {
+      event.preventDefault();
+      if (this.blocked_comment_completed() &&
+          this.blocked_reason_label_selected()) {
+        this.update_blocked_reason();
+      }
+    }.bind(this));
+    this.root.find('.remove-block').on('click', function (event) {
       event.preventDefault();
       this.remove_blocked_reason();
     }.bind(this));
