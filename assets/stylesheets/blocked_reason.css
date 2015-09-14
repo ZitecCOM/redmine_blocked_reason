@@ -91,7 +91,7 @@
   margin-bottom: 8px;
   display: block;
 }
-.block-modal .comment-text {
+.block-modal .comment {
   position: relative;
   left: -130px;
   height: 65px;
@@ -106,15 +106,15 @@
   line-height: 17px;
   font-family: "Trebuchet MS",Verdana,sans-serif;
 }
-.block-modal .comment-text:focus {
+.block-modal .comment:focus {
   color: #272727;
 }
-.block-modal .close_button {
+.block-modal .block-hide {
   position: absolute;
   right: 10px;
   top: 10px;
 }
-.block-modal .close_button > button {
+.block-modal a.block-hide >  {
   background: none;
   border: none;
   box-shadow: none;
@@ -125,10 +125,9 @@
   padding: 0;
   line-height: 1;
 }
-.block-modal .close_button > button:hover {
+.block-modal a.block-hide:hover {
   color: #000;
 }
-
 span.block-tag {
   display: inline-block;
   padding: 0px 8px;
@@ -145,55 +144,16 @@ span.block-tag > a {
 span.block-tag.label_type_3 > a {
   color: white;
 }
-
 table.list.issues span.block-tag.label_type_3 > a {
   color: white !important;
 }
-
 table.list.issues tr td{
   vertical-align: middle;
 }
-
-.block_reason {
-  float: left;
-  padding-left: 0;
-  margin-right: 10px;
-}
-
-.block_reason a {
-  margin-top: 1px;
-  border: 1px solid #000;
-  border-radius: 3px;
-  color: #353e47;
-  font-weight: normal;
-  padding: 4px 6px;
-  display: inline-block;
-  margin-right: 2px;
-}
-
-.block_reason a:hover {
-  background: linear-gradient(to bottom, #e7e7e7 0%, #f7f7f7 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
-  text-decoration: none;
-}
-
-.block_issue_button > span {
-  background: url("../images/icons.png") no-repeat scroll left -302px rgba(0, 0, 0, 0);
+.block-button > span {
+  background: url("../images/icons.png") no-repeat scroll left -303px rgba(0, 0, 0, 0);
   padding-left: 16px;
 }
-
-.block_reason.add-label + div div.button_bar {
-  left: 200px;
-}
-
 .block-title {
   margin-bottom: 20px;
-}
-
-.button, input[type="submit"] {
-  line-height: 20px;
-}
-
-.button.remove {
-  margin-bottom: 1px;
-  margin-top: 1px;
 }

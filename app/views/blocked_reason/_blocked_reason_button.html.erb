@@ -13,33 +13,33 @@
       <div class="radio-buttons">
         <% unless block_reason.new_record? %>
             <div class="field label-remove" >
-              <%= radio_button_tag 'block_reason[block_reason_type][id]', 'remove' ,checked: true %>
+              <%= radio_button_tag 'block_reason_type', 'remove', checked: true %>
               <%= label_tag 'block_reason_block_reason_type_id_remove', t('helpers.label.remove_label') %>
             </div>
         <% end %>
         <% all_reasons.each do |reason| %>
           <div class="field <%= reason.css_class %>" >
-            <%= radio_button_tag :reason, reason.id, checked: reason.id == block_reason.blocked_reason_type_id %>
-            <%= label_tag reason.id, reason.name, value: reason.id %>
+            <%= radio_button_tag "block_reason_type", reason.id, checked: reason.id == block_reason.blocked_reason_type_id %>
+            <%= label_tag "block_reason_type_#{ reason.id }", reason.name %>
           </div>
         <% end %>
       </div>
     </div>
     <div class="block-right">
       <div class="field">
-        <%= label_tag t('helpers.label.block_reason.comment'), class: 'comment-label' %>
+        <%= label_tag :comment, t('helpers.label.block_reason.comment'), class: 'comment-label' %>
         <%= text_area_tag :comment, '', size: '40x3', class: 'comment-text wiki-edit', placeholder: 'Comment...' %>
       </div>
       <div class="actions">
         <div>
-          <%= link_to block_reason.new_record? ? t('helpers.label.create_button') : t('helpers.label.update_button'), class: 'new_block_reason_button' %>
+          <%= link_to block_reason.new_record? ? t('helpers.label.create_button') : t('helpers.label.update_button'), '#', class: 'new-block' %>
         </div>
         <div>
-          <%= label_tag(:delete_unblock_button, t('helpers.label.unblock_button'), class: 'button remove removed_block_reason') unless block_reason.new_record? %>
+          <%= label_tag(:delete_unblock_button, t('helpers.label.unblock_button'), class: 'button remove remove-block') unless block_reason.new_record? %>
         </div>
         <div class="buttons">
-          <%= link_to t('helpers.label.cancel_button'), class: 'button block-hide' %>
-          <%= link_to t('helpers.label.unblock_button'), class: 'unblock' %>
+          <%= link_to t('helpers.label.cancel_button'), '#', class: 'button block-hide' %>
+          <%= link_to t('helpers.label.unblock_button'), '#', class: 'unblock' %>
         </div>
       </div>
     </div>

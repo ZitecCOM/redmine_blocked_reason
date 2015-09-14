@@ -11,7 +11,7 @@ en:
   type_attribute_css_class: CSS class
   helpers:
     label:
-      blocked_reason:
+      block_reason:
         blocked_reason_type_id: Reason
         comment: Comment is required
         title_new: Why are you blocked?
