@@ -74,9 +74,10 @@ var BlockWindow = (function (me, $) {
       url: '/blocked_reasons/',
       data: this.retrieve_blocked_reason_data(modal)
     }).done(function (response) {
+      modal.remove();
       location.reload(true);
     }).fail(function (reason) {
-      console.log('Something happeded')
+      console.log('Could not create blocked reason!')
     });
   };
 
@@ -88,9 +89,10 @@ var BlockWindow = (function (me, $) {
       url: '/blocked_reasons/' + id,
       data: this.retrieve_blocked_reason_data(modal)
     }).done(function (response) {
+      modal.remove();
       location.reload(true);
     }).fail(function (reason) {
-      console.log('Something happeded')
+      console.log('Could not update blocked reason!')
     });
   };
 
@@ -102,9 +104,10 @@ var BlockWindow = (function (me, $) {
       url: '/blocked_reasons/' + id,
       data: this.retrieve_blocked_reason_data(modal)
     }).done(function (response) {
-      location.reload();
+      modal.remove();
+      location.reload(true);
     }).fail(function (reason) {
-      console.log('Something happeded');
+      console.log('Could not remove blocked reason!')
     });
   };
 
