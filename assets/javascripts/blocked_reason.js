@@ -15,6 +15,7 @@ var BlockWindow = (function (me, $) {
     parent.find('.block-modal').remove();
     parent.append(modal);
     this.addModalClickEvents(modal);
+    this.showCorrectFieldsIn(modal)
     modal.show();
     commentText.focus();
   };
@@ -128,6 +129,23 @@ var BlockWindow = (function (me, $) {
       event.preventDefault();
       this.remove_blocked_reason();
     }.bind(this));
+  };
+
+  def.showCorrectFieldsIn = function (modal) {
+    var type_id = modal.find('.block-reason-type-id').val();
+    var new_reason = modal.find('.block-reason-id').val().length == 0
+    if (new_reason) {
+      modal.find('.title-new').show();
+      modal.find('.title-update').hide();
+      modal.find('.label-remove').hide();
+      modal.find('input[type=radio]:checked').prop('checked', false);
+    } else {
+      modal.find('.title-new').hide();
+      modal.find('.title-update').show();
+      modal.find('.label-remove').show();
+      modal.find('input[type=radio]:checked').prop('checked', false);
+      modal.find('.radio-buttons input[value="'+ type_id + '"]').prop('checked', true);
+    }
   };
 
   def.initialize = function () {
