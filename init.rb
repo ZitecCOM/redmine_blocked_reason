@@ -6,7 +6,7 @@ ActionDispatch::Callbacks.to_prepare do
 end
 
 Redmine::Plugin.register :redmine_blocked_reason do
-  name 'Redmine Blocked Reason plugin'
+  name 'Blocked Reason'
   author 'Zitec'
   description 'Add Blocked Reasons to Issues'
   version '1.0.1'
