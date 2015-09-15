@@ -1,45 +1,6 @@
 <%  block_reason = BlockedReason.find_or_create_for issue
     label_name = t 'helpers.label.block_button'
-    crud_label = block_reason.new_record? ? 'add-label' : 'update-label'
-    all_reasons = BlockedReasonType.where(removed: false).order(:created_at) %>
+    crud_label = block_reason.new_record? ? 'add-label' : 'update-label' %>
 <span class="block-reason <%= crud_label %>">
   <%= link_to content_tag(:span, label_name), '', class: 'block-button' %>
-  <div class="block-modal" style='display:none;'>
-    <%= hidden_field_tag :issue_id, issue.id, class: 'issue-id' %>
-    <%= hidden_field_tag :block_reason_id, block_reason.id, class: 'block-reason-id' if block_reason.id %>
-    <h2>
-      <%= block_reason.new_record? ? t('helpers.label.block_reason.title_new') : t('helpers.label.block_reason.title_update') %>
-    </h2>
-    <div class="block-left">
-      <div class="radio-buttons">
-        <% unless block_reason.new_record? %>
-            <div class="field label_remove" >
-              <%= radio_button_tag 'block_reason_type', 'remove', checked: true %>
-              <%= label_tag 'block_reason_type_remove', t('helpers.label.remove_label') %>
-            </div>
-        <% end %>
-        <% all_reasons.each do |reason| %>
-          <div class="field <%= reason.css_class %>" >
-            <%= radio_button_tag 'block_reason_type', reason.id, checked: reason.id == block_reason.blocked_reason_type_id %>
-            <%= label_tag "block_reason_type_#{ reason.id }", reason.name %>
-          </div>
-        <% end %>
-      </div>
-    </div>
-    <div class="block-right">
-      <div class="field">
-        <%= label_tag :comment, t('helpers.label.block_reason.comment'), class: 'comment-label' %>
-        <%= text_area_tag :comment, '', size: '40x3', class: 'comment wiki-edit', placeholder: 'Comment...' %>
-      </div>
-      <div class="buttons">
-        <% if block_reason.new_record? %>
-          <%= link_to t('helpers.label.create_button'), '#', class: 'new-block' %>
-        <% else %>
-          <%= link_to t('helpers.label.update_button'), '#', class: 'update-block' %>
-        <% end %>
-        <%= link_to t('helpers.label.unblock_button'), '#', class: 'remove-block' %>
-        <%= link_to t('helpers.label.cancel_button'), '#', class: 'button block-hide' %>
-      </div>
-    </div>
-  </div>
 </span>
