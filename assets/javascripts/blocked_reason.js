@@ -129,6 +129,20 @@ var BlockWindow = (function (me, $) {
       event.preventDefault();
       this.remove_blocked_reason();
     }.bind(this));
+
+    modal.find('.radio-buttons input').on('change', function (event) {
+
+      if (event.target.value === 'remove') {
+        modal.find('.update-block').hide();
+        modal.find('.remove-block').show();
+      } else {
+        var new_reason = modal.find('.block-reason-id').val().length == 0
+        modal.find('.remove-block').hide();
+        if (!new_reason) {
+          modal.find('.update-block').show();
+        }
+      }
+    }.bind(this));
   };
 
   def.showCorrectFieldsIn = function (modal) {
@@ -138,11 +152,17 @@ var BlockWindow = (function (me, $) {
       modal.find('.title-new').show();
       modal.find('.title-update').hide();
       modal.find('.label-remove').hide();
+      modal.find('.new-block').show();
+      modal.find('.update-block').hide();
+      modal.find('.remove-block').hide();
       modal.find('input[type=radio]:checked').prop('checked', false);
     } else {
       modal.find('.title-new').hide();
       modal.find('.title-update').show();
       modal.find('.label-remove').show();
+      modal.find('.new-block').hide();
+      modal.find('.update-block').show();
+      modal.find('.remove-block').hide();
       modal.find('input[type=radio]:checked').prop('checked', false);
       modal.find('.radio-buttons input[value="'+ type_id + '"]').prop('checked', true);
     }
