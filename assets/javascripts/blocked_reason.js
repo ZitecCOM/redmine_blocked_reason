@@ -35,8 +35,8 @@ var BlockWindow = (function (me, $) {
     }.bind(this));
   };
 
-  def.blocked_comment_completed = function () {
-    var comment = this.root.find('.comment');
+  def.blocked_comment_completed = function (modal) {
+    var comment = modal.find('.comment');
     if (comment.val().length === 0 || !comment.val().trim()) {
       comment.attr('style', 'border-color:red;');
       return false;
@@ -45,9 +45,11 @@ var BlockWindow = (function (me, $) {
     return true;
   };
 
-  def.blocked_reason_label_selected = function () {
-    var title = this.root.find('h2');
-    if (this.root.find('input[type=radio]:checked')[0]) {
+  def.blocked_reason_label_selected = function (modal) {
+    var title = modal.find('h2').filter(function () {
+      return this.style.display !== 'none';
+    });
+    if (modal.find('input[type=radio]:checked')[0]) {
       title.attr('style', 'color:#272727;');
       return true;
     }
@@ -55,22 +57,22 @@ var BlockWindow = (function (me, $) {
     return false;
   };
 
-  def.retrieve_blocked_reason_data = function () {
+  def.retrieve_blocked_reason_data = function (modal) {
     return { blocked_reason: {
-      comment: this.root.find('.comment').val(),
-      issue_id: this.root.find('.issue-id').val(),
+      comment: modal.find('.comment').val(),
+      issue_id: modal.find('.issue-id').val(),
       blocked_reason_type: {
-        id: this.root.find('input[type=radio]:checked').val()
+        id: modal.find('input[type=radio]:checked').val()
       }
     }};
   };
 
-  def.create_new_blocked_reason = function () {
+  def.create_new_blocked_reason = function (modal) {
     $.ajax({
       dataType: 'json',
       method: 'POST',
       url: '/blocked_reasons/',
-      data: this.retrieve_blocked_reason_data()
+      data: this.retrieve_blocked_reason_data(modal)
     }).done(function (response) {
       location.reload(true);
     }).fail(function (reason) {
@@ -78,13 +80,13 @@ var BlockWindow = (function (me, $) {
     });
   };
 
-  def.update_blocked_reason = function () {
-    var id = this.root.find('.block-reason-id').val();
+  def.update_blocked_reason = function (modal) {
+    var id = modal.find('.block-reason-id').val();
     $.ajax({
       dataType: 'json',
       method: 'PUT',
       url: '/blocked_reasons/' + id,
-      data: this.retrieve_blocked_reason_data()
+      data: this.retrieve_blocked_reason_data(modal)
     }).done(function (response) {
       location.reload(true);
     }).fail(function (reason) {
@@ -92,13 +94,13 @@ var BlockWindow = (function (me, $) {
     });
   };
 
-  def.remove_blocked_reason = function () {
-    var id = this.root.find('.block-reason-id').val();
+  def.remove_blocked_reason = function (modal) {
+    var id = modal.find('.block-reason-id').val();
     $.ajax({
       dataType: 'json',
       method: 'DELETE',
       url: '/blocked_reasons/' + id,
-      data: this.retrieve_blocked_reason_data()
+      data: this.retrieve_blocked_reason_data(modal)
     }).done(function (response) {
       location.reload();
     }).fail(function (reason) {
@@ -113,25 +115,23 @@ var BlockWindow = (function (me, $) {
     }.bind(this));
     modal.find('.new-block').on('click', function (event) {
       event.preventDefault();
-      if (this.blocked_comment_completed() &&
-          this.blocked_reason_label_selected()) {
-        this.create_new_blocked_reason();
+      if (this.blocked_comment_completed(modal) &&
+          this.blocked_reason_label_selected(modal)) {
+        this.create_new_blocked_reason(modal);
       }
     }.bind(this));
     modal.find('.update-block').on('click', function (event) {
       event.preventDefault();
-      if (this.blocked_comment_completed() &&
-          this.blocked_reason_label_selected()) {
-        this.update_blocked_reason();
+      if (this.blocked_comment_completed(modal) &&
+          this.blocked_reason_label_selected(modal)) {
+        this.update_blocked_reason(modal);
       }
     }.bind(this));
     modal.find('.remove-block').on('click', function (event) {
       event.preventDefault();
-      this.remove_blocked_reason();
+      this.remove_blocked_reason(modal);
     }.bind(this));
-
     modal.find('.radio-buttons input').on('change', function (event) {
-
       if (event.target.value === 'remove') {
         modal.find('.update-block').hide();
         modal.find('.remove-block').show();
