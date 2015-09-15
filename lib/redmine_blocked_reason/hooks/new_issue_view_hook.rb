@@ -14,10 +14,12 @@ module RedmineBlockedReason
       end
 
       def view_issues_show_details_bottom(context)
-        controller = context[:controller]
-        blocked_reason = BlockedReason.where(issue_id: context[:issue].id, active: true).first
-        return '' unless blocked_reason
-        controller.render_to_string partial: 'blocked_reason/blocked_reason_show_details_tag', locals: context
+        controller, issue = context[:controller], context[:issue]
+        blocked_reason = BlockedReason.where(issue_id: issue.id, active: true).first || BlockedReason.new
+        context[:block_reason] = blocked_reason
+        result = controller.render_to_string partial: 'blocked_reason/blocked_reason_window', locals: context
+        return result unless blocked_reason.id
+        result << controller.render_to_string(partial: 'blocked_reason/blocked_reason_show_details_tag', locals: context)
       end
 
       def blocked_reason_tag_for(context)

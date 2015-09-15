@@ -1,32 +1,35 @@
 'use strict';
 
 var BlockWindow = (function (me, $) {
-  var self = me || function (root) {
-    this.root = root;
-    this.button = this.root.find('.block-button');
-    this.modal = this.root.find('.block-modal');
+  var self = me || function (selector) {
+    this.template = $(selector);
     this.initialize();
   };
 
   var def = self.prototype;
 
-  def.showModal = function () {
-    var commentText = this.modal.find('.comment');
-    this.modal.show();
+  def.showModalNextTo = function (target) {
+    var modal = this.template.clone();
+    var commentText = modal.find('.comment');
+    var parent = target.closest('.block-reason')
+    parent.find('.block-modal').remove();
+    parent.append(modal);
+    this.addModalClickEvents(modal);
+    modal.show();
     commentText.focus();
   };
 
   def.addButtonClickEvents = function () {
-    this.button.on('click', function (event) {
+    $('.block-button').on('click', function (event) {
       event.preventDefault();
-      this.showModal();
+      this.showModalNextTo($(event.target));
     }.bind(this));
 
     $(document).on('click', function (event) {
       var target = $(event.target);
-      var closestRoot = target.closest('span.block-reason');
-      if (!closestRoot.length || closestRoot[0] !== this.root[0]) {
-        this.modal.hide();
+      var closestButton = target.closest('.block-reason');
+      if (!closestButton.length) {
+        $('.block-reason .block-modal').remove();
       }
     }.bind(this));
   };
@@ -43,7 +46,7 @@ var BlockWindow = (function (me, $) {
 
   def.blocked_reason_label_selected = function () {
     var title = this.root.find('h2');
-    if (this.modal.find('input[type=radio]:checked')[0]) {
+    if (this.root.find('input[type=radio]:checked')[0]) {
       title.attr('style', 'color:#272727;');
       return true;
     }
@@ -53,10 +56,10 @@ var BlockWindow = (function (me, $) {
 
   def.retrieve_blocked_reason_data = function () {
     return { blocked_reason: {
-      comment: this.modal.find('.comment').val(),
-      issue_id: this.modal.find('.issue-id').val(),
+      comment: this.root.find('.comment').val(),
+      issue_id: this.root.find('.issue-id').val(),
       blocked_reason_type: {
-        id: this.modal.find('input[type=radio]:checked').val()
+        id: this.root.find('input[type=radio]:checked').val()
       }
     }};
   };
@@ -75,7 +78,7 @@ var BlockWindow = (function (me, $) {
   };
 
   def.update_blocked_reason = function () {
-    var id = this.modal.find('.block-reason-id').val();
+    var id = this.root.find('.block-reason-id').val();
     $.ajax({
       dataType: 'json',
       method: 'PUT',
@@ -89,7 +92,7 @@ var BlockWindow = (function (me, $) {
   };
 
   def.remove_blocked_reason = function () {
-    var id = this.modal.find('.block-reason-id').val();
+    var id = this.root.find('.block-reason-id').val();
     $.ajax({
       dataType: 'json',
       method: 'DELETE',
@@ -102,26 +105,26 @@ var BlockWindow = (function (me, $) {
     });
   };
 
-  def.addModalClickEvents = function () {
-    this.root.find('.block-hide').on('click', function (event) {
+  def.addModalClickEvents = function (modal) {
+    modal.find('.block-hide').on('click', function (event) {
       event.preventDefault();
-      this.modal.hide();
+      modal.hide();
     }.bind(this));
-    this.root.find('.new-block').on('click', function (event) {
+    modal.find('.new-block').on('click', function (event) {
       event.preventDefault();
       if (this.blocked_comment_completed() &&
           this.blocked_reason_label_selected()) {
         this.create_new_blocked_reason();
       }
     }.bind(this));
-    this.root.find('.update-block').on('click', function (event) {
+    modal.find('.update-block').on('click', function (event) {
       event.preventDefault();
       if (this.blocked_comment_completed() &&
           this.blocked_reason_label_selected()) {
         this.update_blocked_reason();
       }
     }.bind(this));
-    this.root.find('.remove-block').on('click', function (event) {
+    modal.find('.remove-block').on('click', function (event) {
       event.preventDefault();
       this.remove_blocked_reason();
     }.bind(this));
@@ -129,15 +132,12 @@ var BlockWindow = (function (me, $) {
 
   def.initialize = function () {
     this.addButtonClickEvents();
-    this.addModalClickEvents();
   };
 
   return self;
 }(BlockWindow, $));
 
 $(function () {
-  $.map($('span.block-reason'), function (element) {
-    return new BlockWindow($(element));
-  });
+  var blockWindow = new BlockWindow('.block-modal');
   $('.brt_tooltip').tipr({ 'speed': 0, 'mode': 'bottom' });
 });
