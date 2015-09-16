@@ -53,17 +53,14 @@
 .block-modal .radio-buttons .field.label_type_1,
 .block-tag.label_type_1 {
   background: #daf7e8;
-  font-weight: bold;
 }
 .block-modal .radio-buttons .field.label_type_2,
 .block-tag.label_type_2 {
   background: #daeaf1;
-  font-weight: bold;
 }
 .block-modal .radio-buttons .field.label_type_3,
 .block-tag.label_type_3 {
-  background: #cc0000;
-  font-weight: bold;
+  background: #df4b3b;
   color: white;
 }
 .block-modal .radio-buttons .field.label-remove {
@@ -80,7 +77,7 @@
   width: 155px;
   display: block;
   position: relative;
-  top: -29px;
+  top: -31px;
   left: 24px;
 }
 .block-modal .comment-label {
@@ -131,12 +128,12 @@
 span.block-tag {
   display: inline-block;
   padding: 0px 8px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 10px;
   text-decoration: none;
-  font-weight: bold;
-  box-shadow: 0px 0px 6px 1px rgba(35, 31, 32, 0.04);
-  -moz-box-shadow:  0px 0px 6px 1px rgba(35, 31, 32, 0.04);
-  -webkit-box-shadow: 0px 0px 6px 1px rgba(35, 31, 32, 0.04);
+}
+table.attributes span.block-tag {
+  padding: 4px 8px;
 }
 span.block-tag > a {
   color: #000000;
@@ -159,9 +156,9 @@ table.list.issues tr td{
 }
 
 /* Fixes indents nad arrow in indented subject column */
-table.list.issues tr td span.blocked_reason_tag a:before {
+table.list.issues tr td span.block-tag a:before {
   content: none;
 }
-table.list.issues tr td span.blocked_reason_tag a {
+table.list.issues tr td span.block-tag a {
   padding-left: 0px;
 }

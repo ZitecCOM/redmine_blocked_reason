@@ -22,7 +22,7 @@ module RedmineBlockedReason
         result << controller.render_to_string(partial: 'blocked_reason/blocked_reason_show_details_tag', locals: context)
       end
 
-      def blocked_reason_tag_for(context)
+      def issue_list_subject_column(context)
         controller, issue = context[:controller], context[:issue]
         blocked_reason = issue.blocked_reasons.where(active: true).first
         if blocked_reason

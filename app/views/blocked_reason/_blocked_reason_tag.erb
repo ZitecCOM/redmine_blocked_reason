@@ -5,6 +5,6 @@
         blocked_reason: [blocked_reason.blocked_reason_type_id]
       }
     } %>
-<span data-tip='<%= blocked_reason.comment %>' class='blocked_reason_tag brt_tooltip <%= blocked_reason.type_css_class %>'>
+<span data-tip='<%= blocked_reason.comment %>' class='block-tag brt_tooltip <%= blocked_reason.type_css_class %>'>
   <%= link_to blocked_reason.type_name, options %>
 </span>
