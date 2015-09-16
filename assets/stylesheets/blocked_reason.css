@@ -157,3 +157,11 @@ table.list.issues tr td{
 .block-title {
   margin-bottom: 20px;
 }
+
+/* Fixes indents nad arrow in indented subject column */
+table.list.issues tr td span.blocked_reason_tag a:before {
+  content: none;
+}
+table.list.issues tr td span.blocked_reason_tag a {
+  padding-left: 0px;
+}
