@@ -1,16 +1,13 @@
-
 /*
 Tipr 1.0.1
 Copyright (c) 2013 Tipue
 Tipr is released under the MIT License
 http://www.tipue.com/tipr
 */
-
-
 .tipr_content
 {
      font: 13px/1.7 'Helvetica Neue', Helvetica, Arial, sans-serif;
-     color: #333; 
+     color: #333;
      background-color: #fff;
      color: #333;
      padding: 9px 17px;
@@ -29,7 +26,7 @@ http://www.tipue.com/tipr
      margin-top: -75px;
      z-index: 1000;
 }
-.tipr_point_top, .tipr_point_bottom 
+.tipr_point_top, .tipr_point_bottom
 {
      position: relative;
 	background: #fff;
@@ -52,7 +49,7 @@ http://www.tipue.com/tipr
 	left: 50%;
 	margin-left: -8px;
 }
-.tipr_point_top:before 
+.tipr_point_top:before
 {
 	border-top-color: #dcdcdc;
 	border-width: 9px;
@@ -76,7 +73,7 @@ http://www.tipue.com/tipr
 	left: 50%;
 	margin-left: -8px;
 }
-.tipr_point_bottom:before 
+.tipr_point_bottom:before
 {
 	border-bottom-color: #dcdcdc;
 	border-width: 9px;

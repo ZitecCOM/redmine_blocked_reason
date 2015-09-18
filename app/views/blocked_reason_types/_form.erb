@@ -1,6 +1,6 @@
 <%= error_messages_for @blocked_reason_type %>
 
-<%= form_for(@blocked_reason_type, :html => { :id => 'blocked_reason_type_form' }) do |f| %>
+<%= form_for(@blocked_reason_type, html: { id: 'blocked_reason_type_form' }) do |f| %>
   <div class='box tabular'>
     <p>
       <%= f.label :name, l('type_attribute_name') %>

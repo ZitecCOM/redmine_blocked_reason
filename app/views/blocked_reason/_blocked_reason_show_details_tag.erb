@@ -1,4 +1,7 @@
 <tr>
-  <th><strong><%=l(:blocked_reason)%>:</strong></th>
-  <td colspan="3"><%= render 'blocked_reason/blocked_reason_tag', issue: issue %></td>
+  <th><strong><%= l :blocked_reason %>:</strong></th>
+  <td colspan="3">
+    <% blocked_reason = issue.blocked_reasons.where(active: true).first %>
+    <%= render 'blocked_reason/blocked_reason_tag', blocked_reason: blocked_reason %>
+  </td>
 </tr>

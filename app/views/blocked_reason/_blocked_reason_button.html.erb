@@ -1,57 +1,6 @@
-<% blocked_reason = BlockedReason.find_or_create_for issue
-   label_name = t('helpers.label.block_button')
-   css_class = 'icon icon-add'
-%>
-<div class="block_reason <%= blocked_reason.new_record? ? 'add_label' : 'update_label' %>">
-  <%= link_to content_tag(:span, label_name), '', id: 'block_issue_button', class: css_class %>
-  <div id='blocked_reason_window' style='display:none;'>
-    <%= form_for blocked_reason, html: {class: 'blocked_reason_form'} do |f| %>
-      <%= f.hidden_field :issue_id, value: issue.id %>
-      <h2 class="blocked-reason-window-title"><%= blocked_reason.new_record? ? t('helpers.label.blocked_reason.title_new') : t('helpers.label.blocked_reason.title_update') %></h2>
-      <div class="blocked-field-group-left">
-        <%= f.fields_for :blocked_reason_type do |r|%>
-          <div class="radio-buttons">
-            <% unless blocked_reason.new_record? %>
-                <div class="field label_remove" >
-                  <%= radio_button_tag 'blocked_reason[blocked_reason_type][id]', 'remove' ,checked: true %>
-                  <%= label_tag 'blocked_reason_blocked_reason_type_id_remove', t('helpers.label.remove_label') %>
-                </div>
-            <% end %>
-            <% BlockedReasonType.where(removed: false).order(:created_at).each do |reason| %>
-              <div class="field <%= reason.css_class %>" >
-                <%= r.radio_button :id, reason[:id], checked: reason[:id] == blocked_reason.blocked_reason_type_id %>
-                <%= r.label :id, reason[:name], value: reason[:id] %>
-              </div>
-            <% end %>
-          </div>
-        <% end %>
-      </div>
-      <div class="blocked-field-group-right">
-        <div class="field">
-          <%= f.label t('helpers.label.blocked_reason.comment'), id: 'comment_label' %>
-          <%= f.text_area :comment, size: "40x3", class: 'comment_text_area wiki-edit', placeholder: 'Comment...' %>
-        </div>
-        <div class="actions">
-          <div>
-            <%= f.submit blocked_reason.new_record? ? t('helpers.label.create_button') : t('helpers.label.update_button'), id: 'new_blocked_reason_button' %>
-          </div>
-          <div>
-            <%= label_tag(:delete_unblocked_button, t('helpers.label.unblock_button'), id: 'removed_blocked_reason', class: 'button remove') unless blocked_reason.new_record? %>
-          </div>
-          <div class="close_button">
-            <%=  button_tag(type: 'button', id: 'block_form_hide_button', class: 'margin_up button') do %>
-              <%= content_tag(:span,  t('helpers.label.cancel_button')) %>
-            <% end %>
-          </div>
-        </div>
-      </div>
-    <% end %>
-    <% unless blocked_reason.new_record? %>
-      <%= form_for blocked_reason, method: :delete, html: {id: 'delete_button_form', style: 'display: none;'} do |f| %>
-        <%= f.hidden_field :comment, id: 'deleted_comment' %>
-        <%= f.hidden_field :issue_id, value: issue.id %>
-        <%= button_to(t('helpers.label.unblock_button'), blocked_reason_path(blocked_reason), method: :delete, id: 'delete_unblocked_button') %>
-      <% end %>
-    <% end %>
-  </div>
-</div>
+<%  block_reason = BlockedReason.find_or_create_for issue
+    label_name = t 'helpers.label.block_button'
+    crud_label = block_reason.new_record? ? 'add-label' : 'update-label' %>
+<span class="block-reason <%= crud_label %>">
+  <%= link_to content_tag(:span, label_name), '', class: 'block-button' %>
+</span>

@@ -1,111 +1,184 @@
-$(document).on('click', function(event) {
-  if (!$(event.target).closest('#blocked_reason_window').length && !$(event.target).closest('#block_issue_button').length) {
-    $('#blocked_reason_window').hide();
-    var block_issue_button = $('#block_issue_button');
-    block_issue_button.unbind('click');
-    initialize_blocked_reason();
-  }
-});
+'use strict';
 
-function initialize_blocked_reason(){
-  var block_issue_button = $('#block_issue_button');
-  var blocked_reason_window = $('#blocked_reason_window');
-  var block_form_hide_button = $('#block_form_hide_button');
-  var new_blocked_reason_button = $('#new_blocked_reason_button');
-  var delete_blocked_reason_button = $('#delete_unblocked_button');
-  var remove_blocked_reason_label = $('#removed_blocked_reason');
-  var blocked_reason_comment = $('#blocked_reason_comment');
-  var reason_label = $('#reason_label');
-  var radio_buttons = $('.blocked_reason_form .radio-buttons')
-  var blocked_title = $('.blocked-reason-window-title');
-  var comment_label = $('#comment_label');
-
-  $('#blocked_reason_window .field, #block_issue_button').click(function() {
-    $('#blocked_reason_window #blocked_reason_comment').focus();
-    switch_buttons();
-  });
-
-  blocked_reason_comment.val('');
-
-
-  block_issue_button.bind('click', show_window);
-
-  function show_window(event) {
-    event.preventDefault();
-    blocked_reason_window.show();
-    var remove_label_input = $('#blocked_reason_blocked_reason_type_id_remove');
-    if (remove_label_input[0]) {
-      remove_label_input.prop("checked", true);
-      comment_label.css('display','none');
-    }
-    switch_buttons();
-    $('#blocked_reason_window #blocked_reason_comment').focus();
-    block_issue_button.bind('click', hide_window);
+var BlockWindow = (function (me, $) {
+  var self = me || function (selector) {
+    this.template = $(selector);
+    this.initialize();
   };
 
-  function hide_window(event) {
-    event.preventDefault();
-    blocked_reason_window.hide();
-    block_issue_button.unbind('click');
-    block_issue_button.bind('click', show_window);
+  var def = self.prototype;
+
+  def.showModalNextTo = function (target) {
+    var modal = this.template.clone();
+    var commentText = modal.find('.comment');
+    var parent = target.closest('.block-reason')
+    parent.find('.block-modal').remove();
+    parent.append(modal);
+    this.addModalClickEvents(modal);
+    this.showCorrectFieldsIn(modal)
+    modal.show();
+    commentText.focus();
   };
 
-  block_form_hide_button.bind('click', function() {
-    blocked_reason_window.hide();
-    block_issue_button.bind('click', show_window);
-  });
+  def.addButtonClickEvents = function () {
+    $('.block-button').on('click', function (event) {
+      event.preventDefault();
+      this.showModalNextTo($(event.target));
+    }.bind(this));
 
-  new_blocked_reason_button.bind('click', function(event) {
-    event.preventDefault();
-    if (blocked_comment_completed() && blocked_reason_label_selected()){
-      $('.blocked_reason_form').submit();
-    }
-  });
+    $(document).on('click', function (event) {
+      var target = $(event.target);
+      var closestButton = target.closest('.block-reason');
+      if (!closestButton.length) {
+        $('.block-reason .block-modal').remove();
+      }
+    }.bind(this));
+  };
 
-  delete_blocked_reason_button.bind('click', function(event) {
-    event.preventDefault();
-    $('#deleted_comment').val(blocked_reason_comment.val());
-    $('#delete_button_form').submit();
-  });
-
-  function blocked_comment_completed() {
-    if (blocked_reason_comment.val().length === 0 || !blocked_reason_comment.val().trim()) {
-      blocked_reason_comment.attr('style', 'border-color:red;');
+  def.blocked_comment_completed = function (modal) {
+    var comment = modal.find('.comment');
+    if (comment.val().length === 0 || !comment.val().trim()) {
+      comment.attr('style', 'border-color:red;');
       return false;
     }
-    blocked_reason_comment.attr('style', 'border-color:#ccc;');
+    comment.attr('style', 'border-color:#ccc;');
     return true;
   };
 
-  function blocked_reason_label_selected(){
-    if ($('input[type=radio]:checked')[0]) {
-      blocked_title.attr('style', 'color:#272727;');
+  def.blocked_reason_label_selected = function (modal) {
+    var title = modal.find('h2').filter(function () {
+      return this.style.display !== 'none';
+    });
+    if (modal.find('input[type=radio]:checked')[0]) {
+      title.attr('style', 'color:#272727;');
       return true;
     }
-    blocked_title.attr('style', 'color:#f75c5c;');
+    title.attr('style', 'color:#f75c5c;');
     return false;
   };
 
-  function switch_buttons() {
-    if ($('input[type=radio]:checked', '#blocked_reason_window').val() == 'remove'){
-      new_blocked_reason_button.hide();
-      remove_blocked_reason_label.show();
-      comment_label.css('display','none');
+  def.retrieve_blocked_reason_data = function (modal) {
+    return { blocked_reason: {
+      comment: modal.find('.comment').val(),
+      issue_id: modal.find('.issue-id').val(),
+      blocked_reason_type: {
+        id: modal.find('input[type=radio]:checked').val()
+      }
+    }};
+  };
+
+  def.create_new_blocked_reason = function (modal) {
+    $.ajax({
+      dataType: 'json',
+      method: 'POST',
+      url: '/blocked_reasons/',
+      data: this.retrieve_blocked_reason_data(modal)
+    }).done(function (response) {
+      modal.remove();
+      location.reload(true);
+    }).fail(function (reason) {
+      console.log('Could not create blocked reason!')
+    });
+  };
+
+  def.update_blocked_reason = function (modal) {
+    var id = modal.find('.block-reason-id').val();
+    $.ajax({
+      dataType: 'json',
+      method: 'PUT',
+      url: '/blocked_reasons/' + id,
+      data: this.retrieve_blocked_reason_data(modal)
+    }).done(function (response) {
+      modal.remove();
+      location.reload(true);
+    }).fail(function (reason) {
+      console.log('Could not update blocked reason!')
+    });
+  };
+
+  def.remove_blocked_reason = function (modal) {
+    var id = modal.find('.block-reason-id').val();
+    $.ajax({
+      dataType: 'json',
+      method: 'DELETE',
+      url: '/blocked_reasons/' + id,
+      data: this.retrieve_blocked_reason_data(modal)
+    }).done(function (response) {
+      modal.remove();
+      location.reload(true);
+    }).fail(function (reason) {
+      console.log('Could not remove blocked reason!')
+    });
+  };
+
+  def.addModalClickEvents = function (modal) {
+    modal.find('.block-hide').on('click', function (event) {
+      event.preventDefault();
+      modal.hide();
+    }.bind(this));
+    modal.find('.new-block').on('click', function (event) {
+      event.preventDefault();
+      if (this.blocked_comment_completed(modal) &&
+          this.blocked_reason_label_selected(modal)) {
+        this.create_new_blocked_reason(modal);
+      }
+    }.bind(this));
+    modal.find('.update-block').on('click', function (event) {
+      event.preventDefault();
+      if (this.blocked_comment_completed(modal) &&
+          this.blocked_reason_label_selected(modal)) {
+        this.update_blocked_reason(modal);
+      }
+    }.bind(this));
+    modal.find('.remove-block').on('click', function (event) {
+      event.preventDefault();
+      this.remove_blocked_reason(modal);
+    }.bind(this));
+    modal.find('.radio-buttons input').on('change', function (event) {
+      if (event.target.value === 'remove') {
+        modal.find('.update-block').hide();
+        modal.find('.remove-block').show();
+      } else {
+        var new_reason = modal.find('.block-reason-id').val().length == 0
+        modal.find('.remove-block').hide();
+        if (!new_reason) {
+          modal.find('.update-block').show();
+        }
+      }
+    }.bind(this));
+  };
+
+  def.showCorrectFieldsIn = function (modal) {
+    var type_id = modal.find('.block-reason-type-id').val();
+    var new_reason = modal.find('.block-reason-id').val().length == 0
+    if (new_reason) {
+      modal.find('.title-new').show();
+      modal.find('.title-update').hide();
+      modal.find('.label-remove').hide();
+      modal.find('.new-block').show();
+      modal.find('.update-block').hide();
+      modal.find('.remove-block').hide();
+      modal.find('input[type=radio]:checked').prop('checked', false);
+    } else {
+      modal.find('.title-new').hide();
+      modal.find('.title-update').show();
+      modal.find('.label-remove').show();
+      modal.find('.new-block').hide();
+      modal.find('.update-block').show();
+      modal.find('.remove-block').hide();
+      modal.find('input[type=radio]:checked').prop('checked', false);
+      modal.find('.radio-buttons input[value="'+ type_id + '"]').prop('checked', true);
     }
-    else{
-      new_blocked_reason_button.show();
-      remove_blocked_reason_label.hide();
-      comment_label.css('display','inline');
-    }
-  }
+  };
 
-};
+  def.initialize = function () {
+    this.addButtonClickEvents();
+  };
 
-$(document).ready(function() {
-  initialize_blocked_reason();
+  return self;
+}(BlockWindow, $));
 
-  $('.brt_tooltip').tipr({
-    'speed': 0,
-    'mode': 'bottom'
-  });
+$(function () {
+  var blockWindow = new BlockWindow('.block-modal');
+  $('.brt_tooltip').tipr({ 'speed': 0, 'mode': 'bottom' });
 });
