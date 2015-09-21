@@ -3,7 +3,9 @@ module RedmineBlockedReason
     class NewIssueViewHook < Redmine::Hook::ViewListener
       def blocked_reason_button(context)
         project, controller, issue = context[:project], context[:controller], context[:issue]
-        return '' unless project.module_enabled? :blocked_reason
+        return '' unless project.module_enabled?(:blocked_reason)
+        return '' if Redmine::Plugin.installed?(:luxury_buttons) &&
+          project.module_enabled?(:luxury_buttons)
         blocked_reason = BlockedReason.where(issue_id: issue.id, active: true).first
         controller.render_to_string partial: 'blocked_reason/blocked_reason_button', locals: context
       end
