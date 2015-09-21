@@ -21,7 +21,7 @@ var BlockWindow = (function (me, $) {
   };
 
   def.addButtonClickEvents = function () {
-    $('.block-button').on('click', function (event) {
+    $('.lb_btn_executed').on('click', function (event) {
       event.preventDefault();
       this.showModalNextTo($(event.target));
     }.bind(this));
