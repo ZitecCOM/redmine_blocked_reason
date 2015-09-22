@@ -11,9 +11,13 @@ var BlockWindow = (function (me, $) {
   def.showModalNextTo = function (target) {
     var modal = this.template.clone();
     var commentText = modal.find('.comment');
-    var parent = target.closest('.block-reason')
-    parent.find('.block-modal').remove();
-    parent.append(modal);
+    if ($("#button_bar").length) {
+      var parent = $("div.subject").after(modal)
+    } else {
+      var parent = target.closest('.block-reason')
+      parent.find('.block-modal').remove();
+      parent.append(modal);
+    }
     this.addModalClickEvents(modal);
     this.showCorrectFieldsIn(modal)
     modal.show();
@@ -21,7 +25,7 @@ var BlockWindow = (function (me, $) {
   };
 
   def.addButtonClickEvents = function () {
-    $('.lb_btn_executed').on('click', function (event) {
+    $('.lb_btn_lock').addClass('fake_btn').on('click', function (event) {
       event.preventDefault();
       this.showModalNextTo($(event.target));
     }.bind(this));

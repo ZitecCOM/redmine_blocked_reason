@@ -25,9 +25,9 @@
       <%= text_area_tag :comment, '', size: '40x3', class: 'comment wiki-edit', placeholder: 'Comment...' %>
     </div>
     <div class="buttons">
-      <%= link_to t('helpers.label.create_button'), '#', class: 'new-block' %>
-      <%= link_to t('helpers.label.update_button'), '#', class: 'update-block' %>
-      <%= link_to t('helpers.label.unblock_button'), '#', class: 'remove-block' %>
+      <%= submit_tag t('helpers.label.create_button'), class: 'new-block' %>
+      <%= submit_tag t('helpers.label.update_button'), class: 'update-block' %>
+      <%= submit_tag t('helpers.label.unblock_button'), class: 'remove-block' %>
       <%= link_to t('helpers.label.cancel_button'), '#', class: 'block-hide' %>
     </div>
   </div>

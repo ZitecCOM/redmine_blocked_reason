@@ -2,5 +2,5 @@
     label_name = t 'helpers.label.block_button'
     crud_label = block_reason.new_record? ? 'add-label' : 'update-label' %>
 <span class="block-reason <%= crud_label %>">
-  <%= link_to content_tag(:span, label_name), '', class: 'block-button lb_btn_executed' %>
+  <%= link_to content_tag(:span, label_name), '', class: 'block-button lb_btn_lock' %>
 </span>
