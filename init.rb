@@ -22,3 +22,5 @@ Redmine::Plugin.register :redmine_blocked_reason do
     permission :view_blocked_reasons_activity, {}
   end
 end
+
+Redmine::Activity.register :blocked_reason
