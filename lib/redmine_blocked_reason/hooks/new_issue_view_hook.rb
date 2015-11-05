@@ -6,7 +6,6 @@ module RedmineBlockedReason
         return '' unless project.module_enabled?(:blocked_reason)
         return '' if Redmine::Plugin.installed?(:luxury_buttons) &&
           project.module_enabled?(:luxury_buttons)
-        blocked_reason = BlockedReason.where(issue_id: issue.id, active: true).first
         controller.render_to_string partial: 'blocked_reason/blocked_reason_button', locals: context
       end
 
@@ -17,7 +16,7 @@ module RedmineBlockedReason
 
       def view_issues_show_details_bottom(context)
         controller, issue = context[:controller], context[:issue]
-        blocked_reason = BlockedReason.where(issue_id: issue.id, active: true).first || BlockedReason.new
+        blocked_reason = issue.blocked_reason || BlockedReason.new
         context[:block_reason] = blocked_reason
         result = controller.render_to_string partial: 'blocked_reason/blocked_reason_window', locals: context
         return result unless blocked_reason.id
@@ -26,7 +25,7 @@ module RedmineBlockedReason
 
       def issue_list_subject_column(context)
         controller, issue = context[:controller], context[:issue]
-        blocked_reason = issue.blocked_reasons.where(active: true).first
+        blocked_reason = issue.blocked_reason
         if blocked_reason
           context[:blocked_reason] = blocked_reason
           controller.render_to_string partial: 'blocked_reason/blocked_reason_tag', locals: context
