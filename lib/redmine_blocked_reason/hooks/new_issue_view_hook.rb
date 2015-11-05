@@ -17,10 +17,9 @@ module RedmineBlockedReason
       def view_issues_show_details_bottom(context)
         controller, issue = context[:controller], context[:issue]
         blocked_reason = issue.blocked_reason || BlockedReason.new
-        context[:block_reason] = blocked_reason
-        result = controller.render_to_string partial: 'blocked_reason/blocked_reason_window', locals: context
+        result = controller.render_to_string partial: 'blocked_reason/blocked_reason_window', locals: { issue: issue, blocked_reason: blocked_reason }
         return result unless blocked_reason.id
-        result << controller.render_to_string(partial: 'blocked_reason/blocked_reason_show_details_tag', locals: context)
+        result << controller.render_to_string(partial: 'blocked_reason/blocked_reason_show_details_tag', locals: { blocked_reason: blocked_reason })
       end
 
       def issue_list_subject_column(context)
