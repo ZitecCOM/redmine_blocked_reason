@@ -2,7 +2,6 @@ class BlockedReason < ActiveRecord::Base
   unloadable
   belongs_to :blocked_reason_type
   belongs_to :issue
-  has_one :project, through: :issue
   delegate :name, to: :blocked_reason_type, prefix: :type
   delegate :css_class, to: :blocked_reason_type, prefix: :type
 
@@ -21,22 +20,11 @@ class BlockedReason < ActiveRecord::Base
       },
     url: proc {|my|
         { controller: 'issues', action: 'show', id: my.issue.id,
-          project_id: my.project.id }
+          project_id: my.issue.project_id }
       },
     type: 'blocked-reason'
 
-  acts_as_activity_provider scope: joins(issue: :project).includes([:project, :issue]),
-    author_key: :user_id,
-    permission: :view_blocked_reasons_activity,
-    type: 'blocked_reason',
-    timestamp: :created_at
-
-  def self.find_or_create_for(issue)
-    BlockedReason.where(issue_id: issue.id, active: true).first ||
-      BlockedReason.new
-  end
-
   def author
-    User.find user_id
+    user
   end
 end

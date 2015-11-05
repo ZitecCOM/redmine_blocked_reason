@@ -1,4 +1,4 @@
-<%  block_reason = BlockedReason.find_or_create_for issue
+<%  block_reason = issue.blocked_reason || BlockedReason.new
     label_name = t 'helpers.label.block_button'
     crud_label = block_reason.new_record? ? 'add-label' : 'update-label' %>
 <span class="block-reason <%= crud_label %>">
