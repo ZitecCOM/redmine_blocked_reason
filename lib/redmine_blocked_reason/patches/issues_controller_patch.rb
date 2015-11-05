@@ -14,7 +14,6 @@ module RedmineBlockedReason
 
         def index_with_blocked_reason
           index_without_blocked_reason
-          @issues = @issues.includes(:blocked_reason)
         end
       end
     end
