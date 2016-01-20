@@ -10,7 +10,17 @@ module RedmineBlockedReason
 
       module InstanceMethods
         def column_value_with_blocked_reason_tag(column, issue, value)
-          tag = column.name.eql?(:subject) ? render('blocked_reason/blocked_reason_tag', issue: issue) : ''
+          tag = \
+            if column.name.eql?(:subject)
+              blocked_reason = issue.blocked_reason
+              if blocked_reason
+                render('blocked_reason/blocked_reason_tag', blocked_reason: blocked_reason)
+              else
+                ''
+              end
+            else
+              ''
+            end
           column_value_without_blocked_reason_tag(column, issue, value).to_s + tag.to_s
         end
       end
