@@ -47,16 +47,11 @@ class BlockedReasonsController < ApplicationController
   end
 
   def destroy
-    @current_blocked_reason.active = false
     comment = params[:blocked_reason][:comment]
     comment = I18n.t('unblocked_reason') if comment.blank?
-    unblocked_reason = BlockedReason.new(comment: comment, unblocker: true,
-      blocked_reason_type_id: @current_blocked_reason[:blocked_reason_type_id],
-      issue_id: @issue.id, active: false, user_id: User.current.id)
     saving_with_issue_transaction do
-      @current_blocked_reason.save!
-      unblocked_reason.save!
-      journal = @issue.init_journal User.current, unblocked_reason.comment
+      @current_blocked_reason.destroy!
+      journal = @issue.init_journal User.current, comment
       journal.details << JournalDetail.new(property: 'attr',
         prop_key: 'blocked_status', value: I18n.t('unblocked_reason'))
       journal.save!
@@ -81,8 +76,7 @@ class BlockedReasonsController < ApplicationController
   end
 
   def find_current_blocked_reason
-    @current_blocked_reason = BlockedReason.where(issue_id: @issue.id,
-      active: true).first
+    @current_blocked_reason = BlockedReason.where(issue_id: @issue.id).first
     render json: { error: I18n.t('helpers.error.unblocking_issue') },
       status: 400 and return if @current_blocked_reason.nil? &&
         params[:action] == :destroy
