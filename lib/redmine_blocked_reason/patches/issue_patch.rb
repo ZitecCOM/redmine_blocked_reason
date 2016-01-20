@@ -4,7 +4,6 @@ module RedmineBlockedReason
       def self.included(base)
         base.send :include, InstanceMethods
         base.class_eval do
-          unloadable
           has_one :blocked_reason
           around_save :unblock_issue
         end
