@@ -4,7 +4,6 @@ module RedmineBlockedReason
       def self.included(base)
         base.send :include, InstanceMethods
         base.class_eval do
-          unloadable
           alias_method_chain :column_value, :blocked_reason_tag
         end
       end
