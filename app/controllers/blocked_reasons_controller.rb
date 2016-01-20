@@ -69,27 +69,44 @@ class BlockedReasonsController < ApplicationController
   end
 
   def find_blocked_reason_type
-    @blocked_reason_type = BlockedReasonType.where(removed: false,
-      id: params[:blocked_reason][:blocked_reason_type][:id]).first
-    render json: { error: I18n.t('helpers.error.blocking_issue') },
-      status: 400 and return unless @blocked_reason_type
+    @blocked_reason_type = BlockedReasonType.where(
+      removed: false,
+      id:      params[:blocked_reason][:blocked_reason_type][:id]
+    ).first
+    return if @blocked_reason_type
+    render(
+      json:   { error: I18n.t('helpers.error.blocking_issue') },
+      status: 400
+    )
   end
 
   def find_current_blocked_reason
     @current_blocked_reason = BlockedReason.where(issue_id: @issue.id).first
-    render json: { error: I18n.t('helpers.error.unblocking_issue') },
-      status: 400 and return if @current_blocked_reason.nil? &&
-        params[:action] == :destroy
+    return unless !@current_blocked_reason && params[:action] == :destroy
+    render(
+      json:   { error: I18n.t('helpers.error.unblocking_issue') },
+      status: 400
+    )
   end
 
   def create_new_blocked_reason_and_watcher
     comment = params[:blocked_reason][:comment]
     comment = I18n.t('blocked_reason') if comment.blank?
-    @new_blocked_reason = BlockedReason.new comment: comment,
-      blocked_reason_type_id: @blocked_reason_type[:id], issue_id: @issue.id,
-      active: true, user_id: User.current.id, unblocker: false
-    @watcher = Watcher.where(watchable_type: 'Issue', watchable_id: @issue.id,
-      user_id: User.current.id).first_or_create
+
+    @new_blocked_reason = BlockedReason.new(
+      comment:                comment,
+      blocked_reason_type_id: @blocked_reason_type[:id],
+      issue_id:               @issue.id,
+      active:                 true,
+      user_id:                User.current.id,
+      unblocker:              false
+    )
+
+    @watcher = Watcher.where(
+      watchable_type: 'Issue',
+      watchable_id:   @issue.id,
+      user_id:        User.current.id
+    ).first_or_create
   end
 
   def saving_with_issue_transaction

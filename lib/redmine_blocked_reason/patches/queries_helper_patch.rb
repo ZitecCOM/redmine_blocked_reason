@@ -30,4 +30,4 @@ end
 
 base = QueriesHelper
 patch = RedmineBlockedReason::Patches::QueriesHelperPatch
-base.send :include, patch unless base.included_modules.include? patch
+base.send(:include, patch) unless base.included_modules.include?(patch)

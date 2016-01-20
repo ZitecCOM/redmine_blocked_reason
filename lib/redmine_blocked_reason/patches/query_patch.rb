@@ -59,4 +59,4 @@ end
 
 base = Query
 patch = RedmineBlockedReason::Patches::QueryPatch
-base.send :include, patch unless base.included_modules.include? patch
+base.send(:include, patch) unless base.included_modules.include?(patch)

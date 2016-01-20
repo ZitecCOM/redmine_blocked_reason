@@ -32,4 +32,4 @@ end
 
 base = Issue
 patch = RedmineBlockedReason::Patches::IssuePatch
-base.send :include, patch unless base.included_modules.include? patch
+base.send(:include, patch) unless base.included_modules.include?(patch)
