@@ -69,10 +69,8 @@ class BlockedReasonsController < ApplicationController
   end
 
   def find_blocked_reason_type
-    @blocked_reason_type = BlockedReasonType.where(
-      removed: false,
-      id:      params[:blocked_reason][:blocked_reason_type][:id]
-    ).first
+    type_id = params[:blocked_reason][:blocked_reason_type][:id]
+    @blocked_reason_type = BlockedReasonType.where(id: type_id).first
     return if @blocked_reason_type
     render(
       json:   { error: I18n.t('helpers.error.blocking_issue') },
@@ -97,9 +95,7 @@ class BlockedReasonsController < ApplicationController
       comment:                comment,
       blocked_reason_type_id: @blocked_reason_type[:id],
       issue_id:               @issue.id,
-      active:                 true,
-      user_id:                User.current.id,
-      unblocker:              false
+      user_id:                User.current.id
     )
 
     @watcher = Watcher.where(
