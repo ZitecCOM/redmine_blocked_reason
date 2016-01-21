@@ -37,20 +37,6 @@ module RedmineBlockedReason
           locals:  { blocked_reason: blocked_reason }
         )
       end
-
-      def issue_list_subject_column(context)
-        controller, issue = context[:controller], context[:issue]
-        blocked_reason = issue.blocked_reason
-        if blocked_reason
-          context[:blocked_reason] = blocked_reason
-          controller.render_to_string(
-            partial: 'blocked_reason/blocked_reason_tag',
-            locals:  context
-          )
-        else
-          ''
-        end
-      end
     end
   end
 end

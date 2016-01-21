@@ -14,7 +14,7 @@ module RedmineBlockedReason
             if column.name.eql?(:subject)
               blocked_reason = issue.blocked_reason
               if blocked_reason
-                render('blocked_reason/blocked_reason_tag', blocked_reason: blocked_reason)
+                render_blocked_reason_tag(blocked_reason)
               else
                 ''
               end
