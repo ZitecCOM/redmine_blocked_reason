@@ -2,25 +2,22 @@
 
 var BlockWindow = (function (me, $) {
   var self = me || function (selector) {
-    this.template = $(selector);
+    this.modal = $(selector);
     this.initialize();
   };
 
   var def = self.prototype;
 
   def.showModalNextTo = function (target) {
-    var modal = this.template.clone();
-    var commentText = modal.find('.comment');
+    var commentText = this.modal.find('.comment');
     if ($("#button_bar").length) {
-      var parent = $("div.subject").after(modal)
+      var parent = $("div.subject").after(this.modal)
     } else {
       var parent = target.closest('.block-reason')
-      parent.find('.block-modal').remove();
-      parent.append(modal);
+      parent.find('.block-modal').hide();
+      parent.append(this.modal);
     }
-    this.addModalClickEvents(modal);
-    this.showCorrectFieldsIn(modal)
-    modal.show();
+    this.modal.show();
     commentText.focus();
   };
 
@@ -177,6 +174,8 @@ var BlockWindow = (function (me, $) {
 
   def.initialize = function () {
     this.addButtonClickEvents();
+    this.addModalClickEvents(this.modal);
+    this.showCorrectFieldsIn(this.modal)
   };
 
   return self;

@@ -6,8 +6,7 @@ class BlockedReasonsController < ApplicationController
   def create
     saving_with_issue_transaction do
       if @current_blocked_reason
-        @current_blocked_reason.active = false
-        @current_blocked_reason.save!
+        @current_blocked_reason.destroy
       end
       @watcher.save!
       @new_blocked_reason.save!
@@ -25,8 +24,7 @@ class BlockedReasonsController < ApplicationController
 
   def update
     saving_with_issue_transaction do
-      @current_blocked_reason.active = false
-      @current_blocked_reason.save!
+      @current_blocked_reason.destroy
       @new_blocked_reason.save!
       @watcher.save!
       comment = @new_blocked_reason.comment || ''
