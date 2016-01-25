@@ -1,8 +1,8 @@
 'use strict';
 
 var BlockWindow = (function (me, $) {
-  var self = me || function (selector) {
-    this.modal = $(selector);
+  var self = me || function (element) {
+    this.modal = element;
     this.initialize();
   };
 
@@ -182,7 +182,10 @@ var BlockWindow = (function (me, $) {
 }(BlockWindow, $));
 
 $(function () {
-  var blockWindow = new BlockWindow('.block-modal');
+  var blockModal = $('.block-modal');
+  if (blockModal.length) {
+    var blockWindow = new BlockWindow(blockModal);
+  }
   $('.brt_tooltip').tipr({ 'speed': 0, 'mode': 'bottom' });
 
   $('.block-tag').on('click', function (event) {

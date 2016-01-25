@@ -37,6 +37,22 @@ module RedmineBlockedReason
           locals:  { blocked_reason: blocked_reason }
         )
       end
+
+      def view_issues_sidebar_planning_bottom(context)
+        controller = context[:controller]
+        project = context[:project]
+
+        reasons = BlockedReasonType.for_sidebar(project: project).to_a
+
+        if reasons.any?
+          controller.render_to_string(
+            partial: 'blocked_reason/issues_sidebar',
+            locals: {reasons: reasons}
+          )
+        else
+          ''
+        end
+      end
     end
   end
 end
