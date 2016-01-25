@@ -5,20 +5,26 @@ class BlockedReasonsController < ApplicationController
 
   def create
     saving_with_issue_transaction do
-      if @current_blocked_reason
-        @current_blocked_reason.destroy
-      end
+      @current_blocked_reason.destroy if @current_blocked_reason
       @watcher.save!
       @new_blocked_reason.save!
+
       comment = @new_blocked_reason.comment || ''
-      journal = @issue.init_journal User.current, comment
-      journal.details << JournalDetail.new(property: 'attr',
-        prop_key: 'blocked_status', value: I18n.t('blocked_reason'))
-      journal.details << JournalDetail.new(property: 'attr',
-        prop_key: 'blocked_reason', value: @new_blocked_reason.type_name)
+      journal = @issue.init_journal(User.current, comment)
+      journal.details << JournalDetail.new(
+        prop_key: 'blocked_status',
+        property: 'attr',
+        value:    I18n.t('blocked_reason')
+      )
+      journal.details << JournalDetail.new(
+        property: 'attr',
+        prop_key: 'blocked_reason',
+        value:    @new_blocked_reason.type_name
+      )
       journal.save!
+
       @issue.touch
-      render json: { success: I18n.t('helpers.success.blocked_issue') }
+      render json: {success: I18n.t('helpers.success.blocked_issue')}
     end
   end
 
@@ -27,20 +33,28 @@ class BlockedReasonsController < ApplicationController
       @current_blocked_reason.destroy
       @new_blocked_reason.save!
       @watcher.save!
+
       comment = @new_blocked_reason.comment || ''
-      journal = @issue.init_journal User.current, comment
+      journal = @issue.init_journal(User.current, comment)
       if @current_blocked_reason.blocked_reason_type_id ==
           @new_blocked_reason.blocked_reason_type_id
-        journal.details << JournalDetail.new(property: 'attr',
-          prop_key: 'blocked_reason', value: @new_blocked_reason.type_name)
+        journal.details << JournalDetail.new(
+          prop_key: 'blocked_reason',
+          property: 'attr',
+          value:    @new_blocked_reason.type_name
+        )
       else
-        journal.details << JournalDetail.new(property: 'attr',
-          prop_key: 'blocked_reason', value: @new_blocked_reason.type_name,
-          old_value: @current_blocked_reason.type_name)
+        journal.details << JournalDetail.new(
+          old_value: @current_blocked_reason.type_name,
+          prop_key:  'blocked_reason',
+          property:  'attr',
+          value:     @new_blocked_reason.type_name
+        )
       end
       journal.save!
+
       @issue.touch
-      render json: { success: I18n.t('helpers.success.blocked_issue') }
+      render json: {success: I18n.t('helpers.success.blocked_issue')}
     end
   end
 
@@ -49,12 +63,17 @@ class BlockedReasonsController < ApplicationController
     comment = I18n.t('unblocked_reason') if comment.blank?
     saving_with_issue_transaction do
       @current_blocked_reason.destroy!
-      journal = @issue.init_journal User.current, comment
-      journal.details << JournalDetail.new(property: 'attr',
-        prop_key: 'blocked_status', value: I18n.t('unblocked_reason'))
+
+      journal = @issue.init_journal(User.current, comment)
+      journal.details << JournalDetail.new(
+        prop_key: 'blocked_status',
+        property: 'attr',
+        value:    I18n.t('unblocked_reason')
+      )
       journal.save!
+
       @issue.touch
-      render json: { success: I18n.t('helpers.success.unblocked_issue') }
+      render json: {success: I18n.t('helpers.success.unblocked_issue')}
     end
   end
 
