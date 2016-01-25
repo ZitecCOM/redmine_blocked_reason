@@ -1,6 +1,17 @@
-<tr>
-  <th><strong><%= l :blocked_reason %>:</strong></th>
-  <td colspan="3">
-    <%= render_blocked_reason_tag(blocked_reason) %>
-  </td>
-</tr>
+<% if Redmine::VERSION.to_s < '3.2.0' %>
+  <tr>
+    <th><strong><%= l :blocked_reason %>:</strong></th>
+    <td colspan="3">
+      <%= render_blocked_reason_tag(blocked_reason) %>
+    </td>
+  </tr>
+<% else %>
+  <div class="blocked-reason attribute">
+    <div class="label">
+      <%= l :blocked_reason %>:
+    </div>
+    <div class="value">
+      <%= render_blocked_reason_tag(blocked_reason) %>
+    </div>
+  </div>
+<% end %>

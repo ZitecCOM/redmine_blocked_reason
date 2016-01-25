@@ -12,7 +12,7 @@
         <%= label_tag 'block_reason_type_remove', t('helpers.label.remove_label') %>
       </div>
       <% all_reasons.each do |reason| %>
-        <div class="field <%= reason.css_class %>" >
+        <div class="field label-<%= reason.css_class %>" >
           <%= radio_button_tag 'block_reason_type', reason.id %>
           <%= label_tag "block_reason_type_#{ reason.id }", reason.name %>
         </div>
