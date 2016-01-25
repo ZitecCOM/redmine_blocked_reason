@@ -1,5 +1,6 @@
 en:
   blocked_reason: Blocked
+  blocked_reasons: Blocked Reasons
   unblocked_reason: Unblocked
   field_blocked_comment: Blocked comment
   field_blocked_reason: Blocked reason
