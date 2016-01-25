@@ -1,4 +1,4 @@
-<% all_reasons = BlockedReasonType.order(:created_at) %>
+<% all_reasons = BlockedReasonType.select([:id, :name, :css_class]).order(:created_at) %>
 <div class="block-modal" style='display:none;'>
   <%= hidden_field_tag :issue_id, issue.id, class: 'issue-id' %>
   <%= hidden_field_tag :block_reason_id, blocked_reason.id, class: 'block-reason-id' %>
