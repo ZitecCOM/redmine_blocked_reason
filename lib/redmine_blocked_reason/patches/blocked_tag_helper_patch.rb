@@ -36,9 +36,9 @@ module RedmineBlockedReason
               values:     { status_id: ['o'], blocked_reason: [type_id]}
             }
             %[
-              <span data-tip="#{blocked_reason.comment}" class="block-tag brt_tooltip #{blocked_reason.type_css_class}">
+              <span data-tip="#{j blocked_reason.comment}" class="block-tag brt_tooltip label-#{j blocked_reason.type_css_class}">
                 <span class="block-url" data-href="#{url_for options}">
-                  #{blocked_reason.type_name}
+                  #{j blocked_reason.type_name}
                 </span>
               </span>
             ].html_safe
