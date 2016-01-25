@@ -185,4 +185,12 @@ var BlockWindow = (function (me, $) {
 $(function () {
   var blockWindow = new BlockWindow('.block-modal');
   $('.brt_tooltip').tipr({ 'speed': 0, 'mode': 'bottom' });
+
+  $('.block-tag').on('click', function (event) {
+    event.preventDefault();
+    event.stopPropagation();
+    var element = $(event.target);
+    var link = element.data('href');
+    window.location = link;
+  });
 });
