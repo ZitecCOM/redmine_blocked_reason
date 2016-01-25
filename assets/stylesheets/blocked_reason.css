@@ -142,15 +142,6 @@ span.block-tag:hover {
 table.attributes span.block-tag {
   padding: 4px 8px;
 }
-span.block-tag > a {
-  color: #000000;
-}
-span.block-tag.label-danger > a {
-  color: white;
-}
-table.list.issues span.block-tag.label-danger > a {
-  color: white !important;
-}
 table.list.issues tr td{
   vertical-align: middle;
 }
@@ -160,12 +151,4 @@ table.list.issues tr td{
 }
 .block-title {
   margin-bottom: 20px;
-}
-
-/* Fixes indents nad arrow in indented subject column */
-table.list.issues tr td span.block-tag a:before {
-  content: none;
-}
-table.list.issues tr td span.block-tag a {
-  padding-left: 0px;
 }
