@@ -23,7 +23,7 @@
   width: 280px;
   float: left;
 }
-.block-modal .block-tag{
+.block-modal .block-tag {
   position: relative;
   display: inline-block;
   border: 1px solid rgba(0, 0, 0, 0.2);
@@ -33,6 +33,7 @@
   color: white;
   font-weight: bold;
 }
+
 .block-modal h2 {
   color: #272727;
   font-family: "Trebuchet MS";
@@ -132,6 +133,12 @@ span.block-tag {
   border-radius: 10px;
   text-decoration: none;
 }
+
+span.block-tag:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
 table.attributes span.block-tag {
   padding: 4px 8px;
 }
