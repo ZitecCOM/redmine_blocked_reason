@@ -6,6 +6,7 @@ class BlockedReasonType < ActiveRecord::Base
     reasons = joins(blocked_reason: :issue)
       .includes(:blocked_reason)
       .select([:id, :name, :css_class, 'COUNT(blocked_reasons.id) AS count'])
+      .group(:id, :name, :css_class)
 
     if project
       reasons = reasons.where(issues: {project_id: project.id})
