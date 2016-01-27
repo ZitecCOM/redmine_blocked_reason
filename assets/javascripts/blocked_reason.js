@@ -186,9 +186,12 @@ $(function () {
   if (blockModal.length) {
     var blockWindow = new BlockWindow(blockModal);
   }
-  $('.brt_tooltip').tipr({ 'speed': 0, 'mode': 'bottom' });
+  $('.block-tag').tooltip({
+    position: {my: "center+3 top+15", at: "center bottom", collision: "flipfit"},
+    tooltipClass: "arrow-top"
+  });
 
-  $('.block-tag').on('click', function (event) {
+  $('.block-tag .block-url').on('click', function (event) {
     event.preventDefault();
     event.stopPropagation();
     var element = $(event.target);
