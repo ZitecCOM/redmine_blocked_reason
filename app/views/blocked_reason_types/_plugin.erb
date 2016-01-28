@@ -1,4 +1,4 @@
-<% blocked_reason_types ||= BlockedReasonType.where(removed: false).order(:created_at) %>
+<% blocked_reason_types ||= BlockedReasonType.order(:created_at) %>
 <% if blocked_reason_types.any? %>
   <table class='list'>
     <thead>

@@ -1,26 +1,23 @@
 'use strict';
 
 var BlockWindow = (function (me, $) {
-  var self = me || function (selector) {
-    this.template = $(selector);
+  var self = me || function (element) {
+    this.modal = element;
     this.initialize();
   };
 
   var def = self.prototype;
 
   def.showModalNextTo = function (target) {
-    var modal = this.template.clone();
-    var commentText = modal.find('.comment');
+    var commentText = this.modal.find('.comment');
     if ($("#button_bar").length) {
-      var parent = $("div.subject").after(modal)
+      var parent = $("div.subject").after(this.modal)
     } else {
       var parent = target.closest('.block-reason')
-      parent.find('.block-modal').remove();
-      parent.append(modal);
+      parent.find('.block-modal').hide();
+      parent.append(this.modal);
     }
-    this.addModalClickEvents(modal);
-    this.showCorrectFieldsIn(modal)
-    modal.show();
+    this.modal.show();
     commentText.focus();
   };
 
@@ -39,7 +36,7 @@ var BlockWindow = (function (me, $) {
     }.bind(this));
   };
 
-  def.blocked_comment_completed = function (modal) {
+  def.blockedCommentCompleted = function (modal) {
     var comment = modal.find('.comment');
     if (comment.val().length === 0 || !comment.val().trim()) {
       comment.attr('style', 'border-color:red;');
@@ -49,7 +46,7 @@ var BlockWindow = (function (me, $) {
     return true;
   };
 
-  def.blocked_reason_label_selected = function (modal) {
+  def.blockedReasonLabelSelected = function (modal) {
     var title = modal.find('h2').filter(function () {
       return this.style.display !== 'none';
     });
@@ -61,7 +58,7 @@ var BlockWindow = (function (me, $) {
     return false;
   };
 
-  def.retrieve_blocked_reason_data = function (modal) {
+  def.retrieveBlockedReasonData = function (modal) {
     return { blocked_reason: {
       comment: modal.find('.comment').val(),
       issue_id: modal.find('.issue-id').val(),
@@ -71,12 +68,12 @@ var BlockWindow = (function (me, $) {
     }};
   };
 
-  def.create_new_blocked_reason = function (modal) {
+  def.createNewBlockedReason = function (modal) {
     $.ajax({
       dataType: 'json',
       method: 'POST',
       url: '/blocked_reasons/',
-      data: this.retrieve_blocked_reason_data(modal)
+      data: this.retrieveBlockedReasonData(modal)
     }).done(function (response) {
       modal.remove();
       location.reload(true);
@@ -85,13 +82,13 @@ var BlockWindow = (function (me, $) {
     });
   };
 
-  def.update_blocked_reason = function (modal) {
+  def.updateBlockedReason = function (modal) {
     var id = modal.find('.block-reason-id').val();
     $.ajax({
       dataType: 'json',
       method: 'PUT',
       url: '/blocked_reasons/' + id,
-      data: this.retrieve_blocked_reason_data(modal)
+      data: this.retrieveBlockedReasonData(modal)
     }).done(function (response) {
       modal.remove();
       location.reload(true);
@@ -100,13 +97,13 @@ var BlockWindow = (function (me, $) {
     });
   };
 
-  def.remove_blocked_reason = function (modal) {
+  def.removeBlockedReason = function (modal) {
     var id = modal.find('.block-reason-id').val();
     $.ajax({
       dataType: 'json',
       method: 'DELETE',
       url: '/blocked_reasons/' + id,
-      data: this.retrieve_blocked_reason_data(modal)
+      data: this.retrieveBlockedReasonData(modal)
     }).done(function (response) {
       modal.remove();
       location.reload(true);
@@ -122,21 +119,21 @@ var BlockWindow = (function (me, $) {
     }.bind(this));
     modal.find('.new-block').on('click', function (event) {
       event.preventDefault();
-      if (this.blocked_comment_completed(modal) &&
-          this.blocked_reason_label_selected(modal)) {
-        this.create_new_blocked_reason(modal);
+      if (this.blockedCommentCompleted(modal) &&
+          this.blockedReasonLabelSelected(modal)) {
+        this.createNewBlockedReason(modal);
       }
     }.bind(this));
     modal.find('.update-block').on('click', function (event) {
       event.preventDefault();
-      if (this.blocked_comment_completed(modal) &&
-          this.blocked_reason_label_selected(modal)) {
-        this.update_blocked_reason(modal);
+      if (this.blockedCommentCompleted(modal) &&
+          this.blockedReasonLabelSelected(modal)) {
+        this.updateBlockedReason(modal);
       }
     }.bind(this));
     modal.find('.remove-block').on('click', function (event) {
       event.preventDefault();
-      this.remove_blocked_reason(modal);
+      this.removeBlockedReason(modal);
     }.bind(this));
     modal.find('.radio-buttons input').on('change', function (event) {
       if (event.target.value === 'remove') {
@@ -177,12 +174,28 @@ var BlockWindow = (function (me, $) {
 
   def.initialize = function () {
     this.addButtonClickEvents();
+    this.addModalClickEvents(this.modal);
+    this.showCorrectFieldsIn(this.modal)
   };
 
   return self;
 }(BlockWindow, $));
 
 $(function () {
-  var blockWindow = new BlockWindow('.block-modal');
-  $('.brt_tooltip').tipr({ 'speed': 0, 'mode': 'bottom' });
+  var blockModal = $('.block-modal');
+  if (blockModal.length) {
+    var blockWindow = new BlockWindow(blockModal);
+  }
+  $('.block-tag').tooltip({
+    position: {my: "center+3 top+15", at: "center bottom", collision: "flipfit"},
+    tooltipClass: "arrow-top"
+  });
+
+  $('.block-tag .block-url').on('click', function (event) {
+    event.preventDefault();
+    event.stopPropagation();
+    var element = $(event.target);
+    var link = element.data('href');
+    window.location = link;
+  });
 });

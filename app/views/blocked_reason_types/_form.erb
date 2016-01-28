@@ -7,7 +7,7 @@
       <%= f.text_field :name %>
       <br/>
       <%= f.label :css_class, l('type_attribute_css_class') %>
-      <%= f.text_field :css_class %>
+      <%= f.select :css_class, [['Danger (red)', 'danger'], ['Info (grey)', 'info'], ['Success (green)', 'success']] %>
     </p>
   </div>
   <%= f.submit(@blocked_reason_type.new_record? ? l(:button_create) : l(:button_save)) %>

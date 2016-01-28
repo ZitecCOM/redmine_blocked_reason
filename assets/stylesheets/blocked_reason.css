@@ -23,7 +23,7 @@
   width: 280px;
   float: left;
 }
-.block-modal .block-tag{
+.block-modal .block-tag {
   position: relative;
   display: inline-block;
   border: 1px solid rgba(0, 0, 0, 0.2);
@@ -33,6 +33,7 @@
   color: white;
   font-weight: bold;
 }
+
 .block-modal h2 {
   color: #272727;
   font-family: "Trebuchet MS";
@@ -50,16 +51,16 @@
   padding: 0 10px;
   width: 170px;
 }
-.block-modal .radio-buttons .field.label_type_1,
-.block-tag.label_type_1 {
+.block-modal .radio-buttons .field.label-success,
+.block-tag.label-success {
   background: #daf7e8;
 }
-.block-modal .radio-buttons .field.label_type_2,
-.block-tag.label_type_2 {
+.block-modal .radio-buttons .field.label-info,
+.block-tag.label-info {
   background: #daeaf1;
 }
-.block-modal .radio-buttons .field.label_type_3,
-.block-tag.label_type_3 {
+.block-modal .radio-buttons .field.label-danger,
+.block-tag.label-danger {
   background: #df4b3b;
   color: white;
 }
@@ -127,22 +128,21 @@
 }
 span.block-tag {
   display: inline-block;
-  padding: 0px 8px;
+  border-radius: 3px;
+  padding: 2px 4px;
+  display: inline-block;
+  font-size: 10px;
+  margin: 0px 0px 5px 2px;  text-decoration: none;
   border: 1px solid rgba(0, 0, 0, 0.2);
-  border-radius: 10px;
-  text-decoration: none;
 }
+
+span.block-tag:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
 table.attributes span.block-tag {
   padding: 4px 8px;
-}
-span.block-tag > a {
-  color: #000000;
-}
-span.block-tag.label_type_3 > a {
-  color: white;
-}
-table.list.issues span.block-tag.label_type_3 > a {
-  color: white !important;
 }
 table.list.issues tr td{
   vertical-align: middle;
@@ -153,12 +153,4 @@ table.list.issues tr td{
 }
 .block-title {
   margin-bottom: 20px;
-}
-
-/* Fixes indents nad arrow in indented subject column */
-table.list.issues tr td span.block-tag a:before {
-  content: none;
-}
-table.list.issues tr td span.block-tag a {
-  padding-left: 0px;
 }
