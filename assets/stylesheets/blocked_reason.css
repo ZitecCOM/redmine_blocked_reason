@@ -147,9 +147,8 @@ table.attributes span.block-tag {
 table.list.issues tr td{
   vertical-align: middle;
 }
-.block-button > span {
-  background: url("../images/icons.png") no-repeat scroll left -303px rgba(0, 0, 0, 0);
-  padding-left: 16px;
+.block-button {
+  background: url("/images/exclamation.png") no-repeat;
 }
 .block-title {
   margin-bottom: 20px;

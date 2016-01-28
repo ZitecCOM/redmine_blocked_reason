@@ -10,8 +10,12 @@ var BlockWindow = (function (me, $) {
 
   def.showModalNextTo = function (target) {
     var commentText = this.modal.find('.comment');
+
     if ($("#button_bar").length) {
-      var parent = $("div.subject").after(this.modal)
+      /* in our custom theme we use a sticky subject header that is a clone of subject div.
+        because of that the modal window appends twice in the dom and the click on label
+        will not work anymore. */
+      var parent = $("div.subject").first().after(this.modal)
     } else {
       var parent = target.closest('.block-reason')
       parent.find('.block-modal').hide();
@@ -183,6 +187,7 @@ var BlockWindow = (function (me, $) {
 
 $(function () {
   var blockModal = $('.block-modal');
+
   if (blockModal.length) {
     var blockWindow = new BlockWindow(blockModal);
   }
