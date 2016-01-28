@@ -1,31 +1,57 @@
 module RedmineBlockedReason
   module Hooks
     class NewIssueViewHook < Redmine::Hook::ViewListener
-      def new_issue_view_main_title_left_buttons(context)
-        project, controller, issue = context[:project], context[:controller], context[:issue]
-        return '' unless project.module_enabled? :blocked_reason
-        blocked_reason = BlockedReason.where(issue_id: issue.id, active: true).first
-        controller.render_to_string partial: 'blocked_reason/blocked_reason_button', locals: context
+      def blocked_reason_button(context)
+        project = context[:project]
+        controller = context[:controller]
+        issue = context[:issue]
+
+        return '' unless project.module_enabled?(:blocked_reason)
+        return '' if Redmine::Plugin.installed?(:luxury_buttons) &&
+          project.module_enabled?(:luxury_buttons)
+
+        controller.render_to_string(
+          partial: 'blocked_reason/blocked_reason_button',
+          locals:  context
+        )
       end
 
       def view_layouts_base_html_head(context)
         project, controller = context[:project], context[:controller]
-        # return '' if project.nil? || !project.module_enabled?(:blocked_reason)
-        controller.render_to_string partial: 'blocked_reason/header_assets'
+        controller.render_to_string(partial: 'blocked_reason/header_assets')
       end
 
       def view_issues_show_details_bottom(context)
-        controller = context[:controller]
-        blocked_reason = BlockedReason.where(issue_id: context[:issue].id, active: true).first
-        return '' unless blocked_reason
-        controller.render_to_string partial: 'blocked_reason/blocked_reason_show_details_tag', locals: context
+        controller, issue = context[:controller], context[:issue]
+        blocked_reason = issue.blocked_reason || BlockedReason.new
+        result = controller.render_to_string(
+          partial: 'blocked_reason/blocked_reason_window',
+          locals:  {
+            issue: issue,
+            blocked_reason: blocked_reason
+          }
+        )
+        return result unless blocked_reason.id
+        result + controller.render_to_string(
+          partial: 'blocked_reason/blocked_reason_show_details_tag',
+          locals:  { blocked_reason: blocked_reason }
+        )
       end
 
-      def blocked_reason_tag_for(context)
+      def view_issues_sidebar_planning_bottom(context)
         controller = context[:controller]
-        blocked_reason = BlockedReason.where(issue_id: context[:issue].id, active: true).first
-        return '' unless blocked_reason
-        controller.render_to_string partial: 'blocked_reason/blocked_reason_tag', locals: context
+        project = context[:project]
+
+        reasons = BlockedReasonType.for_sidebar(project: project).to_a
+
+        if reasons.any?
+          controller.render_to_string(
+            partial: 'blocked_reason/issues_sidebar',
+            locals: {reasons: reasons}
+          )
+        else
+          ''
+        end
       end
     end
   end
