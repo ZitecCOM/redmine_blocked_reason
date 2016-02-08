@@ -1,0 +1,34 @@
+<% all_reasons = BlockedReasonType.select([:id, :name, :css_class]).order(:created_at) %>
+<div class="block-modal" style='display:none;'>
+  <%= hidden_field_tag :issue_id, issue.id, class: 'issue-id' %>
+  <%= hidden_field_tag :block_reason_id, blocked_reason.id, class: 'block-reason-id' %>
+  <%= hidden_field_tag :block_reason_type_id, blocked_reason.blocked_reason_type_id, class: 'block-reason-type-id' %>
+  <h2 class="title-new"><%= t('helpers.label.block_reason.title_new') %></h2>
+  <h2 class="title-update"><%= t('helpers.label.block_reason.title_update') %></h2>
+  <div class="block-left">
+    <div class="radio-buttons">
+      <div class="field label-remove" >
+        <%= radio_button_tag 'block_reason_type', 'remove' %>
+        <%= label_tag 'block_reason_type_remove', t('helpers.label.remove_label') %>
+      </div>
+      <% all_reasons.each do |reason| %>
+        <div class="field label-<%= reason.css_class %>" >
+          <%= radio_button_tag 'block_reason_type', reason.id %>
+          <%= label_tag "block_reason_type_#{ reason.id }", reason.name %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+  <div class="block-right">
+    <div class="field">
+      <%= label_tag :comment, t('helpers.label.block_reason.comment'), class: 'comment-label' %>
+      <%= text_area_tag :comment, '', size: '40x3', class: 'comment wiki-edit', placeholder: 'Comment...' %>
+    </div>
+    <div class="buttons">
+      <%= submit_tag t('helpers.label.create_button'), class: 'new-block' %>
+      <%= submit_tag t('helpers.label.update_button'), class: 'update-block' %>
+      <%= submit_tag t('helpers.label.unblock_button'), class: 'remove-block' %>
+      <%= link_to t('helpers.label.cancel_button'), '#', class: 'block-hide' %>
+    </div>
+  </div>
+</div>

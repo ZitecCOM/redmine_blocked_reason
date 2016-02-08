@@ -1,6 +1,6 @@
-# English strings go here for Rails i18n
 en:
   blocked_reason: Blocked
+  blocked_reasons: Blocked Reasons
   unblocked_reason: Unblocked
   field_blocked_comment: Blocked comment
   field_blocked_reason: Blocked reason
@@ -12,7 +12,7 @@ en:
   type_attribute_css_class: CSS class
   helpers:
     label:
-      blocked_reason:
+      block_reason:
         blocked_reason_type_id: Reason
         comment: Comment is required
         title_new: Why are you blocked?
