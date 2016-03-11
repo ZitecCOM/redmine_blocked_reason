@@ -7,6 +7,7 @@ module RedmineBlockedReason
           def render_blocked_reason_tag(blocked_reason)
             type_id = blocked_reason.blocked_reason_type_id
             options = blocked_reason_issues_url_options(type_id)
+            options[:project_id] = blocked_reason.issue.project.identifier
             %[
               <span title="#{j blocked_reason.comment}" class="block-tag label-#{j blocked_reason.type_css_class}">
                 <span class="block-url" data-href="#{url_for options}">
