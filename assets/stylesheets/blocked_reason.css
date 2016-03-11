@@ -124,7 +124,8 @@ span.block-tag {
   padding: 2px 4px;
   display: inline-block;
   font-size: 10px;
-  margin: 0px 0px 5px 2px;  text-decoration: none;
+  margin: 0px 0px 0px 2px;  
+  text-decoration: none;
   border: 1px solid rgba(0, 0, 0, 0.2);
 }
 
