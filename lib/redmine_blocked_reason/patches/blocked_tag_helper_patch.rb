@@ -33,8 +33,11 @@ module RedmineBlockedReason
               action:     'index',
               set_filter: 1,
               fields:     [:status_id, :blocked_reason],
+              f:          [:status_id, :blocked_reason],
               operators:  { status_id: 'o', blocked_reason: '=' },
-              values:     { status_id: ['o'], blocked_reason: [type_id]}
+              op:         { status_id: 'o', blocked_reason: '=' },
+              values:     { status_id: ['o'], blocked_reason: [type_id]},
+              v:          { status_id: ['o'], blocked_reason: [type_id]}
             }
           end
         end

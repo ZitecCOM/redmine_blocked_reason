@@ -6,33 +6,41 @@ ActionDispatch::Callbacks.to_prepare do
 end
 
 Redmine::Plugin.register :redmine_blocked_reason do
-  name 'Blocked Reason'
-  author 'Zitec'
+  name        'Blocked Reason'
+  author      'Zitec'
   description 'Add Blocked Reasons to Issues'
-  version '1.0.1'
-  url 'https://github.com/sdwolf/redmine_blocked_reason'
-  author_url 'http://zitec.ro'
-  settings default: { default_enabled: false },
+  version     '1.0.1'
+  url         'https://github.com/sdwolf/redmine_blocked_reason'
+  author_url  'http://zitec.ro'
+
+  settings(
+    default: {default_enabled: false},
     partial: 'blocked_reason_types/plugin'
+  )
+
   project_module :blocked_reason do
-    permission :edit_blocked_reasons, { blocked_reason: [:update],
-      require: :member }
-    permission :block_issue, { blocked_reason: [:create], require: :member }
+    permission(
+      :edit_blocked_reasons,
+      {
+        blocked_reason: [:update],
+        require:        :member
+      }
+    )
+    permission :block_issue, {blocked_reason: [:create], require: :member}
     permission :view_blocked_reasons_activity, {}
   end
 end
 
 Rails.application.config.after_initialize do
-  test_dependencies = { redmine_testing_gems: '1.1.1' }
-  restrict_tracker = Redmine::Plugin.find(:redmine_blocked_reason)
+  test_dependencies  = {redmine_testing_gems: '1.3.2'}
+  current_plugin     = Redmine::Plugin.find(:redmine_blocked_reason)
   check_dependencies = proc do |plugin, version|
     begin
-      restrict_tracker.requires_redmine_plugin(plugin, version)
-    rescue Redmine::PluginNotFound => error
+      current_plugin.requires_redmine_plugin(plugin, version)
+    rescue Redmine::PluginNotFound
       raise Redmine::PluginNotFound,
-        "Restrict Tracker depends on plugin: " \
-          "#{ plugin } version: #{ version }"
+        "Restrict Tracker depends on plugin: #{plugin} version: #{version}"
     end
   end
-  test_dependencies.each &check_dependencies if Rails.env.test?
+  test_dependencies.each(&check_dependencies) if Rails.env.test?
 end
