@@ -22,7 +22,7 @@ env:
   - REDMINE_VER=3.2.0 DB=postgresql
 
 before_install:
-  - export PLUGIN_NAME=redmine_tags
+  - export PLUGIN_NAME=redmine_blocked_reason
   - export REDMINE_PATH=$HOME/redmine
   - git clone https://github.com/redmine/redmine.git --branch $REDMINE_VER --depth 1 $REDMINE_PATH
   - git clone https://github.com/ZitecCOM/redmine_testing_gems.git --branch 1.3.2 --depth 1 $REDMINE_PATH/plugins/redmine_testing_gems
