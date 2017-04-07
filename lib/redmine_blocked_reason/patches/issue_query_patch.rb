@@ -1,6 +1,6 @@
 module RedmineBlockedReason
   module Patches
-    module QueryPatch
+    module IssueQueryPatch
       def self.included(base)
         base.send :include, InstanceMethods
         base.class_eval do
@@ -13,12 +13,13 @@ module RedmineBlockedReason
       module InstanceMethods
         def available_filters_with_blocked_reasons
           unless @available_filters
-            available_filters_without_blocked_reasons.merge!({
-              'blocked_reason' => { name: 'Blocked Reason', order: 201,
-                type: :list_optional,
-                values: BlockedReasonType.select([:id, :name]).map {|b| [b.name, b.id.to_s] }
-              }
-            })
+
+            filter = QueryFilter.new("blocked_reason",
+              type: :list_optional,
+              values: BlockedReasonType.select([:id, :name]).map {|b| [b.name, b.id.to_s] }
+            )
+
+            available_filters_without_blocked_reasons.merge!("blocked_reason" => filter)
           end
           @available_filters
         end
@@ -61,6 +62,6 @@ module RedmineBlockedReason
   end
 end
 
-base = Query
-patch = RedmineBlockedReason::Patches::QueryPatch
+base = IssueQuery
+patch = RedmineBlockedReason::Patches::IssueQueryPatch
 base.send(:include, patch) unless base.included_modules.include?(patch)
