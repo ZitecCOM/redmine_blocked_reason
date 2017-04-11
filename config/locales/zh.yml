@@ -1,0 +1,36 @@
+zh:
+  blocked_reason: 锁定管理
+  blocked_reasons: 锁定管理
+  unblocked_reason: 解锁
+  field_blocked_comment: 锁定评论
+  field_blocked_reason: 锁定原因
+  field_blocked_status: 锁定状态
+  types_title: 锁定类型
+  css_class_title: 锁定CSS类
+  new_type: 添加锁定类型
+  type_attribute_name: 名称
+  type_attribute_css_class: CSS类
+  helpers:
+    label:
+      block_reason:
+        blocked_reason_type_id: 原因
+        comment: 评论项必填。
+        title_new: 为何锁定？
+        title_update: 删除或更新锁定原因
+      block_settings: 锁定原因
+      block_button: 锁定
+      unblock_button: 解锁
+      cancel_button: 取消
+      create_button: 提交
+      update_button: 更新
+      remove_label: 删除
+      unblock_due_to_status_change: 问题由于状态变化而自动解锁。
+    error:
+      blocking_issue: 锁定问题出错。
+      unblocking_issue: 解锁问题出错。
+      blocked_permission_denied: 您没有足够的权限锁定相关问题。
+      unblocked_permission_denied: 您没有足够的权限解锁相关问题。
+      delete_blocked_reason_type: 不能删除锁定类型
+    success:
+      blocked_issue: 问题已锁定。
+      unblocked_issue: 问题已解锁。
