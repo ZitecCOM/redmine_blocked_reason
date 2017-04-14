@@ -1,6 +1,0 @@
-<% unless @issue %>
-  <h3><%= l :blocked_reasons %></h3>
-  <% reasons.each do |reason| %>
-    <%= render_sidebar_blocked_reason_type(reason) %>
-  <% end %>
-<% end %>

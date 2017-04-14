@@ -3,14 +3,13 @@ class BlockedReasonType < ActiveRecord::Base
   attr_accessible :name, :css_class
 
   def self.for_sidebar(project: nil)
-    reasons = joins(blocked_reason: :issue)
-      .includes(:blocked_reason)
-      .select([:id, :name, :css_class, 'COUNT(blocked_reasons.id) AS count'])
-      .group(:id, :name, :css_class)
+    issues_scope = Issue.visible.open.select('issues.id').joins(:project)
+    issues_scope = issues_scope.where(:project => project.id) if project
 
-    if project
-      reasons = reasons.where(issues: {project_id: project.id})
-    end
+    reasons = BlockedReason.joins(:blocked_reason_type)
+      .select(["#{self.table_name}.id", "#{BlockedReasonType.table_name}.name", "#{BlockedReasonType.table_name}.css_class", 'COUNT(blocked_reasons.id) AS count'])
+      .where("#{BlockedReason.table_name}.issue_id" => issues_scope)
+      .group("#{BlockedReasonType.table_name}.id", "#{BlockedReasonType.table_name}.name", "#{BlockedReasonType.table_name}.css_class")
 
     reasons
   end
