@@ -14,7 +14,6 @@ bases = [
   IssuesController,
   CalendarsController,
   GanttsController,
-  SettingsController,
   MyController
 ]
 patch = RedmineBlockedReason::Patches::BlockedTagHelperPatch
