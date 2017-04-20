@@ -1,14 +1,15 @@
 module RedmineBlockedReason
   module Hooks
-    class NewIssueViewHook < Redmine::Hook::ViewListener
+    class ViewsIssuesHook < Redmine::Hook::ViewListener
+      render_on :view_issues_sidebar_planning_bottom, partial: 'issues/blocked_reason_sidebar'
+
       def blocked_reason_button(context)
         project = context[:project]
         controller = context[:controller]
         issue = context[:issue]
 
         return '' unless project.module_enabled?(:blocked_reason)
-        return '' if Redmine::Plugin.installed?(:luxury_buttons) &&
-          project.module_enabled?(:luxury_buttons)
+        return '' if Redmine::Plugin.installed?(:luxury_buttons) && project.module_enabled?(:luxury_buttons)
 
         controller.render_to_string(
           partial: 'blocked_reason/blocked_reason_button',
@@ -37,22 +38,7 @@ module RedmineBlockedReason
           locals:  { blocked_reason: blocked_reason }
         )
       end
-
-      def view_issues_sidebar_planning_bottom(context)
-        controller = context[:controller]
-        project = context[:project]
-
-        reasons = BlockedReasonType.for_sidebar(project: project).to_a
-
-        if reasons.any?
-          controller.render_to_string(
-            partial: 'blocked_reason/issues_sidebar',
-            locals: {reasons: reasons}
-          )
-        else
-          ''
-        end
-      end
+      
     end
   end
 end

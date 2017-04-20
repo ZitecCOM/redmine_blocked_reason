@@ -1,4 +1,7 @@
 <% blocked_reason_types ||= BlockedReasonType.order(:created_at) %>
+<div class='contextual'>
+  <%= link_to l('new_type'), new_blocked_reason_type_path, class: 'icon icon-add' %>
+</div>
 <% if blocked_reason_types.any? %>
   <table class='list'>
     <thead>
@@ -25,4 +28,3 @@
 <% else %>
   <div class='nodata'><%= l(:label_no_data) %></div>
 <% end %>
-<%= link_to l('new_type'), new_blocked_reason_type_path, class: 'icon icon-add' %>
