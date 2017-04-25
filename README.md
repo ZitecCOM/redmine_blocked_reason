@@ -13,7 +13,7 @@ The administration page contains 3 features:
 
 
 To add a new reason, simply press on the 'New Type' button from the upper right corner.    
-Name the reason,and select a level type:
+Name the reason and select a level type:
 - danger - it will be displayed with red background (for important reasons)
 - info - it will be displayed with gray background (for neutral reasons)
 - success - it will be displayed with green background.    
@@ -39,6 +39,6 @@ By clicking on a tag, a query will be made to display all open issues that have 
 ![List blocked issues](images/list_blocked_issues.png?raw=true "list blocked issues")
 
 ## Unblocking
-To mark the issue as unblock:
-- change the status
+To mark the issue as unblock by either:
+- change the status, and will auto-unblock
 - click again on the 'mark as blocked' and choose 'Remove'
