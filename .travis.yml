@@ -5,7 +5,6 @@ services:
   - postgresql
 
 rvm:
-  - 2.1.8
   - 2.2.4
   - 2.3.0
   - 2.4.0
@@ -26,10 +25,8 @@ gemfile:
   - $REDMINE_PATH/Gemfile
 
 env:
-  - REDMINE_VER=3.2.6 DB=mysql
-  - REDMINE_VER=3.3.3 DB=mysql
-  - REDMINE_VER=3.2.6 DB=postgresql
-  - REDMINE_VER=3.3.3 DB=postgresql
+  - REDMINE_VER=master DB=mysql
+  - REDMINE_VER=master DB=postgresql
 
 before_install:
   - export PLUGIN_NAME=redmine_blocked_reason
