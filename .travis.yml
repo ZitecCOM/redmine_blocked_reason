@@ -5,9 +5,9 @@ services:
   - postgresql
 
 rvm:
-  - 2.2.4
-  - 2.3.0
-  - 2.4.0
+  - 2.2.7
+  - 2.3.4
+  - 2.4.1
 
 matrix:
     allow_failures:
