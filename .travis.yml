@@ -10,21 +10,14 @@ rvm:
   - 2.4.0
 
 matrix:
-  allow_failures:
-    - rvm: jruby
-    - rvm: 2.4.0
-      env: REDMINE_VER=3.2.6 DB=mysql
-    - rvm: 2.4.0
-      env: REDMINE_VER=3.3.3 DB=mysql
-    - rvm: 2.4.0
-      env: REDMINE_VER=3.2.6 DB=postgresql
-    - rvm: 2.4.0
-      env: REDMINE_VER=3.3.3 DB=postgresql
+    allow_failures:
+      - rvm: jruby
 
 env:
-  - REDMINE_PATH=$HOME/redmine
-  - REDMINE_VER=master DB=mysql
-  - REDMINE_VER=master DB=postgresql
+  global: REDMINE_PATH=$HOME/redmine
+  matrix:
+    - REDMINE_VER=master DB=mysql
+    - REDMINE_VER=master DB=postgresql
 
 gemfile:
   - $REDMINE_PATH/Gemfile
