@@ -6,9 +6,11 @@ module RedmineBlockedReason
         base.class_eval do
           unloadable
 
-          alias_method_chain :available_filters, :blocked_reason
+          alias_method :available_filters_without_blocked_reason, :available_filters
+          alias_method :available_filters, :available_filters_with_blocked_reason
         end
       end
+
       module InstanceMethods
         def available_filters_with_blocked_reason
           if @available_filters.blank?
