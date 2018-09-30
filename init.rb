@@ -1,4 +1,8 @@
-ActionDispatch::Callbacks.to_prepare do
+# ActiveSupport::Reloader for rails >= 5
+# ActionDispatch::Callbacks for rails < 5
+reloader = defined?(ActiveSupport::Reloader) ? ActiveSupport::Reloader : ActionDispatch::Callbacks
+
+reloader.to_prepare do
   paths = '/lib/redmine_blocked_reason/{patches/*_patch,hooks/*_hook}.rb'
   Dir.glob(File.dirname(__FILE__) + paths).each do |file|
     require_dependency file
@@ -29,18 +33,4 @@ Redmine::Plugin.register :redmine_blocked_reason do
     permission :block_issue, {blocked_reason: [:create], require: :member}
     permission :view_blocked_reasons_activity, {}
   end
-end
-
-Rails.application.config.after_initialize do
-  test_dependencies  = {redmine_testing_gems: '1.3.2'}
-  current_plugin     = Redmine::Plugin.find(:redmine_blocked_reason)
-  check_dependencies = proc do |plugin, version|
-    begin
-      current_plugin.requires_redmine_plugin(plugin, version)
-    rescue Redmine::PluginNotFound
-      raise Redmine::PluginNotFound,
-        "Restrict Tracker depends on plugin: #{plugin} version: #{version}"
-    end
-  end
-  test_dependencies.each(&check_dependencies) if Rails.env.test?
 end

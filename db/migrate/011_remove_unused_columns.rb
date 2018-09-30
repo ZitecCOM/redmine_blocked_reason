@@ -1,4 +1,4 @@
-class RemoveUnusedColumns < ActiveRecord::Migration
+class RemoveUnusedColumns < ActiveRecord::Migration[4.2]
   def up
     remove_column :blocked_reasons, :active
     remove_column :blocked_reasons, :unblocker
