@@ -1,6 +1,8 @@
 class BlockedReasonType < ActiveRecord::Base
+  include Redmine::SafeAttributes
+
   has_many :blocked_reason
-  attr_accessible :name, :css_class
+  safe_attributes :name, :css_class
 
   def self.for_sidebar(project: nil)
     issues_scope = Issue.visible.open.select('issues.id').joins(:project)

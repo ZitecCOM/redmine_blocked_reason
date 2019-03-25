@@ -1,4 +1,4 @@
-class CreateBlockedReasons < ActiveRecord::Migration
+class CreateBlockedReasons < ActiveRecord::Migration[4.2]
   def change
     create_table :blocked_reasons do |t|
       t.references :issue

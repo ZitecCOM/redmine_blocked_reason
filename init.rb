@@ -1,4 +1,4 @@
-ActionDispatch::Callbacks.to_prepare do
+ActiveSupport::Reloader.to_prepare do
   paths = '/lib/redmine_blocked_reason/{patches/*_patch,hooks/*_hook}.rb'
   Dir.glob(File.dirname(__FILE__) + paths).each do |file|
     require_dependency file
@@ -9,9 +9,9 @@ Redmine::Plugin.register :redmine_blocked_reason do
   name        'Blocked Reason'
   author      'Zitec'
   description 'Add Blocked Reasons to Issues'
-  version     '1.0.1'
-  url         'https://github.com/sdwolf/redmine_blocked_reason'
-  author_url  'http://zitec.ro'
+  version     '1.1.0'
+  url         'https://github.com/zitec/redmine_blocked_reason'
+  author_url  'https://zitec.com'
 
   settings(
     default: {default_enabled: false},
@@ -39,7 +39,7 @@ Rails.application.config.after_initialize do
       current_plugin.requires_redmine_plugin(plugin, version)
     rescue Redmine::PluginNotFound
       raise Redmine::PluginNotFound,
-        "Restrict Tracker depends on plugin: #{plugin} version: #{version}"
+        "Blocked Reason depends on plugin: #{plugin} version: #{version}"
     end
   end
   test_dependencies.each(&check_dependencies) if Rails.env.test?

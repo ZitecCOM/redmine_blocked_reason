@@ -1,6 +1,6 @@
 class BlockedReasonsController < ApplicationController
-  before_filter :issue_is_editable, :find_current_blocked_reason
-  before_filter :find_blocked_reason_type,
+  before_action :issue_is_editable, :find_current_blocked_reason
+  before_action :find_blocked_reason_type,
     :create_new_blocked_reason_and_watcher, only: [:create, :update]
 
   def create
