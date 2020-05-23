@@ -40,7 +40,9 @@
   margin-bottom: 8px;
   display: block;
 }
-
+.block-modal .comment {
+  height: 150px;
+}
 span.block-tag {
   display: inline-block;
   border-radius: 3px;
