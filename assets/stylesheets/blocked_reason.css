@@ -1,26 +1,9 @@
-.block-modal {
-  position:absolute;
-  background: #fff;
-  min-height: 185px;
-  border-radius: 10px;
-  border: 1px solid #bcbcbc;
-  padding: 15px 20px;
-  width: 500px;
-  color: black;
-  font-size: 14px;
-  box-shadow: 0px 0px 10px 1px rgba(35, 31, 32, 0.18);
-  -moz-box-shadow: 0px 0px 10px 1px rgba(35, 31, 32, 0.18);
-  -webkit-box-shadow: 0px 0px 10px 1px rgba(35, 31, 32, 0.18);
-  z-index: 20000;
+.block-modal div.splitcontent div.splitcontentleft {
+  flex: 0;
 }
-.block-modal .block-left {
-  float: left;
-  width: 190px;
-}
-.block-modal .block-right {
-  margin-left: 30px;
-  width: 280px;
-  float: left;
+.block-modal div.splitcontent div.splitcontentleft .radio-buttons {
+  padding-top: 20px;
+  width: 200px;
 }
 .block-modal .block-tag {
   position: relative;
@@ -33,19 +16,6 @@
   font-weight: bold;
 }
 
-.block-modal h2 {
-  color: #272727;
-  font-weight: 600;
-  margin-bottom: 20px
-}
-.block-modal .radio-buttons .field {
-  color: #272727;
-  height: 30px;
-  line-height: 30px;
-  margin-bottom: 1px;
-  padding: 0 10px;
-  width: 170px;
-}
 .block-modal .radio-buttons .field.label-success,
 .block-tag.label-success {
   background: #daf7e8;
@@ -62,19 +32,6 @@
 .block-modal .radio-buttons .field.label-remove {
   background: #22313f;
   color: #fff;
-  font-weight: bold;
-}
-.block-modal .radio-buttons .field > input {
-  line-height: 30px;
-  width: 10px;
-  display: inline-block;
-}
-.block-modal .radio-buttons .field > label {
-  width: 155px;
-  display: block;
-  position: relative;
-  top: -31px;
-  left: 24px;
 }
 .block-modal .comment-label {
   color: #f75c5c;
@@ -83,41 +40,7 @@
   margin-bottom: 8px;
   display: block;
 }
-.block-modal .comment {
-  position: relative;
-  left: 0px;
-  height: 65px;
-  width: 260px;
-  padding: 10px;
-  max-width: 100%;
-  border: 1px solid #bcbcbc;
-  background: #fff;
-  margin-bottom: 17px;
-  color: #cccccc;
-  font-size: 12px;
-  line-height: 17px;
-}
-.block-modal .comment:focus {
-  color: #272727;
-}
-.block-modal .block-hide {
-  position: absolute;
-  right: 10px;
-  top: 10px;
-}
-.block-modal a.block-hide {
-  background: none;
-  border: none;
-  box-shadow: none;
-  font-size: 19px;
-  color: #282727;
-  font-weight: normal;
-  padding: 0;
-  line-height: 1;
-}
-.block-modal a.block-hide:hover {
-  color: #000;
-}
+
 span.block-tag {
   display: inline-block;
   border-radius: 3px;
@@ -141,9 +64,6 @@ table.attributes span.block-tag {
 }
 table.list.issues tr td{
   vertical-align: middle;
-}
-.block-button {
-  background: url("/images/exclamation.png") no-repeat;
 }
 .block-title {
   margin-bottom: 20px;

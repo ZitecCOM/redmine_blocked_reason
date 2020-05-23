@@ -1,0 +1,11 @@
+<%  block_reason = issue.blocked_reason || BlockedReason.new
+    label_name = t 'helpers.label.block_button'
+    crud_label = block_reason.new_record? ? 'add-label' : 'update-label' %>
+<span id="block-reason-button" class="block-reason <%= crud_label %> hidden">
+  <%= link_to content_tag(:span, label_name), '', class: 'icon icon-block block-button' %>
+</span>
+
+<%= javascript_tag do %>
+  var blockButton = $('#block-reason-button').removeClass('hidden');
+  $(".contextual .icon.icon-edit").after(blockButton);
+<% end %>

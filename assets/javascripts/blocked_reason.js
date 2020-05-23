@@ -11,23 +11,19 @@ var BlockWindow = (function (me, $) {
   def.showModalNextTo = function (target) {
     var commentText = this.modal.find('.comment');
 
-    if ($("#button_bar").length) {
-      /* in our custom theme we use a sticky subject header that is a clone of subject div.
-        because of that the modal window appends twice in the dom and the click on label
-        will not work anymore. */
-      var parent = $("div.subject").first().after(this.modal)
-    } else {
-      var parent = target.closest('.block-reason')
-      parent.find('.block-modal').hide();
-      parent.append(this.modal);
-    }
+    $('#ajax-modal').html(this.modal);
+
     this.modal.show();
-    commentText.focus();
+    var title = this.modal.find('.title').text();
+    showModal('ajax-modal', '600px', title);
+
   };
 
   def.addButtonClickEvents = function () {
-    $('.lb_btn_lock').addClass('fake_btn').on('click', function (event) {
+    $('.block-button').on('click', function (event) {
       event.preventDefault();
+      event.stopPropagation();
+
       this.showModalNextTo($(event.target));
     }.bind(this));
 
@@ -117,10 +113,6 @@ var BlockWindow = (function (me, $) {
   };
 
   def.addModalClickEvents = function (modal) {
-    modal.find('.block-hide').on('click', function (event) {
-      event.preventDefault();
-      modal.hide();
-    }.bind(this));
     modal.find('.new-block').on('click', function (event) {
       event.preventDefault();
       if (this.blockedCommentCompleted(modal) &&
@@ -157,16 +149,12 @@ var BlockWindow = (function (me, $) {
     var type_id = modal.find('.block-reason-type-id').val();
     var new_reason = modal.find('.block-reason-id').val().length == 0
     if (new_reason) {
-      modal.find('.title-new').show();
-      modal.find('.title-update').hide();
       modal.find('.label-remove').hide();
       modal.find('.new-block').show();
       modal.find('.update-block').hide();
       modal.find('.remove-block').hide();
       modal.find('input[type=radio]:checked').prop('checked', false);
     } else {
-      modal.find('.title-new').hide();
-      modal.find('.title-update').show();
       modal.find('.label-remove').show();
       modal.find('.new-block').hide();
       modal.find('.update-block').show();
@@ -191,10 +179,6 @@ $(function () {
   if (blockModal.length) {
     var blockWindow = new BlockWindow(blockModal);
   }
-  $('.block-tag').tooltip({
-    position: {my: "center+3 top+15", at: "center bottom", collision: "flipfit"},
-    tooltipClass: "arrow-top"
-  });
 
   $('.block-tag .block-url').on('click', function (event) {
     event.preventDefault();
