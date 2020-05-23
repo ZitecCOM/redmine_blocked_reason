@@ -6,6 +6,9 @@
 </span>
 
 <%= javascript_tag do %>
-  var blockButton = $('#block-reason-button').removeClass('hidden');
-  $(".contextual .icon.icon-edit").after(blockButton);
+  var blockButton = $('#block-reason-button');
+  var editIcon = $('.contextual .icon.icon-edit')
+  if (editIcon.length > 0) {
+      editIcon.after(blockButton.removeClass('hidden'));
+  }
 <% end %>
