@@ -8,7 +8,7 @@
 <%= javascript_tag do %>
   var blockButton = $('#block-reason-button');
   var editIcon = $('.contextual .icon.icon-edit')
-  if (editIcon.length > 0) {
-      editIcon.after(blockButton.removeClass('hidden'));
+  if ($('.contextual .icon-block').length == 0 && editIcon.length > 0) {
+    editIcon.after(blockButton.removeClass('hidden'));
   }
 <% end %>
